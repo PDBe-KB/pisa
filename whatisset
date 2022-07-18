@@ -1,0 +1,289 @@
+Binary file ccp4srs/ccp4srs_torsion.h.gch matches
+Binary file ccp4srs/ccp4srs_plane.h.gch matches
+Binary file ccp4srs/ccp4srs_types.h.gch matches
+Binary file ccp4srs/ccp4srs_chem.h.gch matches
+Binary file ccp4srs/ccp4srs_monomer.h.gch matches
+Binary file ccp4srs/ccp4srs_atom.h.gch matches
+Binary file ccp4srs/ccp4srs_base.h.gch matches
+Binary file ccp4srs/ccp4srs_tree.h.gch matches
+Binary file ccp4srs/ccp4srs_index.h.gch matches
+Binary file ccp4srs/ccp4srs_bond.h.gch matches
+Binary file ccp4srs/ccp4srs_chicenter.h.gch matches
+Binary file ccp4srs/ccp4srs_angle.h.gch matches
+Binary file ccp4srs/ccp4srs_manager.h.gch matches
+mmdb2/mmdb_cryst.h:      word  WhatIsSet;  //    mask       field
+mmdb2/mmdb_cryst.h:  // constants for the WhatIsSet field
+mmdb2/mmdb_cryst.h:      word   WhatIsSet;           // indicator of the fields set
+mmdb2/mmdb_rwbrook.cpp:    if (cryst->WhatIsSet & mmdb::CSET_SpaceGroup)
+mmdb2/mmdb_rwbrook.cpp:    if (!(cryst->WhatIsSet & mmdb::CSET_CellParams))
+mmdb2/mmdb_rwbrook.cpp:    if (!(cryst->WhatIsSet & mmdb::CSET_Transforms))
+mmdb2/mmdb_rwbrook.cpp:    if (!(cryst->WhatIsSet & mmdb::CSET_CellParams))
+mmdb2/mmdb_rwbrook.cpp:    if (!(cryst->WhatIsSet & mmdb::CSET_Transforms))
+mmdb2/mmdb_rwbrook.cpp:  atom->WhatIsSet |= mmdb::ASET_Coordinates;
+mmdb2/mmdb_rwbrook.cpp:  atom->WhatIsSet |= mmdb::ASET_Coordinates;
+mmdb2/mmdb_rwbrook.cpp:      if (atom->WhatIsSet & mmdb::ASET_Coordinates)  {
+mmdb2/mmdb_rwbrook.cpp:      if (atom->WhatIsSet & mmdb::ASET_Anis_tFac)  {
+mmdb2/mmdb_rwbrook.cpp:        if (atom->WhatIsSet & mmdb::ASET_tempFactor)
+mmdb2/mmdb_rwbrook.cpp:      if (atom->WhatIsSet & mmdb::ASET_Occupancy)
+mmdb2/mmdb_rwbrook.cpp:      atom->WhatIsSet |= mmdb::ASET_Coordinates;
+mmdb2/mmdb_rwbrook.cpp:          atom->WhatIsSet |= mmdb::ASET_Coordinates;
+mmdb2/mmdb_rwbrook.cpp:          atom->WhatIsSet &= ~mmdb::ASET_Coordinates;
+mmdb2/mmdb_rwbrook.cpp:        atom->WhatIsSet |= mmdb::ASET_Coordinates;
+mmdb2/mmdb_rwbrook.cpp:        atom->WhatIsSet |= mmdb::ASET_tempFactor | mmdb::ASET_Anis_tFac;
+mmdb2/mmdb_rwbrook.cpp:        atom->WhatIsSet |= mmdb::ASET_tempFactor;
+mmdb2/mmdb_rwbrook.cpp:      atom->WhatIsSet |= mmdb::ASET_Occupancy;
+mmdb2/mmdb_rwbrook.cpp:    if (!(Cryst->WhatIsSet & mmdb::CSET_Transforms))
+mmdb2/mmdb_rwbrook.cpp:    Cryst->WhatIsSet |= mmdb::CSET_Transforms;
+mmdb2/mmdb_rwbrook.cpp:    if ((Cryst->WhatIsSet & mmdb::CSET_CellParams)==mmdb::CSET_CellParams)  {
+mmdb2/mmdb_rwbrook.cpp:    Cryst->WhatIsSet |= mmdb::CSET_CellParams;
+mmdb2/mmdb_rwbrook.cpp:  if ((Cryst->WhatIsSet & mmdb::CSET_CellParams)!=mmdb::CSET_CellParams)  {
+mmdb2/mmdb_rwbrook.cpp:  Cryst->WhatIsSet |= mmdb::CSET_Transforms;
+mmdb2/mmdb_coormngr.cpp:          if (atom[i]->WhatIsSet & ASET_Occupancy)  i1 = i;
+mmdb2/mmdb_coormngr.cpp:          if ((!A[i]->Ter) && (A[i]->WhatIsSet & ASET_Coordinates))  {
+mmdb2/mmdb_coormngr.cpp:            if ((!A[i]->Ter) && (A[i]->WhatIsSet & ASET_Coordinates))  {
+mmdb2/mmdb_coormngr.cpp:          if ((!A->Ter) && (A->WhatIsSet & ASET_Coordinates))  {
+mmdb2/mmdb_coormngr.cpp:            if ((!A->Ter) && (A->WhatIsSet & ASET_Coordinates))  {
+mmdb2/mmdb_coormngr.cpp:        if ((!A[i]->Ter) && (A[i]->WhatIsSet & ASET_Coordinates))  {
+mmdb2/mmdb_coormngr.cpp:        if ((!A[i]->Ter) && (A[i]->WhatIsSet & ASET_Coordinates))  {
+mmdb2/mmdb_coormngr.cpp:        if ((!A[i]->Ter) && (A[i]->WhatIsSet & ASET_Coordinates))  {
+mmdb2/mmdb_selmngr.cpp:      if (atom->WhatIsSet & ASET_Charge)  {
+mmdb2/mmdb_selmngr.cpp:          if ((!A[i]->Ter) && (A[i]->WhatIsSet & ASET_Coordinates))  {
+mmdb2/mmdb_selmngr.cpp:                          (atm->WhatIsSet & ASET_Coordinates))  {
+mmdb2/mmdb_selmngr.cpp:          if ((!A[i]->Ter) && (A[i]->WhatIsSet & ASET_Coordinates))  {
+mmdb2/mmdb_selmngr.cpp:                          (atm->WhatIsSet & ASET_Coordinates))  {
+mmdb2/mmdb_selmngr.cpp:          if ((!A[i]->Ter) && (A[i]->WhatIsSet & ASET_Coordinates))  {
+mmdb2/mmdb_selmngr.cpp:                          (atm->WhatIsSet & ASET_Coordinates))  {
+mmdb2/mmdb_selmngr.cpp:                          (atm->WhatIsSet & ASET_Coordinates))  {
+mmdb2/mmdb_atom.h:  // constants for the WhatIsSet field
+mmdb2/mmdb_atom.h:      word      WhatIsSet;       //   mask field
+mmdb2/mmdb_atom.h:      word       WhatIsSet;      //!<   mask      field
+mmdb2/mmdb_root.cpp:    if (!(cryst.WhatIsSet & CSET_Transforms))
+mmdb2/mmdb_root.cpp:    if ((cryst.WhatIsSet & CSET_CellParams)!=CSET_CellParams)
+mmdb2/mmdb_root.cpp:    if (!(cryst.WhatIsSet & CSET_SpaceGroup))
+mmdb2/mmdb_root.cpp:    return (((cryst.WhatIsSet & CSET_CellParams)==CSET_CellParams) &&
+mmdb2/mmdb_root.cpp:             (cryst.WhatIsSet & CSET_SpaceGroup));
+mmdb2/mmdb_root.cpp:    return ((cryst.WhatIsSet & CSET_CellParams)==CSET_CellParams);
+mmdb2/mmdb_root.cpp:    return (cryst.WhatIsSet & CSET_SpaceGroup);
+mmdb2/mmdb_root.cpp:    return ((cryst.WhatIsSet & CSET_ScaleMatrix)==CSET_ScaleMatrix);
+mmdb2/mmdb_root.cpp:    if (cryst.WhatIsSet & CSET_CellParams)  {
+mmdb2/mmdb_root.cpp:    if (cryst.WhatIsSet & CSET_CellParams)  {
+mmdb2/mmdb_root.cpp:    if (cryst.WhatIsSet & CSET_SpaceGroup)
+mmdb2/mmdb_cryst.cpp:    WhatIsSet = 0;  // nothing is set
+mmdb2/mmdb_cryst.cpp:    if ((WhatIsSet & NCSMSET_All)==NCSMSET_All)
+mmdb2/mmdb_cryst.cpp:    if (WhatIsSet & NCSMSET_All)  {
+mmdb2/mmdb_cryst.cpp:      if (WhatIsSet & NCSMSET_Matrix1)  return Error_NCSM_AlreadySet;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet |= NCSMSET_Matrix1;
+mmdb2/mmdb_cryst.cpp:      if (WhatIsSet & NCSMSET_Matrix2)  return Error_NCSM_AlreadySet;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet |= NCSMSET_Matrix2;
+mmdb2/mmdb_cryst.cpp:      if (WhatIsSet & NCSMSET_Matrix3)  return Error_NCSM_AlreadySet;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet |= NCSMSET_Matrix3;
+mmdb2/mmdb_cryst.cpp:    if (WhatIsSet & NCSMSET_Matrix1) {
+mmdb2/mmdb_cryst.cpp:    if (WhatIsSet & NCSMSET_Matrix2) {
+mmdb2/mmdb_cryst.cpp:    if (WhatIsSet & NCSMSET_Matrix3) {
+mmdb2/mmdb_cryst.cpp:    WhatIsSet = 0;
+mmdb2/mmdb_cryst.cpp:    WhatIsSet |= NCSMSET_Matrix1;
+mmdb2/mmdb_cryst.cpp:    WhatIsSet |= NCSMSET_Matrix2;
+mmdb2/mmdb_cryst.cpp:    WhatIsSet |= NCSMSET_Matrix3;
+mmdb2/mmdb_cryst.cpp:    WhatIsSet |= NCSMSET_All;
+mmdb2/mmdb_cryst.cpp:    WhatIsSet = PNCSMatrix(NCSMatrix)->WhatIsSet;
+mmdb2/mmdb_cryst.cpp:    f.WriteWord ( &WhatIsSet );
+mmdb2/mmdb_cryst.cpp:    f.ReadWord ( &WhatIsSet );
+mmdb2/mmdb_cryst.cpp:    WhatIsSet = 0;  // nothing is set
+mmdb2/mmdb_cryst.cpp:    if ((WhatIsSet & CSET_CellParams)!=CSET_CellParams)  return -2;
+mmdb2/mmdb_cryst.cpp:        WhatIsSet |= CSET_CellParams1;
+mmdb2/mmdb_cryst.cpp:        WhatIsSet |= CSET_CellParams2;
+mmdb2/mmdb_cryst.cpp:          WhatIsSet |= CSET_SpaceGroup;
+mmdb2/mmdb_cryst.cpp:        WhatIsSet |= CSET_ZValue;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet &= 0xFBFF;
+mmdb2/mmdb_cryst.cpp:        WhatIsSet &= ~(CSET_CellParams1 | CSET_CellParams2 |
+mmdb2/mmdb_cryst.cpp:        WhatIsSet |= CSET_DummyCell;
+mmdb2/mmdb_cryst.cpp:        WhatIsSet |= CSET_OrigMatrix1;
+mmdb2/mmdb_cryst.cpp:        WhatIsSet |= CSET_OrigMatrix2;
+mmdb2/mmdb_cryst.cpp:        WhatIsSet |= CSET_OrigMatrix3;
+mmdb2/mmdb_cryst.cpp:        WhatIsSet |= CSET_ScaleMatrix1;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet &= 0xFBFF;
+mmdb2/mmdb_cryst.cpp:        WhatIsSet |= CSET_ScaleMatrix2;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet &= 0xFBFF;
+mmdb2/mmdb_cryst.cpp:        WhatIsSet |= CSET_ScaleMatrix3;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet &= 0xFBFF;
+mmdb2/mmdb_cryst.cpp:    if (WhatIsSet & (CSET_CrystCard | CSET_DummyCell))  {
+mmdb2/mmdb_cryst.cpp:      if (WhatIsSet & CSET_CellParams1)  {
+mmdb2/mmdb_cryst.cpp:      if (WhatIsSet & CSET_CellParams2)  {
+mmdb2/mmdb_cryst.cpp:      if ((WhatIsSet & CSET_SpaceGroup) || (spaceGroup[0]))
+mmdb2/mmdb_cryst.cpp:      if (WhatIsSet & CSET_ZValue)
+mmdb2/mmdb_cryst.cpp:    if ((WhatIsSet & CSET_OrigMatrix)==CSET_OrigMatrix)
+mmdb2/mmdb_cryst.cpp:    if ((WhatIsSet & CSET_ScaleMatrix)==CSET_ScaleMatrix)
+mmdb2/mmdb_cryst.cpp:    WhatIsSet = 0;
+mmdb2/mmdb_cryst.cpp:      if (RC==Error_NoError)  WhatIsSet |= CSET_CellParams1;
+mmdb2/mmdb_cryst.cpp:      if (RC==Error_NoError)  WhatIsSet |= CSET_CellParams2;
+mmdb2/mmdb_cryst.cpp:      if (RC==Error_NoError) WhatIsSet |= CSET_ZValue;
+mmdb2/mmdb_cryst.cpp:          WhatIsSet |= CSET_SpaceGroup;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet &= ~(CSET_CellParams1 | CSET_CellParams2 |
+mmdb2/mmdb_cryst.cpp:      WhatIsSet |= CSET_DummyCell;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet |= CSET_OrigMatrix;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet |= CSET_ScaleMatrix;
+mmdb2/mmdb_cryst.cpp:    if (WhatIsSet & (CSET_CellParams1 | CSET_DummyCell))  {
+mmdb2/mmdb_cryst.cpp:    if (WhatIsSet & (CSET_CellParams2 | CSET_DummyCell))  {
+mmdb2/mmdb_cryst.cpp:    if ((WhatIsSet & (CSET_SpaceGroup | CSET_DummyCell)) ||
+mmdb2/mmdb_cryst.cpp:    if (WhatIsSet & (CSET_ZValue | CSET_DummyCell))
+mmdb2/mmdb_cryst.cpp:    if ((WhatIsSet & CSET_OrigMatrix)==CSET_OrigMatrix)  {
+mmdb2/mmdb_cryst.cpp:    if ((WhatIsSet & CSET_ScaleMatrix)==CSET_ScaleMatrix)  {
+mmdb2/mmdb_cryst.cpp:    WhatIsSet &= ~CSET_Transforms;  // clear the flag
+mmdb2/mmdb_cryst.cpp:    if ((WhatIsSet & CSET_CellParams)==CSET_CellParams)  {
+mmdb2/mmdb_cryst.cpp:      WhatIsSet |= CSET_Transforms;
+mmdb2/mmdb_cryst.cpp:      else if ((WhatIsSet & CSET_ScaleMatrix)==CSET_ScaleMatrix)  {
+mmdb2/mmdb_cryst.cpp:    if ((WhatIsSet & CSET_CellParams)==CSET_CellParams)  {
+mmdb2/mmdb_cryst.cpp:    if ((WhatIsSet & CSET_ScaleMatrix)!=CSET_ScaleMatrix)
+mmdb2/mmdb_cryst.cpp:    if ((WhatIsSet & CSET_CellParams)!=CSET_CellParams)  return;
+mmdb2/mmdb_cryst.cpp:    return (WhatIsSet & CSET_Transforms)!=0x0000;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet |= CSET_CellParams;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet |= CSET_Transforms;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet &= ~(CSET_CellParams | CSET_Transforms);
+mmdb2/mmdb_cryst.cpp:    WhatIsSet &= ~CSET_SpaceGroup;
+mmdb2/mmdb_cryst.cpp:          if (RC==SYMOP_Ok)  WhatIsSet |= CSET_SpaceGroup;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet |= CSET_CellParams;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet |= CSET_Transforms;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet &= ~CSET_Transforms;
+mmdb2/mmdb_cryst.cpp:    WhatIsSet |= CSET_ScaleMatrix;
+mmdb2/mmdb_cryst.cpp:    return  ((WhatIsSet & CSET_ScaleMatrix)==CSET_ScaleMatrix);
+mmdb2/mmdb_cryst.cpp:    return  ((WhatIsSet & CSET_CellParams)==CSET_CellParams);
+mmdb2/mmdb_cryst.cpp:    if (WhatIsSet & CSET_CellParams)  {
+mmdb2/mmdb_cryst.cpp:    if (WhatIsSet & CSET_SpaceGroup)  return spaceGroup;
+mmdb2/mmdb_cryst.cpp:    if (WhatIsSet & CSET_SpaceGroup)  return spaceGroupFix;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet = Cryst->WhatIsSet;
+mmdb2/mmdb_cryst.cpp:      WhatIsSet = 0;
+mmdb2/mmdb_cryst.cpp:    f.WriteWord ( &WhatIsSet );
+mmdb2/mmdb_cryst.cpp:    f.ReadWord ( &WhatIsSet );
+mmdb2/mmdb_atom.cpp:    WhatIsSet  = 0x00000000; // nothing is set
+mmdb2/mmdb_atom.cpp:      if (WhatIsSet & ASET_Charge)  {
+mmdb2/mmdb_atom.cpp:      if (WhatIsSet & ASET_Coordinates)  {
+mmdb2/mmdb_atom.cpp:      if (WhatIsSet & ASET_Coordinates)  {
+mmdb2/mmdb_atom.cpp:        if (WhatIsSet & ASET_Occupancy)
+mmdb2/mmdb_atom.cpp:        if (WhatIsSet & ASET_tempFactor)
+mmdb2/mmdb_atom.cpp:      if (WhatIsSet & ASET_CoordSigma)  {
+mmdb2/mmdb_atom.cpp:        if ((WhatIsSet & ASET_OccSigma) &&
+mmdb2/mmdb_atom.cpp:            (WhatIsSet & ASET_Occupancy))
+mmdb2/mmdb_atom.cpp:        if ((WhatIsSet & ASET_tFacSigma) &&
+mmdb2/mmdb_atom.cpp:            (WhatIsSet & ASET_tempFactor))
+mmdb2/mmdb_atom.cpp:      if (WhatIsSet & ASET_Anis_tFac)  {
+mmdb2/mmdb_atom.cpp:        if (WhatIsSet & ASET_Anis_tFSigma)  {
+mmdb2/mmdb_atom.cpp:      if (!(WhatIsSet & ASET_Coordinates))
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & (ASET_Coordinates | ASET_CoordSigma))  {
+mmdb2/mmdb_atom.cpp:      if (!WhatIsSet)  return;
+mmdb2/mmdb_atom.cpp:      if (WhatIsSet & ASET_Coordinates)  {
+mmdb2/mmdb_atom.cpp:        if (WhatIsSet & ASET_Occupancy)
+mmdb2/mmdb_atom.cpp:        if (WhatIsSet & ASET_tempFactor)
+mmdb2/mmdb_atom.cpp:        if (WhatIsSet & ASET_CoordSigma)  {
+mmdb2/mmdb_atom.cpp:        if ((WhatIsSet & ASET_OccSigma) && (WhatIsSet & ASET_Occupancy))
+mmdb2/mmdb_atom.cpp:        if ((WhatIsSet & ASET_tFacSigma) && (WhatIsSet & ASET_tempFactor))
+mmdb2/mmdb_atom.cpp:      if (WhatIsSet & ASET_Charge)  {
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & ASET_Anis_tFac)  {
+mmdb2/mmdb_atom.cpp:      if (WhatIsSet & ASET_Anis_tFSigma)  {
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & ASET_Coordinates)
+mmdb2/mmdb_atom.cpp:    WhatIsSet |= ASET_Coordinates;
+mmdb2/mmdb_atom.cpp:    if (GetReal(occupancy ,&(S[54]),6))  WhatIsSet |= ASET_Occupancy;
+mmdb2/mmdb_atom.cpp:    if (GetReal(tempFactor,&(S[60]),6))  WhatIsSet |= ASET_tempFactor;
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & (ASET_CoordSigma | ASET_Anis_tFac |
+mmdb2/mmdb_atom.cpp:    WhatIsSet = 0;
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & ASET_CoordSigma)
+mmdb2/mmdb_atom.cpp:    WhatIsSet |= ASET_CoordSigma;
+mmdb2/mmdb_atom.cpp:    if (GetReal(sigOcc ,&(S[54]),6))  WhatIsSet |= ASET_OccSigma;
+mmdb2/mmdb_atom.cpp:    if (GetReal(sigTemp,&(S[60]),6))  WhatIsSet |= ASET_tFacSigma;
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & (ASET_Coordinates | ASET_Anis_tFac |
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & ASET_Anis_tFac)
+mmdb2/mmdb_atom.cpp:    WhatIsSet |= ASET_Anis_tFac;
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & (ASET_Coordinates | ASET_CoordSigma |
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & ASET_Anis_tFSigma)
+mmdb2/mmdb_atom.cpp:    WhatIsSet |= ASET_Anis_tFSigma;
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & (ASET_Coordinates | ASET_CoordSigma |
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & ASET_Coordinates)
+mmdb2/mmdb_atom.cpp:    WhatIsSet       |= ASET_Coordinates;
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & ASET_Occupancy)  return occupancy;
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & ASET_Charge)  sprintf ( chrg,"%+2i",mround(charge) );
+mmdb2/mmdb_atom.cpp:      if (AS.WhatIsSet & WhatIsSet & ASET_Coordinates)  {
+mmdb2/mmdb_atom.cpp:        AS.WhatIsSet &= ~ASET_Coordinates;
+mmdb2/mmdb_atom.cpp:      if (AS.WhatIsSet & WhatIsSet & ASET_Occupancy)
+mmdb2/mmdb_atom.cpp:      else  AS.WhatIsSet &= ~ASET_Occupancy;
+mmdb2/mmdb_atom.cpp:      if (AS.WhatIsSet & WhatIsSet & ASET_tempFactor)
+mmdb2/mmdb_atom.cpp:      else  AS.WhatIsSet &= ~ASET_tempFactor;
+mmdb2/mmdb_atom.cpp:      if (AS.WhatIsSet & WhatIsSet & ASET_Anis_tFac)  {
+mmdb2/mmdb_atom.cpp:        AS.WhatIsSet &= ~ASET_Anis_tFac;
+mmdb2/mmdb_atom.cpp:    WhatIsSet |= ASET_Coordinates;
+mmdb2/mmdb_atom.cpp:      WhatIsSet |= ASET_Charge;
+mmdb2/mmdb_atom.cpp:      WhatIsSet |= ASET_Charge;
+mmdb2/mmdb_atom.cpp:      WhatIsSet |= ASET_Charge;
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & ASET_Coordinates)
+mmdb2/mmdb_atom.cpp:      WhatIsSet |= ASET_Coordinates;
+mmdb2/mmdb_atom.cpp:    WhatIsSet |= ASET_Coordinates;
+mmdb2/mmdb_atom.cpp:      WhatIsSet |= ASET_Occupancy;
+mmdb2/mmdb_atom.cpp:      WhatIsSet |= ASET_tempFactor;
+mmdb2/mmdb_atom.cpp:      WhatIsSet |= ASET_Charge;
+mmdb2/mmdb_atom.cpp:    if (!RC) WhatIsSet |= ASET_CoordSigma;
+mmdb2/mmdb_atom.cpp:      WhatIsSet |= ASET_OccSigma;
+mmdb2/mmdb_atom.cpp:      WhatIsSet |= ASET_tFacSigma;
+mmdb2/mmdb_atom.cpp:      if (!RC) WhatIsSet |= ASET_Anis_tFac;
+mmdb2/mmdb_atom.cpp:      if (!RC) WhatIsSet |= ASET_Anis_tFSigma;
+mmdb2/mmdb_atom.cpp:    WhatIsSet |= ASET_Coordinates | ASET_Occupancy | ASET_tempFactor;
+mmdb2/mmdb_atom.cpp:    WhatIsSet  = atom->WhatIsSet;
+mmdb2/mmdb_atom.cpp:    WhatIsSet |= ASET_CompactBinary;
+mmdb2/mmdb_atom.cpp:    f.WriteWord ( &WhatIsSet );
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & ASET_CompactBinary)  {
+mmdb2/mmdb_atom.cpp:      if (Ter)  WhatIsSet |= ASET_ShortTer;
+mmdb2/mmdb_atom.cpp:      if (Het)  WhatIsSet |= ASET_ShortHet;
+mmdb2/mmdb_atom.cpp:      if (WhatIsSet & ASET_Coordinates)  {
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & ASET_Coordinates)  {
+mmdb2/mmdb_atom.cpp:      if (WhatIsSet & ASET_Occupancy)
+mmdb2/mmdb_atom.cpp:      if (WhatIsSet & ASET_tempFactor)
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & ASET_CoordSigma)  {
+mmdb2/mmdb_atom.cpp:      if ((WhatIsSet & ASET_Occupancy) &&
+mmdb2/mmdb_atom.cpp:          (WhatIsSet & ASET_OccSigma))
+mmdb2/mmdb_atom.cpp:      if ((WhatIsSet & ASET_tempFactor) &&
+mmdb2/mmdb_atom.cpp:          (WhatIsSet & ASET_tFacSigma))
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & ASET_Anis_tFac)  {
+mmdb2/mmdb_atom.cpp:      if (WhatIsSet & ASET_Anis_tFSigma)  {
+mmdb2/mmdb_atom.cpp:    f.ReadWord ( &WhatIsSet );
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & ASET_CompactBinary)  {
+mmdb2/mmdb_atom.cpp:      if (WhatIsSet & ASET_Coordinates)  {
+mmdb2/mmdb_atom.cpp:      Ter        = WhatIsSet & ASET_ShortTer;
+mmdb2/mmdb_atom.cpp:      Het        = WhatIsSet & ASET_ShortHet;
+mmdb2/mmdb_atom.cpp:      WhatIsSet &= ASET_All;
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & ASET_Coordinates)  {
+mmdb2/mmdb_atom.cpp:      if (WhatIsSet & ASET_Occupancy)  f.ReadFloat ( &occupancy  );
+mmdb2/mmdb_atom.cpp:      if (WhatIsSet & ASET_tempFactor) f.ReadFloat ( &tempFactor );
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & ASET_CoordSigma)  {
+mmdb2/mmdb_atom.cpp:      if ((WhatIsSet & ASET_Occupancy) &&
+mmdb2/mmdb_atom.cpp:          (WhatIsSet & ASET_OccSigma))
+mmdb2/mmdb_atom.cpp:      if ((WhatIsSet & ASET_tempFactor) &&
+mmdb2/mmdb_atom.cpp:          (WhatIsSet & ASET_tFacSigma))
+mmdb2/mmdb_atom.cpp:    if (WhatIsSet & ASET_Anis_tFac)  {
+mmdb2/mmdb_atom.cpp:      if (WhatIsSet & ASET_Anis_tFSigma)  {
+mmdb2/mmdb_atom.cpp:    WhatIsSet = ASET_All;
+mmdb2/mmdb_atom.cpp:              if (atom[i]->WhatIsSet & ASET_Occupancy)
+mmdb2/mmdb_atom.cpp:                      if (atom[j]->WhatIsSet & ASET_Occupancy)
+mmdb2/mmdb_atom.cpp:              if (atom[i]->WhatIsSet & ASET_Occupancy)  i1 = i;
+mmdb2/mmdb_atom.cpp:      if (atom[0]->WhatIsSet & ASET_CompactBinary)
+Binary file pisa/pisa_analyse.h.gch matches
+Binary file pisalib/pisa_interface.h.gch matches
+Binary file pisalib/pisa_engine.h.gch matches
+Binary file pisalib/pisa_symnumber.h.gch matches
+Binary file pisalib/pisa_asmunit.h.gch matches
+Binary file pisalib/pisa_asmstock.h.gch matches
+Binary file pisalib/pisa_prosurf.h.gch matches
+Binary file pisalib/pisa_lists.h.gch matches
+Binary file pisalib/pisa_domains.h.gch matches
+Binary file pisalib/pisa_assembly.h.gch matches
+Binary file pisalib/pisa_molref.h.gch matches
+Binary file pisalib/pisa_domain.h.gch matches
+Binary file pisalib/pisa_view.h.gch matches
+Binary file pisalib/pisa_data.h.gch matches
+Binary file pisalib/pisa_detail.h.gch matches
+Binary file pisalib/pisa_engunits.h.gch matches
+Binary file pisalib/pisa_assemblies.h.gch matches
+Binary file pisalib/pisa_query.h.gch matches
+Binary file pisalib/pisa_crystsplit.h.gch matches
+Binary file ssm/ssm_superpose.h.gch matches
+Binary file ssm/ssm_graph.h.gch matches
+Binary file ssm/ssm_vxedge.h.gch matches
+Binary file ssm/ssm_align.h.gch matches
+Binary file ssm/ssm_csia.h.gch matches
+Binary file ssm/ssm_malign.h.gch matches
