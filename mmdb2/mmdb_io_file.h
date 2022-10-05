@@ -292,7 +292,7 @@ namespace mmdb  {
 
     };
 
-
+    extern void SetGZIPcommand(pstr ungzipPath );
     extern void SetGZIPPath     ( pstr gzipPath,     pstr ungzipPath     );
     extern void SetCompressPath ( pstr compressPath, pstr uncompressPath );
 

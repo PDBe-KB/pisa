@@ -1,4 +1,4 @@
-//  $Id: file_.cpp,v 1.29 2012/01/26 17:52:19 ekr Exp $
+//  $Id: file_.cpp,v 1.29 2012/01/26 17:52:19 ekr ExAp $
 //  =================================================================
 //
 //   CCP4 Coordinate Library: support of coordinate-related
@@ -40,6 +40,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+#include <iostream>
+using namespace std;
 
 #ifdef  _WIN32
 # include <windows.h>
@@ -297,11 +300,23 @@ namespace mmdb  {
       }
     }
 
+    //static pstr gzip_path       = pstr("gzip ");
+    //static pstr ungzip_path     = pstr("gzip -dc ");
+    //GDL:include use of pigz for faster compression/uncompression
     static pstr gzip_path       = pstr("gzip ");
-    static pstr ungzip_path     = pstr("gzip -dc ");
+    static pstr ungzip_path ;
+    //    static pstr ungzip_path     = pstr("gzip -dc ");
     static pstr compress_path   = pstr("compress ");
     static pstr uncompress_path = pstr("uncompress -c ");
 
+    void SetGZIPcommand (pstr ungzipPath )  {
+      //cout <<"GDL:what is system(which pigzp)"<<"\t"<<system(pstr("which pigz "))<<"\n";
+      if (system(pstr("which pigz "))==0)   ungzip_path = pstr("pigz -dc ");
+                             else   ungzip_path = pstr("gzip -dc ");   
+      //cout<<system(ungzip_path)<<"\t"<<"GDL:is there pigz?"<<"\n";
+      //if(system(ungzip_path)>0) ungzip_path = pstr("gzip -dc "); 
+      //return ungzip_path
+    }
     void  SetGZIPPath ( pstr gzipPath, pstr ungzipPath )  {
       if (!gzipPath)  gzip_path = pstr("gzip ");
                 else  gzip_path = gzipPath;
@@ -351,6 +366,8 @@ namespace mmdb  {
           if (gzipIO==ARCH_GZIP)  {
     #ifndef _MSC_VER
             p = NULL;
+	    SetGZIPcommand (ungzip_path );
+	    //cout<<"GDL: ungzip_path is"<<"\t"<<ungzip_path<<"\n";
             CreateConcat  ( p,ungzip_path,FName );
             for (i=0;(i<=retry) && (!hFile);i++)  {
               if (i>0)  sleep ( 1 );

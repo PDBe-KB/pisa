@@ -9,6 +9,8 @@ mmdbdir=$srcdir/mmdb2
 srsdir=$srcdir/ccp4srs
 pisadir=$srcdir/pisa
 
+mkdir $builddir
+
 cd $builddir
 
 rm -rf $builddir/*
