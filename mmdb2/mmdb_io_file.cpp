@@ -310,12 +310,11 @@ namespace mmdb  {
     static pstr uncompress_path = pstr("uncompress -c ");
 
     void SetGZIPcommand (pstr ungzipPath )  {
-      //cout <<"GDL:what is system(which pigzp)"<<"\t"<<system(pstr("which pigz "))<<"\n";
-      if (system(pstr("which pigz "))==0)   ungzip_path = pstr("pigz -dc ");
-                             else   ungzip_path = pstr("gzip -dc ");   
-      //cout<<system(ungzip_path)<<"\t"<<"GDL:is there pigz?"<<"\n";
-      //if(system(ungzip_path)>0) ungzip_path = pstr("gzip -dc "); 
-      //return ungzip_path
+      
+      ungzip_path = pstr("gzip -dc ");
+      //if (system(pstr("which pigz "))==0)   ungzip_path = pstr("pigz -dc ");
+      //                       else   ungzip_path = pstr("gzip -dc ");   
+
     }
     void  SetGZIPPath ( pstr gzipPath, pstr ungzipPath )  {
       if (!gzipPath)  gzip_path = pstr("gzip ");
@@ -367,7 +366,7 @@ namespace mmdb  {
     #ifndef _MSC_VER
             p = NULL;
 	    SetGZIPcommand (ungzip_path );
-	    //cout<<"GDL: ungzip_path is"<<"\t"<<ungzip_path<<"\n";
+	    cout<<"GDL: ungzip_path is"<<"\t"<<ungzip_path<<"\n";
             CreateConcat  ( p,ungzip_path,FName );
             for (i=0;(i<=retry) && (!hFile);i++)  {
               if (i>0)  sleep ( 1 );
