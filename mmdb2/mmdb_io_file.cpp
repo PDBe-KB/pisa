@@ -311,8 +311,8 @@ namespace mmdb  {
 
     void SetGZIPcommand (pstr ungzipPath )  {
       
-      ungzip_path = pstr("gzip -dc ");
-      //if (system(pstr("which pigz "))==0)   ungzip_path = pstr("pigz -dc ");
+      //ungzip_path = pstr("gzip -dc ");
+      if (system(pstr("which pigz "))==0)   ungzip_path = pstr("pigz -dc ");
       //                       else   ungzip_path = pstr("gzip -dc ");   
 
     }
