@@ -11,7 +11,7 @@ PISA (Protein Interfaces, surfaces and assemblies) v2 is the latest version of t
 2. Identification of probable assemblies
 3. Database searches of structurally similar interfaces and assemblies
 
-## Compiling and running Pisa v2
+## Compiling and running PISA-lite
 
 ```
 git clone https://github.com/PDBe-KB/pisa-lite
@@ -24,7 +24,7 @@ cd pisa-lite
 3. For compilation run ./compile.ssh 
 4. To run the code use executable ./build/pisa . 
 
-##Usage 
+## Usage 
 
 To run PISA analysis for an input file (PDB or mmCIF file), the following command: 
 
@@ -41,7 +41,7 @@ coorfile : coordinates file (PDB or mmCIF)
 [options] : Optional processing keys (see below)
 
 ```
-Options:
+######  Options:
 
 ```
 --lig-exclude = 'list'
@@ -79,11 +79,9 @@ pisa name -mg spec serial_no [cfg]
 View an interface, monomer, assembly or a dissociate in CCP4-MG
 ```
 pisa name -download spec serial_no [cfg] > output_file
-```
-```
+
 pisa name -pdb spec serial_no [cfg] > output_file
-```
-```
+
 pisa name -cif spec serial_no [cfg] > output_file
 ```
 Download an interface, monomer, assembly or a dissociate. Flags -download and -pdb are equivalent and output PDB format. Flag -cif will output in mmCIF format.
@@ -120,7 +118,6 @@ pisa -cfg-template [cfg]
 ```
 A configuration file template is generated using this command.  
 
-```
 
 ## Dependencies 
 
@@ -151,81 +148,87 @@ The xml output file for interfaces has the following information:
 
 For each interface:
 
-_id_           :         Interface ID
+```
+id           :         Interface ID
 
-_int_area_     :         Area of interface  (A^2)
+int_area     :         Area of interface  (A^2)
 
-_Int_solv_en_  :         Solvation energy (kcal/mol)
+Int_solv_en  :         Solvation energy (kcal/mol)
 
-_pvalue_       :         Probability that solvation energy gain for interface atom may be greater than binding energy  
+pvalue       :         Probability that solvation energy gain for interface atom may be greater than binding energy  
 
-_stab_en_      :         Stabilisation energy (Kcal/mol)
-
+stab_en      :         Stabilisation energy (Kcal/mol)
+```
 
 For each bond type:
 
 ###### Type:
 
-_h-bonds_        :     Hydrogen bonds
+```
+h-bonds        :     Hydrogen bonds
 
-_salt-bridges_     :     Salt bridges 
+salt-bridges     :     Salt bridges 
 
-_ss-bonda_         :     Disulfide bonds
+ss-bonda         :     Disulfide bonds
 
-_cov-bonds_        :     Covalent Bonds
+cov-bonds        :     Covalent Bonds
 
-_other-bonds_      :     Other interface contacts within distance cutoff 4.0 A 
+other-bonds      :     Other interface contacts within distance cutoff 4.0 A 
+
+```
 
 Details (for each bond of each type):
 
-_n_bonds_         :     number of bonds 
+```
+n_bonds         :     number of bonds 
 
-_res-1_            :     name of residue 1
+res-1            :     name of residue 1
 
-_chain-1_          :     name chain 1 (auth) 
+chain-1          :     name chain 1 (auth) 
 
-_label_asym_id-1_  :     name chain (asym) 1
+label_asym_id-1  :     name chain (asym) 1
 
-_orig_label_asym_id-1_     : Asym chain identifier in the original model file
+orig_label_asym_id-1     : Asym chain identifier in the original model file
 
-_pdbx_sifts_xref_db_acc-1_ : Uniprot accession number
+pdbx_sifts_xref_db_acc-1 : Uniprot accession number
 
-_pdbx_sifts_xref_db_num-1_ : Sequence position of the UniProt entry that corresponds to the residue mapping
+pdbx_sifts_xref_db_num-1 : Sequence position of the UniProt entry that corresponds to the residue mapping
 
-_seqnum-1_                 : Sequence number atom 1 (auth)
+seqnum-1                 : Sequence number atom 1 (auth)
 
-_label_seqnum-1_           : Sequence number atom 1 (label)
+label_seqnum-1           : Sequence number atom 1 (label)
 
-_atname-1_                : atom 1 name 
+atname-1                : atom 1 name 
 
-_Inscode-1_                : insertion code of 1st linked atom
+Inscode-1                : insertion code of 1st linked atom
 
-_res-2_                    : name of Residue 2
+res-2                    : name of Residue 2
 
-_chain-2_                  : name chain 2 (auth)
+chain-2                  : name chain 2 (auth)
 
-_label_asym_id-2_          : name chain (asym)
+label_asym_id-2          : name chain (asym)
 
-_orig_label_asym_id-2_     : Asym chain identifier in the original model file
+orig_label_asym_id-2     : Asym chain identifier in the original model file
 
-_pdbx_sifts_xref_db_acc-2_ : Uniprot accession number
+pdbx_sifts_xref_db_acc-2 : Uniprot accession number
 
-_pdbx_sifts_xref_db_num-2_ : Sequence position of the UniProt entry that corresponds to the residue mapping
+pdbx_sifts_xref_db_num-2 : Sequence position of the UniProt entry that corresponds to the residue mapping
 
-_seqnum-2_                 : Sequence number atom 1
+seqnum-2                 : Sequence number atom 1
 
-_label_seqnum-2_           : Sequence number atom 2 (label)
+label_seqnum-2           : Sequence number atom 2 (label)
 
-_atname-2_                 : atom 1 name 
+atname-2                 : atom 1 name 
 
-_Inscode-2_                : Insertion code of 2nd linked atom
+Inscode-2                : Insertion code of 2nd linked atom
 
-_Dist_                     : Bond distance (A)
-
+Dist                     : Bond distance (A)
+```
 ###### Residue list (per interface ID)
 
 For each Residue :
 
+```
 _ser_no_          :   residue numbering 
 
 _name_            :   residue name 
@@ -240,35 +243,36 @@ _bonds_           :
 
 _solv_en_         :   Solvation energy effect (kcal/mol)
 
-_asa_             :   accessible surface area (A^2)
+asa             :   accessible surface area (A^2)
 
-_bsa_             :   Buried surface area  (A^2)
-
+bsa             :   Buried surface area  (A^2)
+```
 ###### Assemblies:
 
 The xml output file for assemblies has the following information:
 
-_diss_energy_     :  maximal free energy of dissociation  (kcal/mol)
+```
+diss_energy     :  maximal free energy of dissociation  (kcal/mol)
 
-_diss_energy0_    :  ground-level free energy of dissociation (kcal/mol)
+diss_energy0    :  ground-level free energy of dissociation (kcal/mol)
 
-_asa_             :  accessible surface area  (A^2)
+asa             :  accessible surface area  (A^2)
 
-_bsa_             :  buried surface area (A^2)
+bsa             :  buried surface area (A^2)
 
-_entropy_         :  entropy change at dissociation 
+entropy         :  entropy change at dissociation 
 
-_Entropy_0_       :  ground-level entropy change at dissociation 
+Entropy_0       :  ground-level entropy change at dissociation 
 
-_diss_area_       :  dissociation Interface Area (A^2)
+diss_area       :  dissociation Interface Area (A^2)
 
-_int_energy_      :  solvation Energy Gain (kcal/mol)
+int_energy      :  solvation Energy Gain (kcal/mol)
 
-_n_diss_          :  number of dissociating parts
+n_diss          :  number of dissociating parts
 
-_Formula_         :  assembly formula
+Formula         :  assembly formula
 
-_composition_     :  assembly composition
+composition     :  assembly composition
 
 
 
