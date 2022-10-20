@@ -1,93 +1,274 @@
-# PISA
+# PISA-lite
 
-
-
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://gitlab.com/-/experiment/new_project_readme_content:1db8bd663c0aa4b969132eb06fbae472?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://gitlab.com/-/experiment/new_project_readme_content:1db8bd663c0aa4b969132eb06fbae472?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://gitlab.com/-/experiment/new_project_readme_content:1db8bd663c0aa4b969132eb06fbae472?https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.com/CCP4/pisa.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.com/-/experiment/new_project_readme_content:1db8bd663c0aa4b969132eb06fbae472?https://gitlab.com/CCP4/pisa/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://gitlab.com/-/experiment/new_project_readme_content:1db8bd663c0aa4b969132eb06fbae472?https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://gitlab.com/-/experiment/new_project_readme_content:1db8bd663c0aa4b969132eb06fbae472?https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://gitlab.com/-/experiment/new_project_readme_content:1db8bd663c0aa4b969132eb06fbae472?https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://gitlab.com/-/experiment/new_project_readme_content:1db8bd663c0aa4b969132eb06fbae472?https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://gitlab.com/-/experiment/new_project_readme_content:1db8bd663c0aa4b969132eb06fbae472?https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://gitlab.com/-/experiment/new_project_readme_content:1db8bd663c0aa4b969132eb06fbae472?https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://gitlab.com/-/experiment/new_project_readme_content:1db8bd663c0aa4b969132eb06fbae472?https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://gitlab.com/-/experiment/new_project_readme_content:1db8bd663c0aa4b969132eb06fbae472?https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://gitlab.com/-/experiment/new_project_readme_content:1db8bd663c0aa4b969132eb06fbae472?https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://gitlab.com/-/experiment/new_project_readme_content:1db8bd663c0aa4b969132eb06fbae472?https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://gitlab.com/-/experiment/new_project_readme_content:1db8bd663c0aa4b969132eb06fbae472?https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
 
 ## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+PISA (Protein Interfaces, surfaces and assemblies) v2 is the latest version of the interactive tool PISA used in CCP4. The program was developed for the investigation of macromolecular interfaces (such as proteins, DNA/RNA and ligands) and for the identification of probable quaternary structures or assemblies. 
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## Highlights
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+1. Exploration of macromolecular interfaces 
+2. Identification of probable assemblies
+3. Database searches of structurally similar interfaces and assemblies
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+## Compiling and running Pisa v2
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+```
+git clone https://github.com/PDBe-KB/pisa-lite
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+cd pisa-lite
+``` 
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+1. Modify source directory in the file compile.ssh  
+2. Create 'build' directory in the source directory 
+3. For compilation run ./compile.ssh 
+4. To run the code use executable ./build/pisa . 
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+##Usage 
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+To run PISA analysis for an input file (PDB or mmCIF file), the following command: 
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+```
+pisa name -analyse coorfile [options] [cfg]
+```
+```
+name: Session name (required). The results will be stored in a directory named after the session name. 
 
-## License
-For open source projects, say how it is licensed.
+coorfile : coordinates file (PDB or mmCIF)
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+[cfg]: Configuration file (it must be provided unless it is already set as environmental variable in PISA_CONF_FILE ). See description bellow. 
+
+[options] : Optional processing keys (see below)
+
+```
+Options:
+
+```
+--lig-exclude = 'list'
+```
+
+Entries:
+
+'list' (default). Exclude ligands in a list when calculating the oligomeric state. The list must be coma separated, no spaces, case-sensitive list of ligand names.
+'all'       Exclude all ligands
+'agents'    Exclude ligands listed in agents.dat ( path pointing to agents.dat specified in configuration file, see below )
+
+```
+--lig=auto = fixed
+```
+Auto processing for ligands (Fixed default). Ligands may be forcefully fixed on protein surface subject to task complexity and data available.
+
+Entries:
+
+fixed:  fix ligands on protein surface
+free:   ligands are not fixed on the protein surface
+```
+pisa name -list {interfaces|monomers|assemblies|stock} [cfg]  
+```
+Outputs lists of interfaces, monomers, assemblies and assembly stock
+```
+pisa name -view spec serial_no [cfg]   
+```
+View an interface, monomer, assembly or a dissociate in Rasmol 
+
+spec={interface|monomer|assembly|dissociate}
+serial_no   Serial number shown in the corresponding list.
+```
+pisa name -mg spec serial_no [cfg]
+ ```          
+View an interface, monomer, assembly or a dissociate in CCP4-MG
+```
+pisa name -download spec serial_no [cfg] > output_file
+```
+```
+pisa name -pdb spec serial_no [cfg] > output_file
+```
+```
+pisa name -cif spec serial_no [cfg] > output_file
+```
+Download an interface, monomer, assembly or a dissociate. Flags -download and -pdb are equivalent and output PDB format. Flag -cif will output in mmCIF format.
+
+```
+pisa name -detail spec serial_no [cfg]
+```
+Get details of an interface, monomer or assembly
+```
+pisa name -350n assembly_serial_no [cfg]
+```
+Generate Remark 350
+Special use:
+assembly_serial_no=0: generate remark for complexe made by the content of asu (i.e. the bare content of input file), without symmetry analysis
+assembly_serial_no<0: generate remarks 300 and 350 for the whole crystal split number -assembly_serial_no. E.g., use assembly_serial_no=-1.
+
+```
+pisa name -350n -1 [cfg]
+```
+Remark 350 for automatic annotation
+
+```
+pisa name -xml {interfaces|assemblies} [cfg] > outputfile.xml
+```
+Generates XML output
+
+```
+pisa name -erase [cfg]
+```
+Erases session data
+
+```
+pisa -cfg-template [cfg]
+```
+A configuration file template is generated using this command.  
+
+```
+
+## Dependencies 
+
+For running PISA with command line (offline/locally), the following keys must be specified in the configuration file:
+
+```
+DATA_ROOT    Path pointing to the main directory where the session is 
+SRS_DIR           Path pointing to directory that contains SRS files 
+MOLREF_DIR   Path pointing to directory that contains Molref files 
+PISTORE_DIR  Path pointing to store directory containing the files: 
+agents.dat
+asm_params.dat
+intfstats.dat
+syminfo_pisa.lib
+rcsb_symops.dat
+HELP_DIR         Path pointing to directory containing Html-formatted help files 
+```
+
+## XML file
+
+```
+pisa name -xml {interfaces|assemblies} [cfg] > outputfile.xml
+
+```
+###### Interfaces:
+
+The xml output file for interfaces has the following information:
+
+For each interface:
+
+_id_           :         Interface ID
+
+_int_area_     :         Area of interface  (A^2)
+
+_Int_solv_en_  :         Solvation energy (kcal/mol)
+
+_pvalue_       :         Probability that solvation energy gain for interface atom may be greater than binding energy  
+
+_stab_en_      :         Stabilisation energy (Kcal/mol)
+
+
+For each bond type:
+
+###### Type:
+
+_h-bonds_        :     Hydrogen bonds
+
+_salt-bridges_     :     Salt bridges 
+
+_ss-bonda_         :     Disulfide bonds
+
+_cov-bonds_        :     Covalent Bonds
+
+_other-bonds_      :     Other interface contacts within distance cutoff 4.0 A 
+
+Details (for each bond of each type):
+
+_n_bonds_         :     number of bonds 
+
+_res-1_            :     name of residue 1
+
+_chain-1_          :     name chain 1 (auth) 
+
+_label_asym_id-1_  :     name chain (asym) 1
+
+_orig_label_asym_id-1_     : Asym chain identifier in the original model file
+
+_pdbx_sifts_xref_db_acc-1_ : Uniprot accession number
+
+_pdbx_sifts_xref_db_num-1_ : Sequence position of the UniProt entry that corresponds to the residue mapping
+
+_seqnum-1_                 : Sequence number atom 1 (auth)
+
+_label_seqnum-1_           : Sequence number atom 1 (label)
+
+_atname-1_                : atom 1 name 
+
+_Inscode-1_                : insertion code of 1st linked atom
+
+_res-2_                    : name of Residue 2
+
+_chain-2_                  : name chain 2 (auth)
+
+_label_asym_id-2_          : name chain (asym)
+
+_orig_label_asym_id-2_     : Asym chain identifier in the original model file
+
+_pdbx_sifts_xref_db_acc-2_ : Uniprot accession number
+
+_pdbx_sifts_xref_db_num-2_ : Sequence position of the UniProt entry that corresponds to the residue mapping
+
+_seqnum-2_                 : Sequence number atom 1
+
+_label_seqnum-2_           : Sequence number atom 2 (label)
+
+_atname-2_                 : atom 1 name 
+
+_Inscode-2_                : Insertion code of 2nd linked atom
+
+_Dist_                     : Bond distance (A)
+
+###### Residue list (per interface ID)
+
+For each Residue :
+
+_ser_no_          :   residue numbering 
+
+_name_            :   residue name 
+
+_seq_num_         :   sequence number 
+
+_label_seq_num_   :   sequence number (label)
+
+_ins_code_        :   insertion code residue 
+
+_bonds_           :     
+
+_solv_en_         :   Solvation energy effect (kcal/mol)
+
+_asa_             :   accessible surface area (A^2)
+
+_bsa_             :   Buried surface area  (A^2)
+
+###### Assemblies:
+
+The xml output file for assemblies has the following information:
+
+_diss_energy_     :  maximal free energy of dissociation  (kcal/mol)
+
+_diss_energy0_    :  ground-level free energy of dissociation (kcal/mol)
+
+_asa_             :  accessible surface area  (A^2)
+
+_bsa_             :  buried surface area (A^2)
+
+_entropy_         :  entropy change at dissociation 
+
+_Entropy_0_       :  ground-level entropy change at dissociation 
+
+_diss_area_       :  dissociation Interface Area (A^2)
+
+_int_energy_      :  solvation Energy Gain (kcal/mol)
+
+_n_diss_          :  number of dissociating parts
+
+_Formula_         :  assembly formula
+
+_composition_     :  assembly composition
+
+
 
