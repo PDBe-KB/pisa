@@ -366,7 +366,7 @@ namespace mmdb  {
     #ifndef _MSC_VER
             p = NULL;
 	    SetGZIPcommand (ungzip_path );
-	    cout<<"GDL: ungzip_path is"<<"\t"<<ungzip_path<<"\n";
+	    //cout<<"GDL: ungzip_path is"<<"\t"<<ungzip_path<<"\n";
             CreateConcat  ( p,ungzip_path,FName );
             for (i=0;(i<=retry) && (!hFile);i++)  {
               if (i>0)  sleep ( 1 );
