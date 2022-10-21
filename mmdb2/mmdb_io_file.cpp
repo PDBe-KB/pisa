@@ -310,10 +310,12 @@ namespace mmdb  {
     static pstr uncompress_path = pstr("uncompress -c ");
 
     void SetGZIPcommand (pstr ungzipPath )  {
-      
+
+      FILE *fp;
       //ungzip_path = pstr("gzip -dc ");
-      if (system(pstr("which pigz "))==0)   ungzip_path = pstr("pigz -dc ");
-      //                       else   ungzip_path = pstr("gzip -dc ");   
+            
+      if (system(pstr("which pigz > /dev/null 2>&1")))  ungzip_path = pstr("gzip -dc ");
+                             else   ungzip_path = pstr("pigz -dc ");   
 
     }
     void  SetGZIPPath ( pstr gzipPath, pstr ungzipPath )  {
