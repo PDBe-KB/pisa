@@ -2,15 +2,9 @@
 
 ## Description
 
-PISA-lite (Protein Interfaces, Surfaces and Assemblies) is a lightweight version of the interactive tool [CCP4 PISA](https://www.ccp4.ac.uk/html/pisa.html). CCP4 PISA was developed to investigate macromolecular interfaces (e.g. between proteins and nucleic acids) and to identify the most probable quaternary structures or assemblies. 
+PISA-lite (Protein Interfaces, Surfaces and Assemblies) is a lightweight version of the interactive tool [CCP4 PISA](https://www.ccp4.ac.uk/html/pisa.html). CCP4 PISA was developed to investigate macromolecular interfaces (e.g. between proteins and nucleic acids) and to identify the most probable quaternary structures or assemblies.
 
 PISA-lite differs from CCP4 PISA in that it does not calculate assemblies, but performs interface analysis significantly faster. [PDBe](https://pdbe.org) uses PISA-lite to calculate macromolecular interaction data which is integrated with functional annotations from [PDBe-KB](https://pdbe-kb.org) and displayed on PDBe and PDBe-KB pages.
-
-## Highlights
-
-1. Exploration of macromolecular interfaces 
-2. Identification of probable assemblies
-3. Database searches of structurally similar interfaces and assemblies
 
 ## Compiling and running PISA-lite
 
@@ -36,7 +30,14 @@ chmod +x compile.sh
 
 ## Configuration
 
-Running PISA-lite
+Running PISA-lite requires a configuration file. An example file is [available here](https://github.com/PDBe-KB/pisa-lite/blob/main/setup/pisa_cfg_tmp).
+
+The paths for the following items have to be configured:
+
+* DATA_ROOT
+* SRS_DIR
+* MOLREF_DIR
+* PISTORE_DIR
 
 ## Usage 
 
@@ -291,4 +292,6 @@ Formula         :  assembly formula
 composition     :  assembly composition
 
 
+## Acknowledgements
 
+This code is based on CCP4 PISA through a collaboration between EMBL-EBI and CCP4. 
