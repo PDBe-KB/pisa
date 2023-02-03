@@ -62,9 +62,15 @@ Type `./build pisa` to view all the options and their explanations.
 
 ## XML file
 
+PISA-lite generate the results in binary format. The data has to be converted into human-readable XML format using the following command:
+
 ```
 pisa name -xml {interfaces|assemblies} [cfg] > outputfile.xml
 ```
+
+Note that the `name` parameter has to match an existing session name. For example, if PISA-lite was used to analyse a PDB structure and the name of that session was `analyise_3bow`, then to convert the binary to XML, the name parameter has to be `analyise_3bow` as well.
+
+Also note that `interfaces` and `assemblies` and the exact terms expected by the command.
 
 ### Interfaces:
 
@@ -111,9 +117,9 @@ The xml output file for interfaces has the following information:
 * Inscode-2                : Insertion code of 2nd linked atom
 * Dist                     : Bond distance (A)
 
-### Residue list (per interface ID)
+#### Residue list (per interface ID)
 
-#### For each Residue :
+##### For each Residue :
 
 * ser_no          :   residue numbering 
 * name            :   residue name 
