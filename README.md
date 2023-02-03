@@ -1,9 +1,10 @@
 # PISA-lite
 
-
 ## Description
 
-PISA (Protein Interfaces, Surfaces and Assemblies) v2 is the latest version of the interactive tool PISA used in CCP4. The program was developed for the investigation of macromolecular interfaces (such as proteins, DNA/RNA and ligands) and for the identification of probable quaternary structures or assemblies. 
+PISA-lite (Protein Interfaces, Surfaces and Assemblies) is a lightweight version of the interactive tool [CCP4 PISA](https://www.ccp4.ac.uk/html/pisa.html). CCP4 PISA was developed to investigate macromolecular interfaces (e.g. between proteins and nucleic acids) and to identify the most probable quaternary structures or assemblies. 
+
+PISA-lite differs from CCP4 PISA in that it does not calculate assemblies, but performs interface analysis significantly faster. [PDBe](https://pdbe.org) uses PISA-lite to calculate macromolecular interaction data which is integrated with functional annotations from [PDBe-KB](https://pdbe-kb.org) and displayed on PDBe and PDBe-KB pages.
 
 ## Highlights
 
@@ -13,18 +14,33 @@ PISA (Protein Interfaces, Surfaces and Assemblies) v2 is the latest version of t
 
 ## Compiling and running PISA-lite
 
+1.) Download the source code
 ```
 git clone https://github.com/PDBe-KB/pisa-lite
 
 cd pisa-lite
 ``` 
 
-1. Modify source directory in the file compile.sh  
-2. Create 'build' directory in the source directory 
-3. For compilation run ./compile.sh 
-4. To run the code use executable ./build/pisa . 
+2.) Edit the `compile.sh` file in the root directory of the repository (`.../pisa-lite/compile.sh`)
+
+Add the complete path to the pisa-lite directory:
+```
+srcdir=/complete/path/to/pisa-lite
+```
+
+4.) Compile PISA-lite
+```
+chmod +x compile.sh
+./compile.sh
+```
+
+## Configuration
+
+Running PISA-lite
 
 ## Usage 
+
+After compiling, the executable for PISA will be `.../pisa-lite/build/pisa`. 
 
 To run PISA analysis for an input file (PDB or mmCIF file), the following command: 
 
