@@ -3,7 +3,7 @@
 
 ## Description
 
-PISA (Protein Interfaces, surfaces and assemblies) v2 is the latest version of the interactive tool PISA used in CCP4. The program was developed for the investigation of macromolecular interfaces (such as proteins, DNA/RNA and ligands) and for the identification of probable quaternary structures or assemblies. 
+PISA (Protein Interfaces, Surfaces and Assemblies) v2 is the latest version of the interactive tool PISA used in CCP4. The program was developed for the investigation of macromolecular interfaces (such as proteins, DNA/RNA and ligands) and for the identification of probable quaternary structures or assemblies. 
 
 ## Highlights
 
@@ -19,9 +19,9 @@ git clone https://github.com/PDBe-KB/pisa-lite
 cd pisa-lite
 ``` 
 
-1. Modify source directory in the file compile.ssh  
+1. Modify source directory in the file compile.sh  
 2. Create 'build' directory in the source directory 
-3. For compilation run ./compile.ssh 
+3. For compilation run ./compile.sh 
 4. To run the code use executable ./build/pisa . 
 
 ## Usage 
