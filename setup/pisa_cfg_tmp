@@ -17,17 +17,20 @@
 
 #  DATA_ROOT must point on the directory to contain session
 #  directories.
+# For example .../pisa-lite
 DATA_ROOT
 path_dataroot
 
 
 
 #  SRS_DIR must point on the directory containing SRS files.
+# For example .../pisa-lite/setup/srs
 SRS_DIR
 path_to_setup/srs
 
 
 #  MOLREF_DIR must point on the directory containing MolRef files.
+# For example .../pisa-lite/setup/molref
 MOLREF_DIR
 path_to_setup/molref
 
@@ -39,6 +42,7 @@ path_to_setup/molref
 #          intfstats.dat
 #          syminfo_pisa.lib and
 #          rcsb_symops.dat
+# For example .../pisa-lite/setup/pisastore
 PISTORE_DIR
 path_to_setup/pisastore
 
