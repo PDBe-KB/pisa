@@ -1,35 +1,29 @@
 # ------------------------------------------------------------------- #
 #                                                                     #
-#          This is configuratrion file for PISA software.             #
+#          This is configuratrion file for PISA-lite software.        #
 #                                                                     #
 #   When used in command-prompt mode, this file must be specified     #
 #       as last argument in thecommand line, or pointed out by        #
 #              PISA_CONF_FILE environmental variable.                 #
-#                                                                     #
-#    This file may be also used to configure the QtPISA graphical     #
-#   application, by either reading it using the "Load CFG" button   #
-#  in PISA Settings Dialog, or by running QtPISA from command prompt  #
-#    with this file as the only command-line argument. QtPISA needs   #
-#           to be configure only once after installation.             #
 #                                                                     #
 # ------------------------------------------------------------------- #
 
 
 #  DATA_ROOT must point on the directory to contain session
 #  directories.
-# For example .../pisa-lite
+# For example: .../pisa-lite
 DATA_ROOT
 path_dataroot
 
 
 #  SRS_DIR must point on the directory containing SRS files.
-# For example .../pisa-lite/setup/srs
+# For example: .../pisa-lite/setup/srs
 SRS_DIR
 path_to_setup/srs
 
 
 #  MOLREF_DIR must point on the directory containing MolRef files.
-# For example .../pisa-lite/setup/molref
+# For example: .../pisa-lite/setup/molref
 MOLREF_DIR
 path_to_setup/molref
 
@@ -40,7 +34,7 @@ path_to_setup/molref
 #          intfstats.dat
 #          syminfo_pisa.lib and
 #          rcsb_symops.dat
-# For example .../pisa-lite/setup/pisastore
+# For example: .../pisa-lite/setup/pisastore
 PISTORE_DIR
 path_to_setup/pisastore
 
