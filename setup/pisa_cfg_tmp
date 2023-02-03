@@ -22,7 +22,6 @@ DATA_ROOT
 path_dataroot
 
 
-
 #  SRS_DIR must point on the directory containing SRS files.
 # For example .../pisa-lite/setup/srs
 SRS_DIR
@@ -33,7 +32,6 @@ path_to_setup/srs
 # For example .../pisa-lite/setup/molref
 MOLREF_DIR
 path_to_setup/molref
-
 
 
 #  PISTORE_DIR must point on the directory containing files:
@@ -51,6 +49,7 @@ path_to_setup/pisastore
 RASMOL_COM
 #/path/to/rasmol
 
+
 #  JMOL_COM must give path to jmol.jar
 JMOL_COM
 #/path/to/jmol.jar
@@ -59,8 +58,7 @@ JMOL_COM
 #  CCP4MG_COM must give the ccp4mg launch command line
 CCP4MG_COM
 
-DATA_PATH
-path_dataroot
+
 #  SESSION_PREFIX is prefix for the names of session directories
 #  created in DATA_PATH ("pisrv_" is used by default). Be sure to
 #  have unique prefixes for each configuration file that is invoked
@@ -69,15 +67,3 @@ path_dataroot
 #  one to avoid permission conflicts between different services.
 SESSION_PREFIX
 pisa_
-
-
-#  =========================================================================
-#     The following configuration parameters are needed only for jspisa,
-#   which is a web-server application. They may be ignored or even removed
-#        from configuration files for command-prompt pisa and qtpisa.
-#  =========================================================================
-
-
-#  PDB_DIR is used only by jspisa (web-server). It must
-#  give absolute path to PDB directory.
-PDB_DIR
