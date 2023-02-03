@@ -45,17 +45,9 @@ PISTORE_DIR
 path_to_setup/pisastore
 
 
-#  RASMOL_COM must give the rasmol launch command line
+# The following lines are required for running PISA-lite
 RASMOL_COM
-#/path/to/rasmol
-
-
-#  JMOL_COM must give path to jmol.jar
 JMOL_COM
-#/path/to/jmol.jar
-
-
-#  CCP4MG_COM must give the ccp4mg launch command line
 CCP4MG_COM
 
 
