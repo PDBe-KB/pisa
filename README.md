@@ -115,13 +115,13 @@ The xml output file for interfaces has the following information:
 
 #### For each Residue :
 
-* _ser_no_          :   residue numbering 
-* _name_            :   residue name 
-* _seq_num_         :   sequence number 
-* _label_seq_num_   :   sequence number (label)
-* _ins_code_        :   insertion code residue 
-* _bonds_           :     
-* _solv_en_         :   Solvation energy effect (kcal/mol)
+* ser_no          :   residue numbering 
+* name            :   residue name 
+* seq_num         :   sequence number 
+* label_seq_num   :   sequence number (label)
+* ins_code        :   insertion code residue 
+* bonds           :     
+* solv_en         :   Solvation energy effect (kcal/mol)
 * asa             :   accessible surface area (A^2)
 * bsa             :   Buried surface area  (A^2)
 
