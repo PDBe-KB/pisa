@@ -88,7 +88,7 @@ namespace mmdb  {
 
   const int nSolventNames    = 12;
   const int nAminoacidNames  = 23;
-  const int nNucleotideNames = 24;
+  const int nNucleotideNames = 27;
 
   DefineStructure(AAProperty);
 

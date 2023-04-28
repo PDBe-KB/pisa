@@ -65,6 +65,7 @@ namespace pisa  {
     multSet       = NULL;  // sets of resulting multimers
     Complex       = NULL;  // multimer for single-complex analysis
     ligKey        = LIGANDS_Auto; // ligand processing key
+    asisKey       = AS_IS_off ;
     retcode       = ASSMB_Void;   // return code
     nSymOps       = 0;     // number of symmetry operations
     nInterfaces   = 0;     // calculated number of interfaces
@@ -225,6 +226,10 @@ namespace pisa  {
 
   void Assembler::SetLigandKey ( int ligandKey )  {
     ligKey = ligandKey;
+  }
+
+  void Assembler::Set_as_is_Key ( int as_is_Key )  {
+    asisKey = as_is_Key;
   }
 
   void Assembler::SetFullSearch ( bool fSearch )  {

@@ -21,6 +21,9 @@
 #include <stdlib.h>
 #include <math.h>
 
+#include<iostream>
+using namespace std;
+
 #include "pisa_domains.h"
 #include "pisa_defs.h"
 
@@ -308,6 +311,7 @@ namespace pisa  {
     nLigands = 0;
 
     nAlloc   = 0;
+    
     for (i=0;i<nOfChains;i++)
       if (chain[i])  {
         nAAAtoms    = 0;
@@ -319,6 +323,7 @@ namespace pisa  {
         for (j=0;j<nRes;j++)
           if (res[j])  {
             MRE = molRef->getMolRefEntry ( res[j]->name );
+	    //cout<<"GDL:"<<"\t"<<MRE->classId<<"\n";
             if (!MRE)
               makeResWarning ( warnUnk,res[j]->name );
             else  {
@@ -338,7 +343,7 @@ namespace pisa  {
                            if (res[j]->isDNARNA()==2)  nRNARes++;
                            nNAResidues++;
                          break;
-
+		
                 case MRCLASS_Ligand        :
                            allocateDomains ( nAlloc );
                            addLigandRes    ( ligRes  ,res[j]->name );

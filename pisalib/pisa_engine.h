@@ -53,6 +53,8 @@ namespace pisa  {
       void SetLigandKey     ( int            ligandKey );
       void SetFullSearch    ( bool           fSearch   );
 
+      void Set_as_is_Key ( int as_is_Key );
+
       ASSMB_RC MakePAGraph    ( mmdb::PManager MMDBManager,
                                 PDomains       domains,
                                 PInterfaces    PI );
@@ -85,6 +87,7 @@ namespace pisa  {
       mmdb::omatrix  parMon;      //!< matrix of parallel monomers
       mmdb::ivector  eType;       //!< nterface enumeration types
       int            ligKey;      //!< ligand proccessing key
+      int            asisKey;     //!< assembly calculation key 
       ASSMB_RC       retcode;     //!< return code
       int            nSymOps;     //!< number of symmetry operations
       int            nInterfaces; //!< calculated number of interfaces

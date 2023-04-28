@@ -581,7 +581,7 @@ namespace pisa  {
 
     switch (asmRC)  {
       case ASSMB_Ok             : return "Ok";
-      case ASSMB_Void           : return "Not calculated";
+      case ASSMB_Void           : return "Assemblies not calculated";
       case ASSMB_incompleteData : return "Incomplete data";
       case ASSMB_noSymOps       : return "No symmetry operations";
       case ASSMB_noDomains      : return "No domains";

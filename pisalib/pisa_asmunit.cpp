@@ -22,6 +22,14 @@
 #include "pisa_asmunit.h"
 #include "pisa_defs.h"
 
+#include<iostream>
+using namespace std;
+
+#include "pisa_query.h"
+#include "pisa_engine.h"
+#include "pisa_types.h"
+
+
 namespace pisa  {
 
   // =========================  AsmUnit  ===========================
@@ -135,37 +143,39 @@ namespace pisa  {
                                                  int nCellOut )  {
   mmdb::xml::PXMLObject xml;
   char        S[500];
+  Assembler     assembler;
 
+      
     xml = new mmdb::xml::XMLObject ( xml_asmunit );
     xml->AddObject ( new mmdb::xml::XMLObject(xml_asmunit_name,
                                        D[id]->getDomainID(S)) );
     xml->AddObject ( new mmdb::xml::XMLObject(xml_asmunit_visual_id,visualID) );
+      
+    addXML0 ( xml,xml_asmunit_rxx,T[0][0] );
+    addXML0 ( xml,xml_asmunit_rxy,T[0][1] );
+    addXML0 ( xml,xml_asmunit_rxz,T[0][2] );
+    addXML0 ( xml,xml_asmunit_tx ,T[0][3] );
+    addXML0 ( xml,xml_asmunit_ryx,T[1][0] );
+    addXML0 ( xml,xml_asmunit_ryy,T[1][1] );
+    addXML0 ( xml,xml_asmunit_ryz,T[1][2] );
+    addXML0 ( xml,xml_asmunit_ty ,T[1][3] );
+    addXML0 ( xml,xml_asmunit_rzx,T[2][0] );
+    addXML0 ( xml,xml_asmunit_rzy,T[2][1] );
+    addXML0 ( xml,xml_asmunit_rzz,T[2][2] );
+    addXML0 ( xml,xml_asmunit_tz ,T[2][3] );
 
-    //addXML0 ( xml,xml_asmunit_rxx,T[0][0] );
-    //addXML0 ( xml,xml_asmunit_rxy,T[0][1] );
-    //addXML0 ( xml,xml_asmunit_rxz,T[0][2] );
-    //addXML0 ( xml,xml_asmunit_tx ,T[0][3] );
-    //addXML0 ( xml,xml_asmunit_ryx,T[1][0] );
-    //addXML0 ( xml,xml_asmunit_ryy,T[1][1] );
-    //addXML0 ( xml,xml_asmunit_ryz,T[1][2] );
-    //addXML0 ( xml,xml_asmunit_ty ,T[1][3] );
-    //addXML0 ( xml,xml_asmunit_rzx,T[2][0] );
-    //addXML0 ( xml,xml_asmunit_rzy,T[2][1] );
-    //addXML0 ( xml,xml_asmunit_rzz,T[2][2] );
-    //addXML0 ( xml,xml_asmunit_tz ,T[2][3] );
-
-    //addXML0 ( xml,xml_asmunit_frxx,TF[0][0] );
-    //addXML0 ( xml,xml_asmunit_frxy,TF[0][1] );
-    //addXML0 ( xml,xml_asmunit_frxz,TF[0][2] );
-    //addXML0 ( xml,xml_asmunit_ftx ,TF[0][3] );
-    //addXML0 ( xml,xml_asmunit_fryx,TF[1][0] );
-    //addXML0 ( xml,xml_asmunit_fryy,TF[1][1] );
-    //addXML0 ( xml,xml_asmunit_fryz,TF[1][2] );
-    //addXML0 ( xml,xml_asmunit_fty ,TF[1][3] );
-    //addXML0 ( xml,xml_asmunit_frzx,TF[2][0] );
-    //addXML0 ( xml,xml_asmunit_frzy,TF[2][1] );
-    //addXML0 ( xml,xml_asmunit_frzz,TF[2][2] );
-    //addXML0 ( xml,xml_asmunit_ftz ,TF[2][3] );
+    addXML0 ( xml,xml_asmunit_frxx,TF[0][0] );
+    addXML0 ( xml,xml_asmunit_frxy,TF[0][1] );
+    addXML0 ( xml,xml_asmunit_frxz,TF[0][2] );
+    addXML0 ( xml,xml_asmunit_ftx ,TF[0][3] );
+    addXML0 ( xml,xml_asmunit_fryx,TF[1][0] );
+    addXML0 ( xml,xml_asmunit_fryy,TF[1][1] );
+    addXML0 ( xml,xml_asmunit_fryz,TF[1][2] );
+    addXML0 ( xml,xml_asmunit_fty ,TF[1][3] );
+    addXML0 ( xml,xml_asmunit_frzx,TF[2][0] );
+    addXML0 ( xml,xml_asmunit_frzy,TF[2][1] );
+    addXML0 ( xml,xml_asmunit_frzz,TF[2][2] );
+    addXML0 ( xml,xml_asmunit_ftz ,TF[2][3] );
 
     sprintf ( S,"%i_%1i%1i%1i",rcsb_symop,
               cell_i+nCellOut,cell_j+nCellOut,cell_k+nCellOut );

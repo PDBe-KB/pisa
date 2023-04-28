@@ -26,6 +26,8 @@
 
 #include "pisa_analyse.h"
 
+#include<iostream>
+using namespace std;
 
 void printInstructions ( mmdb::cpstr pisaName )  {
   printf (
@@ -158,6 +160,10 @@ void printInstructions ( mmdb::cpstr pisaName )  {
     "\n"
     " # %s " job_cfg_template_tag " [cfg]\n"
     "\n"
+    " 12. Analyse interfaces for input assembly as is, omit calculating assemblies:\n"
+    "\n"
+    " # %s 3gcb -analyse 3gcb.pdb " job_as_is_on_tag " [cfg]\n"
+    "\n"
     "\n",
     pisa::MAJOR_VERSION,pisa::MINOR_VERSION,pisa::MICRO_VERSION,
     pisa::BuildDate,
@@ -171,7 +177,7 @@ void printInstructions ( mmdb::cpstr pisaName )  {
       pisaName,
         pisa::lig_excl_agents_key,
     pisaName,pisaName,pisaName,pisaName,pisaName,pisaName,pisaName,
-    pisaName,pisaName,pisaName,pisaName,pisaName,pisaName );
+    pisaName,pisaName,pisaName,pisaName,pisaName,pisaName,pisaName);
 
 #ifdef _dimer_special
   printf (
@@ -242,6 +248,7 @@ class InputData {
     mmdb::pstr       ligExcl;
     int              serNo;
     pisa::LIGAND_KEY ligKey;
+    pisa::AS_IS_KEY  asisKey;
 
     InputData ();
     ~InputData();
@@ -263,6 +270,7 @@ InputData::~InputData()  {
 void InputData::init()  {
   confFile = NULL;
   ligKey   = pisa::LIGANDS_Auto;
+  asisKey  = pisa::AS_IS_off;
   ligExcl  = NULL;
   serNo    = 0;
 }
@@ -280,6 +288,7 @@ void InputData::print()  {
            else  printf ( " ligExcl  = NULL\n" );
   printf ( " serNo   = %i\n",serNo  );
   printf ( " ligKey  = %i\n",ligKey );
+  printf ( " asisKey  = %i\n",asisKey );
 }
 
 
@@ -332,7 +341,10 @@ int        k;
                            argv[k]+strlen(job_lig_exclude_tag) );
         mmdb::DelSpaces ( inpData.ligExcl,'\'' );
         mmdb::DelSpaces ( inpData.ligExcl,' '  );
-      } else if (k==argc-1)
+      }
+      else if (!strcmp(argv[k],job_as_is_on_tag))
+        inpData.asisKey = pisa::AS_IS_on;
+      else if (k==argc-1)
         inpData.confFile = argv[k];
       else
         return JOB_Help;
@@ -463,8 +475,15 @@ int        k;
   }
 
   if (!strcasecmp(argv[2],job_xml_tag))  {
-    if ((argc<4) || (argc>5))  return JOB_Help;
-    if (argc==5)  inpData.confFile = argv[4];
+    if ((argc<4))  return JOB_Help;
+    //if ((argc<4) || (argc>5))  return JOB_Help;
+    for (k=4;k<argc;k++)  {
+      if (!strcmp(argv[k],job_as_is_on_tag))
+        inpData.asisKey = pisa::AS_IS_on;
+      else if (k==argc-1)
+        inpData.confFile = argv[k];
+    }
+    //if (argc==5)  inpData.confFile = argv[4];
     if (!strncmp(argv[3],job_interfaces_tag,4))
       return JOB_Make_XML_Interfaces;
     if (!strncmp(argv[3],job_assemblies_tag,4))
@@ -537,10 +556,14 @@ pisa::RESULT_CODE   rc;
 //        inpData.print();
         pisaAnalyse = new pisa::Analyse  ( inpData.confFile );
         pisaAnalyse->setLigKey           ( inpData.ligKey   );
+	pisaAnalyse->setAsIsKey          ( inpData.asisKey  );
         pisaAnalyse->setLigExclude       ( inpData.ligExcl  );
         rc = pisaAnalyse->analyse        ( argv[1],argv[3]  );
         pisaAnalyse->printResultMessage  ( rc );
         delete pisaAnalyse;
+	pisaDetail = new pisa::Detail       ( inpData.confFile );
+        pisaDetail->set_As_Is_Key_xml       ( inpData.asisKey  );
+	delete pisaDetail;
       break;
 
 #ifdef _dimer_special
@@ -742,6 +765,7 @@ pisa::RESULT_CODE   rc;
 
     case JOB_Make_XML_Interfaces :
         pisaDetail = new pisa::Detail       ( inpData.confFile );
+	pisaDetail->set_As_Is_Key_xml       ( inpData.asisKey  );
         rc = pisaDetail->MakeInterfacesXML ( argv[1],"stdout" );
         pisaDetail->printResultMessage     ( rc );
         delete pisaDetail;
@@ -749,6 +773,7 @@ pisa::RESULT_CODE   rc;
 
     case JOB_Make_XML_Assemblies :
         pisaDetail = new pisa::Detail       ( inpData.confFile );
+	pisaDetail->set_As_Is_Key_xml       ( inpData.asisKey  );
         rc = pisaDetail->MakeAssembliesXML ( argv[1],"stdout" );
         pisaDetail->printResultMessage     ( rc );
         delete pisaDetail;

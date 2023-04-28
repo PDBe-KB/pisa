@@ -18,6 +18,8 @@
 #ifndef  __PISA_Defs__
 #define  __PISA_Defs__
 
+#include "pisa_types.h"
+
 // THIS FILE SHOULD BE NEVER USED IN HEADERS, USE PISA_TYPES.H INSTEAD
 
 ///  Platform. This should be __DEC also for SUN and LINUX
@@ -45,6 +47,7 @@
 
 
 ///  XML markup for interfaces
+
 
 #define xml_ints_open          "pisa_interfaces"
 #define xml_ints_nints         "n_interfaces"
@@ -161,18 +164,18 @@
 #define xml_asmunit_name       "chain_id"
 
 //GDL:commenting out info we don't need in the xml
-//#define xml_asmunit_rxx        "rxx"
-//#define xml_asmunit_rxy        "rxy"
-//#define xml_asmunit_rxz        "rxz"
-//#define xml_asmunit_tx         "tx"
-//#define xml_asmunit_ryx        "ryx"
-//#define xml_asmunit_ryy        "ryy"
-//#define xml_asmunit_ryz        "ryz"
-//#define xml_asmunit_ty         "ty"
-//#define xml_asmunit_rzx        "rzx"
-//#define xml_asmunit_rzy        "rzy"
-//#define xml_asmunit_rzz        "rzz"
-//#define xml_asmunit_tz         "tz"
+#define xml_asmunit_rxx        "rxx"
+#define xml_asmunit_rxy        "rxy"
+#define xml_asmunit_rxz        "rxz"
+#define xml_asmunit_tx         "tx"
+#define xml_asmunit_ryx        "ryx"
+#define xml_asmunit_ryy        "ryy"
+#define xml_asmunit_ryz        "ryz"
+#define xml_asmunit_ty         "ty"
+#define xml_asmunit_rzx        "rzx"
+#define xml_asmunit_rzy        "rzy"
+#define xml_asmunit_rzz        "rzz"
+#define xml_asmunit_tz         "tz"
 
 #define xml_asmunit_frxx       "rxx-f"
 #define xml_asmunit_frxy       "rxy-f"

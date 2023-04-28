@@ -43,6 +43,8 @@
 #include "ssm_graph.h"
 #include "mmdb2/mmdb_math_linalg.h"
 
+#include<iostream>
+using namespace std;
 
 //  ==========================  ssm::Graph  ===========================
 
@@ -218,6 +220,7 @@ bool           B;
   k = 0;
   while (i<natoms)  {
     if (A[i])  {
+      //cout<<"GDL:chain IDs?"<<"\t"<<A[i]->GetChainID()<<"\n";
       seqNum = A[i]->GetSeqNum();
       strcpy ( chID ,A[i]->GetChainID() );
       strcpy ( rName,A[i]->GetResName() );

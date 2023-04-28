@@ -21,13 +21,19 @@
 #include <math.h>
 #include <sys/stat.h>
 
+#include<iostream>
+using namespace std;
+
 #if defined(_MSC_VER) || defined (WIN32)
 #include <direct.h>
 #endif
 
 #include "pisa_query.h"
 #include "pisa_engine.h"
+#include "pisa_detail.h"
 #include "pisa_types.h"
+
+#include "pisa_interface.h"
 
 namespace pisa  {
 
@@ -84,6 +90,8 @@ namespace pisa  {
 
     ligExcl   = NULL;
     ligKey    = LIGANDS_Auto;
+
+    asisKey   = AS_IS_off;
 
     nInterfaces = 0;
     nDomains    = 0;
@@ -144,6 +152,10 @@ namespace pisa  {
 
   void QueryData::setLigKey ( LIGAND_KEY ligProc )  {
     ligKey = ligProc;
+  }
+
+  void QueryData::setAsIsKey ( AS_IS_KEY asisProc )  {
+    asisKey = asisProc;
   }
 
   int QueryData::getStructure ( mmdb::io::RFile f,
@@ -679,6 +691,7 @@ namespace pisa  {
   PPInterface   interface;
   mmdb::ovector fixed,xrel;
   int           i;
+  PInterface    Interface;
 
     nAssemblies = 0;
     if (warnAssembly)  {
@@ -687,9 +700,16 @@ namespace pisa  {
     }
 
     assembler.SetLigandKey ( ligKey );
+    assembler.Set_as_is_Key (asisKey);
     
-    //GDL: comenting out CalcAssemblies 
-    /*asmStatus = assembler.CalcAssemblies ( MMDB,domains,PI );
+      
+    if (asisKey == AS_IS_on){
+      asmStatus=ASSMB_Void;
+    }
+    
+    if(asisKey==AS_IS_off)
+      {
+	asmStatus = assembler.CalcAssemblies ( MMDB,domains,PI );
 
     if (asmStatus==ASSMB_Ok)  {
       assembler.GetAssemblies ( A );
@@ -699,16 +719,17 @@ namespace pisa  {
       delete A;
       A = NULL;
     }
-    */
-    //GDL:commenting out the interface score 
-    /*if (A)
+    
+    
+    if (A)
       A->calcInterfaceScores ( PI->getInterfaces() );
     else  {
       nInterfaces = PI->getNofInterfaces();
       for (i=0;i<nInterfaces;i++)
         PI->getInterface(i)->css = 0.0;
-	}*/
-
+	}
+      }
+    
     mmdb::GetVectorMemory ( fixed,nInterfaces,0 );
     mmdb::GetVectorMemory ( xrel ,nInterfaces,0 );
     interface = PI->getInterfaces();
@@ -1319,9 +1340,10 @@ namespace pisa  {
 
   }
 
-  mmdb::xml::PXMLObject QueryData::getInterfacesXML()  {
-    if (PI && MMDB && domains)
-          return PI->getXML ( MMDB ,domains->domain );
+  mmdb::xml::PXMLObject QueryData::getInterfacesXML(int asis_param)  {
+    if (PI && MMDB && domains){
+      return PI->getXML ( MMDB ,domains->domain,asis_param);
+    }
     else  return NULL;
   }
 
