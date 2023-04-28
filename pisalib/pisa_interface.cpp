@@ -58,7 +58,7 @@ namespace pisa  {
                // only if 2.7 A S-S distance in disulphide bond is
                // allowed.
   static mmdb::realtype CovBondThresh   = 1.9;  // angstrom
-  static mmdb::realtype OthBondThresh   = 4.0;  // angstrom
+  static mmdb::realtype OthBondThresh   = 5.0;  // angstrom
 
   void SetBondFactors ( mmdb::realtype HBEn, mmdb::realtype SBEn,
                         mmdb::realtype DSEn, mmdb::realtype epsf )  {
@@ -337,6 +337,10 @@ namespace pisa  {
     FreeMemory();
   }
 
+  void Interface::set_asisKey_xml_int ( AS_IS_KEY as_is_Proc_int )  {
+    asisKey = as_is_Proc_int;
+  }
+  
   void Interface::FreeMemory()  {
     if (symOp)  {
       delete[] symOp;
@@ -448,13 +452,6 @@ namespace pisa  {
       DSBond = NULL;
     }
     nDSBonds = 0;
-
-    //GDL add
-    //    if (OthBond)  {
-    //  delete[] OthBond;
-    //  OthBond = NULL;
-    //}
-    //nOthBonds = 0;
 
   }
 
@@ -744,6 +741,8 @@ namespace pisa  {
     nRes1 = 0;
     nRes2 = 0;
 
+    
+
     //  1. Check that molecule has been complemented with hydrogens,
     //     which are needed for electrostatics calculations.
 /* --- candidate for removal
@@ -972,21 +971,9 @@ namespace pisa  {
       probDeltaG = probDeltaG1 + probDeltaG2;
 
       calcChemBonds ( MMDB,SRS);
-      
+
       //GDL: calculate other contacts - start
-      /*
-      cout <<"test"<<"\t"<<nSBridges <<"\n";
-      mmdb::PAtom at1 ;
-      mmdb::PAtom at2 ;
       
-      for (i=0;i<nSBridges;i++)
-	{
-	  at1 = GetAtom ( MMDB,SBridge[i].serNum1 );
-	  at2 = GetAtom ( MMDB,SBridge[i].serNum2 );
-	  cout <<"test-seqnum"<<"\t"<< at1->GetResName()<<"\t"<< at2->GetResName()<<"\t"<<at1->GetSeqNum ()<<"\t"<<at2->GetSeqNum ()<<"\n";
-	  //cout <<"test"<<"\t"<<SBridge[i].serNum1 <<"\n";
-	}
-      */
       CalcOtherContacts (MMDB,atom1,nAtoms1,atom2,nAtoms2);
       
       //calculate othercontacts - end 
@@ -1232,9 +1219,7 @@ namespace pisa  {
   int            type1[4],type2[4];
   int            i,j,ncont,maxncont,el1,el2,nCovAlloc;
   bool           B1,B2;
-  mmdb::PContact contvW; //GDL test
-  int            ncontvW; //GDL test
-  mmdb::PAtom    at1,at2; //GDL test
+  
     deleteCovBonds();
 
     if ((nat1<=1) && (nat2<=1))
@@ -1246,22 +1231,7 @@ namespace pisa  {
 
       MMDB->SeekContacts ( atom1,nat1,atom2,nat2,0.0,2.4,0,
                            cont,ncont,0,NULL,0,0 );
-      //Grisell test:Start
-      /*contvW = NULL;
-      ncontvW = 0 ;
-      MMDB->SeekContacts(atom1,nat1,atom2,nat2,0.0,4.0,0,contvW,ncontvW,0,NULL,0,0);
-      for (i=0;i<ncontvW;i++)
-	{
-          if (contvW[i].dist<4.0)
-	    {
-	      //cout << "hello" <<"\t"<<contvW[i].dist<<"\n" ;
-	      at1  = atom1[contvW[i].id1] ;
-	      at2  = atom2[contvW[i].id2] ;
-	      //	      cout <<"GDL:vdW pot contacts"<< at1->element <<"\t"<< at2->element<<"\n";
-	      cout << "potcont-vdW pot"<<"\t"<< at1->GetResName() <<"\t"<<at1->GetSeqNum ()<<"\t"<<at1->element<<"\t"<< at2->GetResName() <<"\t"<<at2->GetSeqNum()<<"\t"<<at2->element<<"\t"<<contvW[i].dist<< "\n";
-	    }
-	    }*/
-      //Grisell test:End
+      
       maxncont = mmdb::mround ( 1.1*mmdb::IMax(nIntAtoms1,nIntAtoms2) );
 
       overlap = (ncont>maxncont);
@@ -1662,6 +1632,7 @@ namespace pisa  {
                                          int           icell,
                                          int           jcell,
                                          int           kcell,
+					 int           asis_param,
                                          mmdb::mat44 &       t,
                                          int           nIntAtoms,
                                          int           nIntRes,
@@ -1682,6 +1653,9 @@ namespace pisa  {
   int         selHndResOC; //GDL: add Other Contacts  
   int         i,nRes;
 
+
+  
+    
     xml = new mmdb::xml::XMLObject ( xml_asmunit );
 
     if (structNo==1)  D = Domain[domain1];
@@ -1700,27 +1674,29 @@ namespace pisa  {
       case DCLASS_Ligand  :  strcpy ( S,"Ligand"  );
     }
     xml->AddObject ( new mmdb::xml::XMLObject ( xml_asmunit_class,S ) );
-
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_symop_no,symop  ) );
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_symop   ,symOpn ) );
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_cell_i  ,icell  ) );
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_cell_j  ,jcell  ) );
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_cell_k  ,kcell  ) );
-
-    //GDL: commenting out info that we don't need in xml
-    //addXML0 ( xml,xml_asmunit_rxx,t[0][0] );
-    //addXML0 ( xml,xml_asmunit_rxy,t[0][1] );
-    //addXML0 ( xml,xml_asmunit_rxz,t[0][2] );
-    //addXML0 ( xml,xml_asmunit_tx ,t[0][3] );
-    //addXML0 ( xml,xml_asmunit_ryx,t[1][0] );
-    //addXML0 ( xml,xml_asmunit_ryy,t[1][1] );
-    //addXML0 ( xml,xml_asmunit_ryz,t[1][2] );
-    //addXML0 ( xml,xml_asmunit_ty ,t[1][3] );
-    //addXML0 ( xml,xml_asmunit_rzx,t[2][0] );
-    //addXML0 ( xml,xml_asmunit_rzy,t[2][1] );
-    //addXML0 ( xml,xml_asmunit_rzz,t[2][2] );
-    //addXML0 ( xml,xml_asmunit_tz ,t[2][3] );
-
+    
+    //GDL: if as-is flag is used, don't write the following information
+    if(asis_param==0){
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_symop_no,symop  ) );
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_symop   ,symOpn ) );
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_cell_i  ,icell  ) );
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_cell_j  ,jcell  ) );
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_cell_k  ,kcell  ) );
+    
+    
+      addXML0 ( xml,xml_asmunit_rxx,t[0][0] );
+      addXML0 ( xml,xml_asmunit_rxy,t[0][1] );
+      addXML0 ( xml,xml_asmunit_rxz,t[0][2] );
+      addXML0 ( xml,xml_asmunit_tx ,t[0][3] );
+      addXML0 ( xml,xml_asmunit_ryx,t[1][0] );
+      addXML0 ( xml,xml_asmunit_ryy,t[1][1] );
+      addXML0 ( xml,xml_asmunit_ryz,t[1][2] );
+      addXML0 ( xml,xml_asmunit_ty ,t[1][3] );
+      addXML0 ( xml,xml_asmunit_rzx,t[2][0] );
+      addXML0 ( xml,xml_asmunit_rzy,t[2][1] );
+      addXML0 ( xml,xml_asmunit_rzz,t[2][2] );
+      addXML0 ( xml,xml_asmunit_tz ,t[2][3] );
+    }
     xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_natoms,nIntAtoms ) );
     xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_nres ,nIntRes    ) );
     xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_area ,intArea    ) );
@@ -1917,10 +1893,10 @@ namespace pisa  {
   }
 
   mmdb::xml::PXMLObject Interface::getXML ( mmdb::PManager MMDB,
-                                   PPDomain Domain )  {
+					    PPDomain Domain, int as_is_param )  {
   mmdb::xml::PXMLObject xml;
   mmdb::mat44       t;
-
+    
     xml = new mmdb::xml::XMLObject ( xml_interface );
 
     xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_id  ,id        ) );
@@ -1930,12 +1906,15 @@ namespace pisa  {
     xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_se  ,intDeltaG ) );
     xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_pval,PValue    ) );
     xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_sten,stabEn    ) );
-    //GDL: comment out some properties that we don't need- start
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_css ,css       ) );
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_overlap,overlap) );
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_xrel ,Xrel     ) );
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_fixed,fixedLigand) );
-    //GDL: comment out some properties that we don't need- end
+    
+    //GDL start: if status 'as-is' ommit this info in the xml file  
+    if(as_is_param==0){
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_css ,css       ) );
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_overlap,overlap) );
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_xrel ,Xrel     ) );
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_fixed,fixedLigand) );
+    }
+    //GDL end: if status 'as-is' ommit this info in the xml file
     
     xml->AddObject ( makeBondTXML ( HBond,nHBonds,
                                     xml_bond_hbonds,MMDB) );
@@ -1950,12 +1929,12 @@ namespace pisa  {
 
     mmdb::Mat4Init ( t );
     xml->AddObject ( getStructXML ( MMDB,Domain,1,dclass1,1,
-                              0,0,0,t,nIntAtoms1,nIntRes1,
+			      0,0,0,as_is_param,t,nIntAtoms1,nIntRes1,
                               intArea1,intDeltaG1,PValue1,"x,y,z",
                               bsa1,solvEn1 ) );
 
     xml->AddObject ( getStructXML ( MMDB,Domain,2,dclass2,rcsb_symop,
-                              cell_i,cell_j,cell_k,TMatrix,
+			      cell_i,cell_j,cell_k,as_is_param,TMatrix,
                               nIntAtoms2,nIntRes2,
                               intArea2,intDeltaG2,PValue2,symOp,
                               bsa2,solvEn2 ) );
@@ -2849,10 +2828,10 @@ namespace pisa  {
 
 
   mmdb::xml::PXMLObject Interfaces::getXML ( mmdb::PManager MMDB,
-                                             PPDomain Domain ) {
+                                             PPDomain Domain, int as_is_param ) {
   mmdb::xml::PXMLObject xml;
   int         i;
-
+  
   //cout<<"molecular weight"<<"\t"<< weight << "\n";
     xml = new mmdb::xml::XMLObject ( xml_pdb_entry );
     xml->AddObject ( new mmdb::xml::XMLObject(xml_pdb_code,
@@ -2863,7 +2842,7 @@ namespace pisa  {
       xml->AddObject ( new mmdb::xml::XMLObject ( xml_ints_nints,
                                                   nInterfaces ) );
       for (i=0;i<nInterfaces;i++)
-        xml->AddObject ( PI[i]->getXML ( MMDB,Domain ) );
+        xml->AddObject ( PI[i]->getXML ( MMDB,Domain,as_is_param ) );
     } else
       xml->AddObject ( new mmdb::xml::XMLObject ( xml_ints_nints,0 ) );
 

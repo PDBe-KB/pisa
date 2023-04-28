@@ -106,6 +106,7 @@ namespace pisa  {
       Interface ( mmdb::io::RPStream Object );
       ~Interface();
 
+      void   set_asisKey_xml_int ( AS_IS_KEY as_is_Proc_int );
       void   Reset      ();
       void   SetContact ( int   dom1, int  dom2, PDomains D,
                           int nSymOp, mmdb::mat44 & TM,
@@ -130,13 +131,15 @@ namespace pisa  {
       int  isEquivalent ( PInterface Interface, PDomains Domains );
 
       mmdb::xml::PXMLObject getXML ( mmdb::PManager MMDB,
-                                     PPDomain Domain );
+                                     PPDomain Domain, int as_is_param );
 
       void  Copy  ( PInterface interface );
       void  write ( mmdb::io::RFile f );
       void  read  ( mmdb::io::RFile f );
 
     protected :
+
+      AS_IS_KEY  asisKey ;
       void  InitInterface      ();
       void  FreeMemory         ();
       void  deleteHSDBonds     ();
@@ -182,6 +185,7 @@ namespace pisa  {
                                  int            icell,
                                  int            jcell,
                                  int            kcell,
+				 int  	        asis_param,
                                  mmdb::mat44  & t,
                                  int            nIntAtoms,
                                  int            nIntRes,
@@ -244,7 +248,7 @@ namespace pisa  {
       void  assignRCSBSymOps ( PRCSBData rcsbData );
 
       mmdb::xml::PXMLObject getXML ( mmdb::PManager MMDB,
-                                     PPDomain Domain );
+                                     PPDomain Domain, int as_is_param );
 
       void  write ( mmdb::io::RFile f );
       void  read  ( mmdb::io::RFile f );

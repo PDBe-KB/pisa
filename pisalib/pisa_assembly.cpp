@@ -22,6 +22,9 @@
 #include "pisa_assembly.h"
 #include "pisa_defs.h"
 
+#include<iostream>
+using namespace std;
+
 namespace pisa  {
 
 
@@ -902,6 +905,95 @@ namespace pisa  {
 
   }
 
+  mmdb::xml::PXMLObject Assembly::getasisAssemblyXML ( PDomains    D,
+                                                   PInterfaces PI,
+                                                   int   nCellOut )  {
+    mmdb::xml::PXMLObject xml;
+    mmdb::xml::PXMLObject xmlInterfaces;
+    mmdb::xml::PXMLObject xmlInterface;
+    PInterface            interface;
+    mmdb::ivector         intf,dintf;
+    mmdb::pstr            F;
+    int                   i,nInterfaces,n;
+
+    F     = NULL;
+    intf  = NULL;
+    dintf = NULL;
+
+    xml = new mmdb::xml::XMLObject ( xml_assembly );
+    //xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_ser_no  ,serNo    ) );
+    xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_id      ,type+1   ) );
+    xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_size    ,asmSize  ) );
+    xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_mmsize  ,mmSize   ) );
+    xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_freesize,freeSize ) );
+
+    
+    xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_diss_energy,freeEn    ) );
+    //xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_diss_energy_0,freeEn0 ) );
+    xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_asa        ,asa       ) );
+    xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_bsa        ,bsa       ) );
+    xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_entropy    ,entropy   ) );
+    //xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_entropy_0  ,entropy0  ) );
+    xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_diss_area,dissIntArea ) );
+    xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_int_dg     ,seGain    ) );
+    xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_nuc        ,nUC       ) );
+    xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_ndiss      ,nDiss     ) );
+    xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_sym_num    ,symNumber ) );
+
+    xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_formula,
+                                          getFormula(F,D,0,"",false)) );
+
+    xml->AddObject ( new mmdb::xml::XMLObject(xml_asm_composition,
+                                      getComposition(F,D,0,"",false)) );
+
+    /*
+    nInterfaces = PI->getNofInterfaces();
+
+    mmdb::GetVectorMemory ( intf,nInterfaces,0  );
+    getEngagedInterfaces  ( intf,nInterfaces    );
+
+    mmdb::GetVectorMemory ( dintf,nInterfaces,0 );
+    getDissInterfaces     ( dintf,nInterfaces   );
+
+    xmlInterfaces = new mmdb::xml::XMLObject ( xml_asm_interfaces );
+
+    n = 0;
+    for (i=0;i<nInterfaces;i++)
+      if (intf[i]>0)  {
+        interface = PI->getInterface ( i );
+        if (interface)  {
+          n++;
+          xmlInterface = new mmdb::xml::XMLObject ( xml_asm_interface );
+          xmlInterface->AddObject ( new mmdb::xml::XMLObject (
+                                    xml_asm_intf_id,interface->id ) );
+          xmlInterface->AddObject ( new mmdb::xml::XMLObject (
+                                    xml_asm_intf_diss,(dintf[i]>0) ) );
+          xmlInterfaces->AddObject ( xmlInterface );
+        }
+      }
+
+    xmlInterfaces->InsertObject (
+                         new mmdb::xml::XMLObject(xml_asm_nints,n),0 );
+    xml->AddObject ( xmlInterfaces );
+
+    xmlInterfaces->InsertObject (
+                         new mmdb::xml::XMLObject(xml_asm_nints,n),0 );
+    xml->AddObject ( xmlInterfaces );
+
+
+    for (i=0;i<asmSize;i++)
+      xml->AddObject ( M[i]->getAsmUnitXML(D->domain,nCellOut) );
+    */  
+    mmdb::FreeVectorMemory ( intf ,0 );
+    mmdb::FreeVectorMemory ( dintf,0 );
+    if (F)  delete[] F;
+
+    return xml;
+
+
+    
+  }
+  
 
   mmdb::xml::PXMLObject Assembly::getAssemblyXML ( PDomains    D,
                                                    PInterfaces PI,
@@ -914,6 +1006,8 @@ namespace pisa  {
   mmdb::ivector         intf,dintf;
   mmdb::pstr            F;
   int                   i,nInterfaces,n;
+
+
 
     F     = NULL;
     intf  = NULL;

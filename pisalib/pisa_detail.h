@@ -51,8 +51,11 @@ namespace pisa  {
                                       mmdb::cpstr fileName );
       RESULT_CODE MakeAssembliesXML ( mmdb::cpstr sessionName,
                                       mmdb::cpstr fileName );
+      void   set_As_Is_Key_xml ( AS_IS_KEY as_is_Proc );
 
     protected :
+    
+      AS_IS_KEY   asisKey;
 
       void   InitDetail();
 
@@ -84,7 +87,7 @@ namespace pisa  {
       void   printRemark350M        ( mmdb::io::RFile f );
       void   printRemark350         ( mmdb::io::RFile f, PDomain D,
                                       int  domainNo );
-
+    
   };
 
 }  // namespace pisa

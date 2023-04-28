@@ -23,6 +23,9 @@
 #include <time.h>
 #include <sys/stat.h>
 
+#include<iostream>
+using namespace std;
+
 #include "pisa_data.h"
 #include "pisa_types.h"
 #include "pisa_defs.h"
@@ -872,7 +875,9 @@ N,"\n" );
 
     crDir[strlen(crDir)-1] = char(0);
     hfile = _findfirst(crDir, &dir);
+    
     mmdb::CreateConcat ( crDir,mmdb::io::_dir_sep );
+    
     if (hfile!=-1L)  {
       rc = SDIR_Exists;
       _findclose ( hfile );
@@ -918,6 +923,9 @@ N,"\n" );
   int    rc;
 
     makeCrDirPath ( sessionName );
+
+   
+    
     /*
     mmdb::CreateCopy   ( sessionID,sessionName );
     mmdb::CreateCopCat ( crDir,dataRoot,session_prefix,sessionID,
@@ -925,6 +933,8 @@ N,"\n" );
     */
 
     dir = opendir(crDir);
+    //cout<<"GDL:dir"<<"\t"<<crDir<<"\n";
+    
     if (dir)  {
       rc = SDIR_Exists;
       closedir ( dir );

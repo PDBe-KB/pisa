@@ -362,7 +362,6 @@ namespace mmdb  {
           IOSuccess = true;
 
         } else  {
-
           StdIO = false;
           if (gzipIO==ARCH_GZIP)  {
     #ifndef _MSC_VER
