@@ -577,8 +577,7 @@ namespace mmdb  {
      "A",  "C",  "G",  "I",   "T",   "U",
     "+A", "+C", "+G", "+I",  "+T",  "+U",
     "DA", "DC", "DG", "DI",  "DT",  "DU",
-    "RA", "RC", "RG", "RU", "5NC", "TYD",
-    "0C", "0U", "0G"
+    "RA", "RC", "RG", "RU", "5NC", "TYD"
   };
 
 

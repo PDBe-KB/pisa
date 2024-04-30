@@ -3,7 +3,7 @@
 # Modify srcdir below to point to complete path of the PISA-LITE directory
 # For example: srcdir=/Users/foo/bar/pisa-lite
 
-srcdir=[ADD YOUR PISA-LITE PATH HERE]
+srcdir=/Users/gdiazleines/programs/pisa-lite
 
 mkdir build
 

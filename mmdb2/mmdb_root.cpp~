@@ -1732,7 +1732,7 @@ namespace mmdb  {
           
           if (LoopRemap) RC2=atom[index-1]->GetremapCIF ( i,LoopRemap); //GDL:added LoopRemap
         }
-   
+      if (!RC)  RC = atom[index-1]->GetCIF ( i,Loop,LoopAnis );
       if (RC && (RC!=Error_CIF_EmptyRow))  return RC;
     }
     if (Flags & MMDBF_AutoSerials)
