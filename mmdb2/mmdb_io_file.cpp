@@ -1,4 +1,4 @@
-//  $Id: file_.cpp,v 1.29 2012/01/26 17:52:19 ekr ExAp $
+//  $Id: file_.cpp,v 1.29 2012/01/26 17:52:19 ekr Exp $
 //  =================================================================
 //
 //   CCP4 Coordinate Library: support of coordinate-related
@@ -41,10 +41,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <iostream>
-using namespace std;
-
 #ifdef  _WIN32
+#define WIN32_LEAN_AND_MEAN
 # include <windows.h>
 #ifndef sleep
 # define sleep Sleep
@@ -300,22 +298,19 @@ namespace mmdb  {
       }
     }
 
-    //static pstr gzip_path       = pstr("gzip ");
-    //static pstr ungzip_path     = pstr("gzip -dc ");
-    //GDL:include use of pigz for faster compression/uncompression
     static pstr gzip_path       = pstr("gzip ");
     static pstr ungzip_path ;
-    //    static pstr ungzip_path     = pstr("gzip -dc ");
+    //static pstr ungzip_path     = pstr("gzip -dc ");
     static pstr compress_path   = pstr("compress ");
     static pstr uncompress_path = pstr("uncompress -c ");
-
+    
     void SetGZIPcommand (pstr ungzipPath )  {
 
       FILE *fp;
-      //ungzip_path = pstr("gzip -dc ");
-            
+      //ungzip_path = pstr("gzip -dc ");                                                               
+
       if (system(pstr("which pigz > /dev/null 2>&1")))  ungzip_path = pstr("gzip -dc ");
-                             else   ungzip_path = pstr("pigz -dc ");   
+                             else   ungzip_path = pstr("pigz -dc ");
 
     }
     void  SetGZIPPath ( pstr gzipPath, pstr ungzipPath )  {
@@ -336,8 +331,8 @@ namespace mmdb  {
     bool  File::reset ( bool ReadOnly, int retry )  {
     #ifndef _MSC_VER
     pstr p;
-    int  i;
     #endif
+    int  i;
 
       if (memIO)  {
 
@@ -362,11 +357,12 @@ namespace mmdb  {
           IOSuccess = true;
 
         } else  {
+
           StdIO = false;
           if (gzipIO==ARCH_GZIP)  {
     #ifndef _MSC_VER
             p = NULL;
-	    SetGZIPcommand (ungzip_path );
+	    SetGZIPcommand (ungzip_path );// GDL: if possible use pigz for faster compression/uncompression
 	    //cout<<"GDL: ungzip_path is"<<"\t"<<ungzip_path<<"\n";
             CreateConcat  ( p,ungzip_path,FName );
             for (i=0;(i<=retry) && (!hFile);i++)  {
@@ -388,8 +384,6 @@ namespace mmdb  {
     #endif
 
           } else  {
-
-    #ifndef _MSC_VER
             for (i=0;(i<=retry) && (!hFile);i++)  {
               if (i>0)  sleep ( 1 );
               if (TextMode)  {
@@ -400,8 +394,6 @@ namespace mmdb  {
                          else  hFile = fopen ( FName,"r+b" );
               }
             }
-    #endif
-
           }
 
           if (hFile)  {
