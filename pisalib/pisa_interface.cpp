@@ -720,16 +720,14 @@ namespace pisa  {
   SolvEnergy    SolvEnergy;
   mmdb::PModel  model;
   mmdb::PPAtom  atom1,atom2;
-  ccp4srs::PAtomPair   SB; 
   mmdb::rvector x1,y1,z1, x2,y2,z2, SAS1,intSAS1,SAS2,intSAS2, atomSE;
   mmdb::mat44   ST,tm;
   char          symOpTitle[300];
   int           nAtoms1,nAtoms2;
-  //int           uddHnd;
   int           selHnd1,selHnd2,selHndSurf2,selHndR;
   int           i;//,mrc;
   PROSURF_RC    rc;
-  int           nSBs;
+
 
     deleteHSDBonds  ();
     deleteCovBonds  ();
