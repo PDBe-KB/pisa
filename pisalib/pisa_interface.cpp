@@ -1064,7 +1064,6 @@ namespace pisa  {
     mmdb::PAtom      a1,a2;
     int              i,j,ncont, sec1, sec2, s1, s2;
     mmdb::ivector    SBsec1,SBsec2,HBsec1,HBsec2,CovBsec1,CovBsec2,DSsec1,DSsec2;
-    //bool         isHBond,isSBridge,isCovBond, isDSBond, isBond;
     bool             isBond;           
     mmdb::ivector    bondsec1,bondsec2;
     mmdb::PContact   othcont;
@@ -1089,13 +1088,11 @@ namespace pisa  {
     mmdb::GetVectorMemory ( bondsec1,ncont,0 );
     mmdb::GetVectorMemory ( bondsec2,ncont,0 );
 
+    
     atnames1 = new mmdb::AtomName[ncont];
     atnames2 = new mmdb::AtomName[ncont];
 
-    //isHBond=false;
-    //isSBridge= false ;
-    //isCovBond=false;
-    //isDSBond= false;
+    deleteOthBonds();
 
     othcont = NULL;
     nothcont = 0 ;
@@ -1112,9 +1109,10 @@ namespace pisa  {
       bondsec1[i] = a1->GetSeqNum ();
       bondsec2[i] = a2->GetSeqNum ();
       strcpy ( atnames1[i],a1->name );
-      strcpy ( atnames2[i],a2->name );		        
+      strcpy ( atnames2[i],a2->name );
+   
     }
-
+    
     // Get list of atoms from interface residues 1 and 2 that form H-bonds
     for (i=0;i<nHBonds;i++)  {
       a1 = GetAtom ( MMDB,HBond[i].serNum1 );
@@ -1125,6 +1123,7 @@ namespace pisa  {
       bondsec2[nSBridges+i]=a2->GetSeqNum ();
       strcpy ( atnames1[nSBridges+i],a1->name );
       strcpy ( atnames2[nSBridges+i],a2->name );
+
     }
     // Get list of atoms from interface residues 1 and 2 that form covalent bonds  
     for (i=0;i<nCovBonds;i++)  {
@@ -1136,6 +1135,7 @@ namespace pisa  {
       bondsec2[nSBridges+nHBonds+i]=a2->GetSeqNum ();
       strcpy ( atnames1[nSBridges+nHBonds+i],a1->name );
       strcpy ( atnames2[nSBridges+nHBonds+i],a2->name );
+      
     }
 
     // Get list of atoms from interface residues 1 and 2 that form disulfide bonds
@@ -1148,26 +1148,15 @@ namespace pisa  {
       bondsec2[nSBridges+nHBonds+nCovBonds+i] = a2->GetSeqNum ();
       strcpy ( atnames1[nSBridges+nHBonds+nCovBonds+i],a1->name );
       strcpy ( atnames2[nSBridges+nHBonds+nCovBonds+i],a2->name );
+      
     }
       
-      
-    //check list of h-bonds, s-bridges, cov-bonds and disulfide bonds
-    //for (i=0;i<ncont;i++)
-    //{
-    //   cout<<"all known bonds sec numbers:"<<"\t"<<bondsec1[i] <<"\t"
-    //   <<bondsec2[i]<<"\t"<<atnames1[i] <<"\t"<<atnames2[i]<<"\n";
-    //}
-
-    // nOthBonds, OthBond - no. of other contacts, list of contacts (variables exported to xml file) 
     nOthBonds = 0;
     OthBond   = new IBond[nothcont];
 
     // Seek for contacts that are not already labeled as h-bonds, s-bridges, cov-bonds or disulfide bonds, and save them in the list OthBond and counter nOthBonds
     for (i=0;i<nothcont;i++)  {
-      //isHBond=false;
-      //isSBridge= false ;
-      //isCovBond=false;
-      //isDSBond= false;
+
       isBond = false;
 	  
       if (othcont[i].dist<OthBondThresh)  {
@@ -1178,30 +1167,24 @@ namespace pisa  {
         strcpy ( at1name,at1->name );
         strcpy ( at2name,at2->name );
 
-	      //   cout << "potcont-vdW pot"<<"\t"<< at1->GetResName() <<"\t"<<at1->GetSeqNum ()<<"\t"<<at1->name<<"\t"
-	      //<< at2->GetResName() <<"\t"<<at2->GetSeqNum()<<"\t"<<at2->name<<"\t"<<contvW[i].dist<< "\n"; 
-
 	      for (j=0;j<ncont;j++) {
     		  if (sec1 == bondsec1[j] && sec2 == bondsec2[j] && 
-              (!strcmp(at1name,atnames1[j])) && (!strcmp(at2name,atnames2[j])))  {
+		      (strcmp(at1name,atnames1[j])==0) && (strcmp(at2name,atnames2[j])==0))  {
 		        isBond = true ; 
 		      }
 		    }
 	      
-	      if(!isBond)  {
-          //cout<<nOthBonds<<"\t"<<"other contacts:"<<"\t"<< at1->GetResName()<<"\t"<<
-          //sec1 <<"\t"<<at1name<<"\t"<<"\t"<< at2->GetResName()<<"\t"<<sec2
-          //<<"\t"<<at2name<<"\t"<<othcont[i].dist<<"\n";
-          OthBond[nOthBonds].serNum1 = at1->serNum;
-          OthBond[nOthBonds].serNum2 = at2->serNum;
-          OthBond[nOthBonds].dist    = othcont[i].dist;
-          nOthBonds++;  
+	      if(!isBond)  {		
+		OthBond[nOthBonds].serNum1 = at1->serNum;
+		OthBond[nOthBonds].serNum2 = at2->serNum;
+		OthBond[nOthBonds].dist    = othcont[i].dist;
+		nOthBonds++;  
     		}
 	      
 	    }
 	  
 	  }
-
+    
     mmdb::FreeVectorMemory ( SBsec1  ,0 );
     mmdb::FreeVectorMemory ( SBsec2  ,0 );
     mmdb::FreeVectorMemory ( HBsec1  ,0 );
