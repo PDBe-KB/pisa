@@ -13,19 +13,19 @@
 #  directories.
 # For example: .../pisa-lite
 DATA_ROOT
-.
+/data/sessions
 
 
 #  SRS_DIR must point on the directory containing SRS files.
 # For example: .../pisa-lite/setup/srs
 SRS_DIR
-./setup/srs
+/data/setup/srs
 
 
 #  MOLREF_DIR must point on the directory containing MolRef files.
 # For example: .../pisa-lite/setup/molref
 MOLREF_DIR
-./setup/molref
+/data/setup/molref
 
 
 #  PISTORE_DIR must point on the directory containing files:
@@ -36,7 +36,7 @@ MOLREF_DIR
 #          rcsb_symops.dat
 # For example: .../pisa-lite/setup/pisastore
 PISTORE_DIR
-./setup/pisastore
+/data/setup/pisastore
 
 
 # The following lines are required for running PISA-lite

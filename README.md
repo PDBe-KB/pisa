@@ -153,6 +153,22 @@ The xml output file for assemblies has the following information:
 * Formula         :  assembly formula
 * composition     :  assembly composition
 
+## Run in Docker
+
+A Docker image is available for PISA-lite. To run PISA-lite in Docker, use the following command:
+
+``` bash
+
+# Run the analysis
+docker run -v $PWD:/data pdbegroup/pisa-lite pisa test-session -analyse /data/example_data/6gve.cif /data/pisa_cfg
+
+# Get the interfaces
+docker run -v $PWD:/data pdbegroup/pisa-lite pisa test-session -xml interface /data/pisa_cfg
+
+```
+
+The above command will create a session named `test-session`, run PISA on the provided example data (6gve.cif) and store the results in the session directory. We mount the current directory to the `/data` directory in the Docker container. So the sessions would be stored in the `sessions` directory in the current directory.
+
 ## Acknowledgements
 
 This code is based on CCP4 PISA and has been developed through a collaboration between EMBL-EBI and CCP4. 
