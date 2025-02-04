@@ -1,0 +1,55 @@
+# ------------------------------------------------------------------- #
+#                                                                     #
+#          This is configuratrion file for PISA-lite software.        #
+#                                                                     #
+#   When used in command-prompt mode, this file must be specified     #
+#       as last argument in thecommand line, or pointed out by        #
+#              PISA_CONF_FILE environmental variable.                 #
+#                                                                     #
+# ------------------------------------------------------------------- #
+
+
+#  DATA_ROOT must point on the directory to contain session
+#  directories.
+# For example: .../pisa-lite
+DATA_ROOT
+.
+
+
+#  SRS_DIR must point on the directory containing SRS files.
+# For example: .../pisa-lite/setup/srs
+SRS_DIR
+./setup/srs
+
+
+#  MOLREF_DIR must point on the directory containing MolRef files.
+# For example: .../pisa-lite/setup/molref
+MOLREF_DIR
+./setup/molref
+
+
+#  PISTORE_DIR must point on the directory containing files:
+#          agents.dat
+#          asm_params.dat
+#          intfstats.dat
+#          syminfo_pisa.lib and
+#          rcsb_symops.dat
+# For example: .../pisa-lite/setup/pisastore
+PISTORE_DIR
+./setup/pisastore
+
+
+# The following lines are required for running PISA-lite
+RASMOL_COM
+JMOL_COM
+CCP4MG_COM
+
+
+#  SESSION_PREFIX is prefix for the names of session directories
+#  created in DATA_PATH ("pisrv_" is used by default). Be sure to
+#  have unique prefixes for each configuration file that is invoked
+#  from a different user login or apache service. Session directories
+#  are regularly removed from DATA_PATH, and SESSION_PREFIX allows
+#  one to avoid permission conflicts between different services.
+SESSION_PREFIX
+pisa_

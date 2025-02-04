@@ -14,11 +14,17 @@ git clone https://github.com/PDBe-KB/pisa-lite
 cd pisa-lite
 ``` 
 
-2.) Edit the `compile.sh` file in the root directory of the repository (`.../pisa-lite/compile.sh`)
+2.) **Either** export the environment variable `$SRCDIR` to point the compiler to the correct directory. E.g.:
+
+```
+export SRCDIR=/path/to/your/pisa-lite
+```
+
+**Or** edit the `compile.sh` file in the root directory of the repository (`.../pisa-lite/compile.sh`) directly
 
 Add the complete path to the pisa-lite directory:
 ```
-srcdir=/complete/path/to/pisa-lite
+srcdir=/path/to/your/pisa-lite
 ```
 
 4.) Compile PISA-lite
@@ -54,15 +60,15 @@ pisa [name] -analyse [coorfile] [options] [cfg]
 
 [options] : Optional processing keys (see below)
 
-[cfg]: (required) Path to configuration file (it must be provided unless it is already set as environmental variable in PISA_CONF_FILE). Note that this always have to be the last parameter.
+[cfg]: (required) Path to configuration file (it must be provided unless it is already set as environmental variable in PISA_CONF_FILE). Note that this always has to be the last parameter. A default file (`pisa_cfg`) is provided in the repository root. 
 
 ###  Options
 
-Type `./build pisa` to view all the options and their explanations.
+Type `./build/pisa` to view all the options and their explanations.
 
 ## XML file
 
-PISA-lite generate the results in binary format. The data has to be converted into human-readable XML format using the following command:
+PISA-lite generates the results in binary format. The data has to be converted into human-readable XML format using the following command:
 
 ```
 pisa name -xml {interfaces|assemblies} [cfg] > outputfile.xml
@@ -70,7 +76,7 @@ pisa name -xml {interfaces|assemblies} [cfg] > outputfile.xml
 
 Note that the `name` parameter has to match an existing session name. For example, if PISA-lite was used to analyse a PDB structure and the name of that session was `analyise_3bow`, then to convert the binary to XML, the name parameter has to be `analyise_3bow` as well.
 
-Also note that `interfaces` and `assemblies` and the exact terms expected by the command.
+Also note that `interfaces` and `assemblies` are the exact terms expected by the command.
 
 ### Interfaces:
 
