@@ -1,7 +1,7 @@
 # PISA (Protein Interfaces, Surfaces and Assemblies)
 
 ## Description
-Note: This version of PISA source code is identical to that used in the interactive tool [PISA](https://www.ccp4.ac.uk/html/pisa.html) released in the latest version of the CCP4 Software Suite, version 9.0. 
+Note: This version of PISA is identical to that used in the interactive tool [PISA](https://www.ccp4.ac.uk/html/pisa.html) released in the latest version of the CCP4 Software Suite, version 9.0. 
 
 PISA was developed for the investigation of macromolecular interfaces (e.g. between proteins and nucleic acids) and to predict the most probable quaternary structures or assemblies.
 
