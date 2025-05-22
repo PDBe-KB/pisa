@@ -1,10 +1,11 @@
-# PISA-lite
+# PISA (Protein Interfaces, Surfaces and Assemblies)
 
 ## Description
+Note: This version of PISA source code is identical to that used in the interactive tool [PISA](https://www.ccp4.ac.uk/html/pisa.html) released in the latest version of the CCP4 Software Suite, version 9.0. 
 
-PISA-lite (Protein Interfaces, Surfaces and Assemblies) is a lightweight version of the interactive tool [CCP4 PISA](https://www.ccp4.ac.uk/html/pisa.html). CCP4 PISA was developed to investigate macromolecular interfaces (e.g. between proteins and nucleic acids) and to identify the most probable quaternary structures or assemblies.
+PISA was developed for the investigation of macromolecular interfaces (e.g. between proteins and nucleic acids) and to predict the most probable quaternary structures or assemblies.
 
-PISA-lite differs from CCP4 PISA in that it does not calculate assemblies, but performs interface analysis significantly faster. [PDBe](https://pdbe.org) uses PISA-lite to calculate macromolecular interaction data which is integrated with functional annotations from [PDBe-KB](https://pdbe-kb.org) and displayed on PDBe and PDBe-KB pages.
+In the last version of PISA (CCP4 v 9.0) there is now an option to not calculate and predict assemblies, but only perform assembly interface analysis. [PDBe](https://pdbe.org) uses this option in PISA to calculate macromolecular interaction data which is integrated with functional annotations from [PDBe-KB](https://pdbe-kb.org) and displayed on PDBe and PDBe-KB pages.
 
 ## Compiling and running PISA-lite
 
