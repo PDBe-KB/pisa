@@ -5,7 +5,7 @@ Note: This version of PISA is identical to that used in the interactive tool [PI
 
 PISA was developed for the investigation of macromolecular interfaces (e.g. between proteins and nucleic acids) and to predict the most probable quaternary structures or assemblies.
 
-In the last version of PISA (CCP4 v 9.0) there is now an option to not calculate and predict assemblies, but only perform assembly interface analysis. [PDBe](https://pdbe.org) uses this option in PISA to calculate macromolecular interaction data which is integrated with functional annotations from [PDBe-KB](https://pdbe-kb.org) and displayed on PDBe and PDBe-KB pages.
+In the latest version of PISA (CCP4 v 9.0), we have added an option to perform only assembly interface analysis and to opt out of the calculation and prediction of assemblies. [PDBe](https://pdbe.org) uses this option in PISA to efficiently calculate macromolecular interaction data, which is integrated with functional annotations from [PDBe-KB](https://pdbe-kb.org) and displayed on PDBe and PDBe-KB pages.
 
 ## Compiling and running PISA-lite
 
@@ -66,6 +66,9 @@ pisa [name] -analyse [coorfile] [options] [cfg]
 ###  Options
 
 Type `./build/pisa` to view all the options and their explanations.
+
+## 'AS IS' 
+PISA has the option to only perform the analysis of interfaces for a given input assembly, omitting the calculation of probable assemblies 
 
 ## XML file
 
