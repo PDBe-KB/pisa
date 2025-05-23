@@ -67,15 +67,25 @@ pisa [name] -analyse [coorfile] [options] [cfg]
 
 Type `./build/pisa` to view all the options and their explanations.
 
-## 'AS IS' 
+## AS IS flag 
 PISA has the option to only perform the analysis of interfaces for a given input assembly, omitting the calculation of probable assemblies 
+
+```
+pisa [name] -analyse [coorfile] --as-is [cfg]
+```
+If the flag --as-is is used, PISA will analyse the interfaces in the given input assembly and omit the prediction of assemblies from crystallographic data.
 
 ## XML file
 
-PISA-lite generates the results in binary format. The data has to be converted into human-readable XML format using the following command:
+PISA-lite generates the results in binary format. The data has to be converted into a human-readable XML format using the following command:
 
 ```
 pisa name -xml {interfaces|assemblies} [cfg] > outputfile.xml
+```
+We can optionally add the flag --as-is to generate an xml file containing information about the interfaces of the given assembly, omitting all other parameters/variables related to the prediction of assemblies. 
+
+```
+pisa name -xml {interfaces|assemblies} --as-is > outputfile.xml
 ```
 
 Note that the `name` parameter has to match an existing session name. For example, if PISA-lite was used to analyse a PDB structure and the name of that session was `analyise_3bow`, then to convert the binary to XML, the name parameter has to be `analyise_3bow` as well.
