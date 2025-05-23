@@ -150,6 +150,13 @@ The xml output file for interfaces has the following information:
 * solv_en         :   Solvation energy effect (kcal/mol)
 * asa             :   accessible surface area (A^2)
 * bsa             :   Buried surface area  (A^2)
+* 
+If the calculation of the probable assemblies is performed, this information is shown:
+* ccs score       :   Complex Formation Significance Score. CSS ranges from 0 to 1 as interface relevance to complex formation increases.
+* Symmetry operations
+* Unit cell parameters [cell unit rxx,rxy,rxz,ryx,ryy,ryz,ty,rzx,rzy,rzz,tz]
+
+
 
 ### Assemblies:
 
@@ -166,6 +173,14 @@ The xml output file for assemblies has the following information:
 * n_diss          :  number of dissociating parts
 * Formula         :  assembly formula
 * composition     :  assembly composition
+
+If the calculation of the probable assemblies is performed, this additional information is shown:
+
+* Assessment : contains yes for stable assemblies and no for those which are likely to dissociate in solution. This classification is based on the value of free energy of dissociation.
+* Score : Assembly score based on assembly size (number of asymmetric units). It indicates if the assembly appears to be stable in solution
+* Symmetry operations
+* Symmetry ID
+* Unit cell parameters [cell unit rxx,rxy,rxz,ryx,ryy,ryz,ty,rzx,rzy,rzz,tz]
 
 ## Run in Docker
 
