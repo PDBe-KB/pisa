@@ -121,10 +121,14 @@ namespace pisa  {
       
       mmdb::pstr sizeName ( mmdb::pstr S );  // returns S filled
 
+      mmdb::xml::PXMLObject getasisAssemblyXML ( PDomains    D,
+                                             PInterfaces PI,
+                                             int   nCellOut);
+      
       mmdb::xml::PXMLObject getAssemblyXML ( PDomains    D,
                                              PInterfaces PI,
                                              int   nCellOut,
-                                             int      Score );
+                                             int      Score);
 
       void write ( mmdb::io::RFile f, int nInterfaces );
       void read  ( mmdb::io::RFile f, int nInterfaces );

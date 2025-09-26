@@ -239,6 +239,13 @@ namespace pisa  {
     LIGANDS_FixAll  = 2
   };
 
+  enum AS_IS_KEY  {
+    AS_IS_off    = 0,
+    AS_IS_on     = 1
+  };
+
+
+
   enum ISORT_KEY  {
     ISORT_Off    = 0,
     ISORT_Area   = 1,

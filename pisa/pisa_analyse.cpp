@@ -24,6 +24,9 @@
 
 #include "ccp4srs/ccp4srs_defs.h"
 
+#include<iostream>
+using namespace std;
+
 namespace pisa  {
 
   // =======================  Analyse  ==========================
@@ -40,6 +43,7 @@ namespace pisa  {
   void Analyse::InitAnalyse()  {
     ligExcl = NULL;
     ligKey  = LIGANDS_Auto;
+    asisKey = AS_IS_off ;
   }
 
   void Analyse::setLigExclude ( mmdb::pstr ligList )  {
@@ -48,6 +52,10 @@ namespace pisa  {
 
   void Analyse::setLigKey ( LIGAND_KEY ligProc )  {
     ligKey = ligProc;
+  }
+
+  void Analyse::setAsIsKey ( AS_IS_KEY asisProc )  {
+    asisKey = asisProc;
   }
 
   RESULT_CODE Analyse::analyse ( mmdb::pstr sessionName,
@@ -66,6 +74,7 @@ namespace pisa  {
       return RESULT_ConfigurationError;
 
     rc = readAssemblyParameters();
+    
     if (rc!=RESULT_Ok)
       return rc;
 
@@ -104,7 +113,7 @@ namespace pisa  {
 
     makeProSurf();
 
-
+    
     //   5. Analyse coordinate file
 
     FN = NULL;
@@ -113,7 +122,9 @@ namespace pisa  {
 
     query->setLigKey     ( ligKey  );
     query->setLigExclude ( ligExcl );
-
+    
+    query->setAsIsKey     ( asisKey  );
+    
     ds = query->analyseStructure ( coorFile,molRef,agentsRef );
 
     if (ds & DS_notAnalysed)           rc = RESULT_notAnalysed;
@@ -144,8 +155,9 @@ namespace pisa  {
         // calculate domain surfaces and dimensions for
         // identification of potential interfaces
         psrc = query->CalcSurfaces ( proSurf,molRef );
+	
+        
         if (psrc==PROSURF_Ok)  {
-
           printf ( " ... molecular surfaces analysed\n" );
 
           // find all potential contacts. We calculate all potential
@@ -220,7 +232,7 @@ namespace pisa  {
                                      break;
 
 		//GDL: replacing with 'as is', as there is not assembly analysis performed
-		default :  printf ( "assembly 'as is'/ %s\n",
+		default :  printf ( "status 'as is': %s\n",
                                     getAsmStatus(query->asmStatus) );
               }
 
@@ -280,7 +292,6 @@ namespace pisa  {
     if (coorFile)  delete[] coorFile;
     if (rc!=RESULT_Ok)  return rc;
 
-
     //  2. Check whether the topmost assembly is a dimer
 
     rc = RESULT_noDimerFound;
@@ -297,7 +308,10 @@ namespace pisa  {
       } else  {
         DG0 = -A->dissEn - A->entropy;
         query->setLigandsAssemble ( False );
-        //query->CalcAssemblies();
+	cout<<"GDL:"<<asisKey<<"\n";
+	
+	query->CalcAssemblies();
+	
         writeParams();
         if ((writePIData()!=RESULT_Ok) ||
             (writeStructure()!=RESULT_Ok) ||

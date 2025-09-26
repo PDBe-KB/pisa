@@ -121,7 +121,7 @@ namespace mmdb  {
   }
 
   cpstr CIFCAT_ATOM_SITE                  = cpstr("_atom_site");
-  cpstr CIFCAT_PDBX_CHAIN_REMAPPING       = cpstr("_pdbx_chain_remapping");
+  cpstr CIFCAT_PDBX_CHAIN_REMAPPING       = cpstr("_pdbx_chain_remapping"); //GDL:added CIFCAT_PDBX_CHAIN_REMAPPING
   cpstr CIFCAT_ATOM_SITE_ANISOTROP        = cpstr("_atom_site_anisotrop");
   cpstr CIFCAT_ATOM_SITES                 = cpstr("_atom_sites");
   cpstr CIFCAT_AUDIT_AUTHOR               = cpstr("_audit_author");
@@ -165,11 +165,11 @@ namespace mmdb  {
   cpstr CIFTAG_ASYM_ID                       = cpstr("asym_id");
   cpstr CIFTAG_ATOM_TYPE_SYMBOL              = cpstr("atom_type_symbol");
   cpstr CIFTAG_AUTH_ASYM_ID                  = cpstr("auth_asym_id");
-  cpstr CIFTAG_ORIG_AUTH_ASYM_ID             = cpstr("orig_auth_asym_id");
+  cpstr CIFTAG_ORIG_AUTH_ASYM_ID             = cpstr("orig_auth_asym_id"); //GDL:added ORIG_AUTH_ASYM_ID
   cpstr CIFTAG_AUTH_ATOM_ID                  = cpstr("auth_atom_id");
   cpstr CIFTAG_AUTH_COMP_ID                  = cpstr("auth_comp_id");
   cpstr CIFTAG_AUTH_SEQ_ID                   = cpstr("auth_seq_id");
-  cpstr CIFTAG_PDBX_SIFTS_XREF_DB_ACC        = cpstr("pdbx_sifts_xref_db_acc"); //GDL:adding uniprot tag from update cif
+  cpstr CIFTAG_PDBX_SIFTS_XREF_DB_ACC        = cpstr("pdbx_sifts_xref_db_acc"); //GDL:adding uniprot tag from updated cif
   cpstr CIFTAG_PDBX_SIFTS_XREF_DB_NUM        = cpstr("pdbx_sifts_xref_db_num"); //GDL:adding uniprot tag from updated cif
   cpstr CIFTAG_PDBX_SIFTS_XREF_DB_NAME       = cpstr("pdbx_sifts_xref_db_name"); //GDL:adding uniprot tag from updated cif
   cpstr CIFTAG_B_ISO_OR_EQUIV                = cpstr("B_iso_or_equiv");
@@ -372,6 +372,5 @@ namespace mmdb  {
   cpstr CIFTAG_CONN_PTNR1_SYMMETRY           = cpstr("ptnr1_symmetry");
   cpstr CIFTAG_CONN_PTNR2_SYMMETRY           = cpstr("ptnr2_symmetry");
   cpstr CIFTAG_CONN_NAME                     = cpstr("link_name");
-  cpstr CIFTAG_APPLIED_OPERATIONS            = cpstr("applied_operations");
-
+  cpstr CIFTAG_APPLIED_OPERATIONS            = cpstr("applied_operations"); //GDL:added applied operations
 }  // namespace mmdb

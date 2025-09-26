@@ -72,7 +72,9 @@ namespace pisa  {
 
       void setLigExclude ( mmdb::cpstr ligList );
       void setLigKey     ( LIGAND_KEY  ligProc );
+      void setAsIsKey    ( AS_IS_KEY asisProc );
 
+    
       DATASTATUS analyseStructure ( mmdb::cpstr  fileName,
                                     PMolRefIndex molRef,
                                     mmdb::cpstr  agentsRef );
@@ -158,7 +160,7 @@ namespace pisa  {
       void outputAsmData    ( mmdb::io::RFile f );
       void outputAssemblies ( mmdb::pstr outDir, int maxNofAsmSets );
 
-      mmdb::xml::PXMLObject getInterfacesXML();
+      mmdb::xml::PXMLObject getInterfacesXML(int asis_param);
 
       void read  ( mmdb::io::RFile f );
       void write ( mmdb::io::RFile f );
@@ -166,6 +168,8 @@ namespace pisa  {
     protected :
       mmdb::pstr  ligExcl;  //!< list of ligands to exclude from analysis
       LIGAND_KEY  ligKey;   //!< ligand processing mode
+
+      AS_IS_KEY   asisKey;
       int         nInterfaces,nDomains,nNCSParents,nAssemblies;
 
       void  InitQueryData();

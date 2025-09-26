@@ -4,7 +4,7 @@
 //   CCP4 Coordinate Library: support of coordinate-related
 //   functionality in protein crystallography applications.
 //
-//   Copyright (C) Eugene Krissinel 2000-2018.
+//   Copyright (C) Eugene Krissinel 2000-2022.
 //
 //    This library is free software: you can redistribute it and/or
 //    modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,7 @@
 //
 //  =================================================================
 //
-//    24.02.21   <--  Date of Last Modification.
+//    09.02.22   <--  Date of Last Modification.
 //                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //  -----------------------------------------------------------------
 //
@@ -33,7 +33,7 @@
 //
 //      Definition of types, constants and important classes.
 //
-//  (C) E. Krissinel 2000-2021
+//  (C) E. Krissinel 2000-2022
 //
 //  =================================================================
 //
@@ -60,7 +60,6 @@ namespace mmdb  {
   typedef  char         RecName [7];    //!< name of PDB record
 
   typedef  char         ChainID [10];   //!< chain ID
-  //typedef  char         LabelSeqID [10];   //!< label sequene ID //GDL:changed label_seq_id to char instead of char  
   typedef  ChainID *    PChainID;       //!< pointer to chain ID
   typedef  char         InsCode [10];   //!< insertion code
   typedef  char         DBName  [10];   //!< sequence database name
@@ -109,7 +108,7 @@ namespace mmdb  {
 
   //   ANY_RES should be used in selection functions for specifying
   // "any residue" to select. Defined in mmdb_selmngr.cpp
-  extern const int ANY_RES;
+  extern MMDB_DL_IMPORT(const int) ANY_RES;
 
   //    PRNK_XXXXX are the print keys. PRNK_Silent supresses all print
   // inside mmdb_xxxx unless specifically ordered or catastrophic.

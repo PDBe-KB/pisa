@@ -27,6 +27,8 @@
 #define  job_lig_fixed_tag             "--lig=fixed"
 #define  job_lig_free_tag              "--lig=free"
 #define  job_lig_exclude_tag           "--lig-exclude="
+//GDL: add flag 'as is'
+#define  job_as_is_on_tag              "--as-is"
 //#define  job_lig_excl_all_tag          "(all)"
 //#define  job_lig_excl_agents_tag       "(agents)"
 #define  job_erase_tag                 "-erase"

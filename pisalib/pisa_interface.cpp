@@ -58,7 +58,7 @@ namespace pisa  {
                // only if 2.7 A S-S distance in disulphide bond is
                // allowed.
   static mmdb::realtype CovBondThresh   = 1.9;  // angstrom
-  static mmdb::realtype OthBondThresh   = 4.0;  // angstrom
+  static mmdb::realtype OthBondThresh   = 5.0;  // angstrom
 
   void SetBondFactors ( mmdb::realtype HBEn, mmdb::realtype SBEn,
                         mmdb::realtype DSEn, mmdb::realtype epsf )  {
@@ -337,6 +337,10 @@ namespace pisa  {
     FreeMemory();
   }
 
+  void Interface::set_asisKey_xml_int ( AS_IS_KEY as_is_Proc_int )  {
+    asisKey = as_is_Proc_int;
+  }
+  
   void Interface::FreeMemory()  {
     if (symOp)  {
       delete[] symOp;
@@ -448,13 +452,6 @@ namespace pisa  {
       DSBond = NULL;
     }
     nDSBonds = 0;
-
-    //GDL add
-    //    if (OthBond)  {
-    //  delete[] OthBond;
-    //  OthBond = NULL;
-    //}
-    //nOthBonds = 0;
 
   }
 
@@ -723,16 +720,14 @@ namespace pisa  {
   SolvEnergy    SolvEnergy;
   mmdb::PModel  model;
   mmdb::PPAtom  atom1,atom2;
-  ccp4srs::PAtomPair   SB; 
   mmdb::rvector x1,y1,z1, x2,y2,z2, SAS1,intSAS1,SAS2,intSAS2, atomSE;
   mmdb::mat44   ST,tm;
   char          symOpTitle[300];
   int           nAtoms1,nAtoms2;
-  //int           uddHnd;
   int           selHnd1,selHnd2,selHndSurf2,selHndR;
   int           i;//,mrc;
   PROSURF_RC    rc;
-  int           nSBs;
+
 
     deleteHSDBonds  ();
     deleteCovBonds  ();
@@ -743,6 +738,8 @@ namespace pisa  {
     mmdb::FreeVectorMemory ( solvEn2,0 );
     nRes1 = 0;
     nRes2 = 0;
+
+    
 
     //  1. Check that molecule has been complemented with hydrogens,
     //     which are needed for electrostatics calculations.
@@ -972,21 +969,9 @@ namespace pisa  {
       probDeltaG = probDeltaG1 + probDeltaG2;
 
       calcChemBonds ( MMDB,SRS);
-      
+
       //GDL: calculate other contacts - start
-      /*
-      cout <<"test"<<"\t"<<nSBridges <<"\n";
-      mmdb::PAtom at1 ;
-      mmdb::PAtom at2 ;
       
-      for (i=0;i<nSBridges;i++)
-	{
-	  at1 = GetAtom ( MMDB,SBridge[i].serNum1 );
-	  at2 = GetAtom ( MMDB,SBridge[i].serNum2 );
-	  cout <<"test-seqnum"<<"\t"<< at1->GetResName()<<"\t"<< at2->GetResName()<<"\t"<<at1->GetSeqNum ()<<"\t"<<at2->GetSeqNum ()<<"\n";
-	  //cout <<"test"<<"\t"<<SBridge[i].serNum1 <<"\n";
-	}
-      */
       CalcOtherContacts (MMDB,atom1,nAtoms1,atom2,nAtoms2);
       
       //calculate othercontacts - end 
@@ -1075,32 +1060,40 @@ namespace pisa  {
 
   void Interface::CalcOtherContacts ( mmdb::PManager MMDB,mmdb::PPAtom atom1, int nat1,
 				       mmdb::PPAtom atom2, int nat2 )  {
-    mmdb::PContact cont;
-    mmdb::PAtom    a1,a2;
-    int            i,j,ncont, sec1, sec2, s1, s2;
-    int            SBsec1[nSBridges], SBsec2[nSBridges], HBsec1[nHBonds], HBsec2[nHBonds], CovBsec1[nCovBonds], CovBsec2[nCovBonds], DSsec1[nDSBonds], DSsec2[nDSBonds];
-    //bool         isHBond,isSBridge,isCovBond, isDSBond, isBond;
-    bool           isBond;           
-    int            bondsec1[nSBridges+nHBonds+nCovBonds+nDSBonds], bondsec2[nSBridges+nHBonds+nCovBonds+nDSBonds];
-    mmdb::PContact othcont; 
-    char           *atnames1[nSBridges+nHBonds+nCovBonds+nDSBonds], *atnames2[nSBridges+nHBonds+nCovBonds+nDSBonds];
-    char           *at1name, *at2name;
-    int            nothcont;                                                                                                                                    
-    mmdb::PAtom    at1,at2;
-
-
+    mmdb::PContact   cont;
+    mmdb::PAtom      a1,a2;
+    int              i,j,ncont, sec1, sec2, s1, s2;
+    mmdb::ivector    SBsec1,SBsec2,HBsec1,HBsec2,CovBsec1,CovBsec2,DSsec1,DSsec2;
+    bool             isBond;           
+    mmdb::ivector    bondsec1,bondsec2;
+    mmdb::PContact   othcont;
+    mmdb::PAtomName  atnames1,atnames2;
+    mmdb::AtomName   at1name,at2name;
+    int              nothcont;                                                                                                                                    
+    mmdb::PAtom      at1,at2;
 
     //delete contacts in array OthBond and reset number of other contacts to nOthBonds = 0 
     deleteOthBonds();
 
+    mmdb::GetVectorMemory ( SBsec1  ,nSBridges,0 );
+    mmdb::GetVectorMemory ( SBsec2  ,nSBridges,0 );
+    mmdb::GetVectorMemory ( HBsec1  ,nHBonds  ,0 );
+    mmdb::GetVectorMemory ( HBsec2  ,nHBonds  ,0 );
+    mmdb::GetVectorMemory ( CovBsec1,nCovBonds,0 );
+    mmdb::GetVectorMemory ( CovBsec2,nCovBonds,0 );
+    mmdb::GetVectorMemory ( DSsec1  ,nDSBonds ,0 );
+    mmdb::GetVectorMemory ( DSsec2  ,nDSBonds ,0 );
 
+    ncont = nSBridges + nHBonds + nCovBonds + nDSBonds;
+    mmdb::GetVectorMemory ( bondsec1,ncont,0 );
+    mmdb::GetVectorMemory ( bondsec2,ncont,0 );
 
-    //isHBond=false;
-    //isSBridge= false ;
-    //isCovBond=false;
-    //isDSBond= false;
+    
+    atnames1 = new mmdb::AtomName[ncont];
+    atnames2 = new mmdb::AtomName[ncont];
 
-    ncont = nSBridges+nHBonds+nCovBonds+nDSBonds;
+    deleteOthBonds();
+
     othcont = NULL;
     nothcont = 0 ;
 
@@ -1108,119 +1101,107 @@ namespace pisa  {
     MMDB->SeekContacts(atom1,nat1,atom2,nat2,0.0,OthBondThresh,0,othcont,nothcont,0,NULL,0,0);
 
     // Get list of atoms from interface residues 1 and 2 that form salt-bridges        
-    for (i=0;i<nSBridges;i++)
-      {
-	a1 = GetAtom ( MMDB,SBridge[i].serNum1 );
-	a2 = GetAtom ( MMDB,SBridge[i].serNum2 );
-	SBsec1[i] = a1->GetSeqNum ();
-	SBsec2[i] = a2->GetSeqNum ();
-	bondsec1[i]=a1->GetSeqNum ();
-	bondsec2[i]=a2->GetSeqNum ();
-	atnames1[i]=a1->name;
-	atnames2[i]=a2->name;
-		        
-      }
-
+    for (i=0;i<nSBridges;i++)  {
+      a1 = GetAtom ( MMDB,SBridge[i].serNum1 );
+      a2 = GetAtom ( MMDB,SBridge[i].serNum2 );
+      SBsec1[i]   = a1->GetSeqNum ();
+      SBsec2[i]   = a2->GetSeqNum ();
+      bondsec1[i] = a1->GetSeqNum ();
+      bondsec2[i] = a2->GetSeqNum ();
+      strcpy ( atnames1[i],a1->name );
+      strcpy ( atnames2[i],a2->name );
+   
+    }
+    
     // Get list of atoms from interface residues 1 and 2 that form H-bonds
-    for (i=0;i<nHBonds;i++)
-      {
-	a1 = GetAtom ( MMDB,HBond[i].serNum1 );
-	a2 = GetAtom ( MMDB,HBond[i].serNum2 );
-	HBsec1[i] = a1->GetSeqNum ();
-	HBsec2[i] = a2->GetSeqNum ();
-	bondsec1[nSBridges+i]=a1->GetSeqNum ();
-	bondsec2[nSBridges+i]=a2->GetSeqNum ();
-	atnames1[nSBridges+i]=a1->name;
-	atnames2[nSBridges+i]=a2->name;
-      }
+    for (i=0;i<nHBonds;i++)  {
+      a1 = GetAtom ( MMDB,HBond[i].serNum1 );
+      a2 = GetAtom ( MMDB,HBond[i].serNum2 );
+      HBsec1[i] = a1->GetSeqNum ();
+      HBsec2[i] = a2->GetSeqNum ();
+      bondsec1[nSBridges+i]=a1->GetSeqNum ();
+      bondsec2[nSBridges+i]=a2->GetSeqNum ();
+      strcpy ( atnames1[nSBridges+i],a1->name );
+      strcpy ( atnames2[nSBridges+i],a2->name );
+
+    }
     // Get list of atoms from interface residues 1 and 2 that form covalent bonds  
-    for (i=0;i<nCovBonds;i++)
-      {
-	a1 = GetAtom ( MMDB,CovBond[i].serNum1 );
-	a2 = GetAtom ( MMDB,CovBond[i].serNum2 );
-	CovBsec1[i] = a1->GetSeqNum ();
-	CovBsec2[i] = a2->GetSeqNum ();
-	bondsec1[nSBridges+nHBonds+i]=a1->GetSeqNum ();
-	bondsec2[nSBridges+nHBonds+i]=a2->GetSeqNum ();
-	atnames1[nSBridges+nHBonds+i]=a1->name;
-	atnames2[nSBridges+nHBonds+i]=a2->name;
-      }
+    for (i=0;i<nCovBonds;i++)  {
+      a1 = GetAtom ( MMDB,CovBond[i].serNum1 );
+      a2 = GetAtom ( MMDB,CovBond[i].serNum2 );
+      CovBsec1[i] = a1->GetSeqNum ();
+      CovBsec2[i] = a2->GetSeqNum ();
+      bondsec1[nSBridges+nHBonds+i]=a1->GetSeqNum ();
+      bondsec2[nSBridges+nHBonds+i]=a2->GetSeqNum ();
+      strcpy ( atnames1[nSBridges+nHBonds+i],a1->name );
+      strcpy ( atnames2[nSBridges+nHBonds+i],a2->name );
+      
+    }
 
     // Get list of atoms from interface residues 1 and 2 that form disulfide bonds
-    for (i=0;i<nDSBonds;i++)
-      {
-	a1 = GetAtom ( MMDB,DSBond[i].serNum1 );
-	a2 = GetAtom ( MMDB,DSBond[i].serNum2 );
-	DSsec1[i] = a1->GetSeqNum ();
-	DSsec2[i] = a2->GetSeqNum ();
-	bondsec1[nSBridges+nHBonds+nCovBonds+i]=a1->GetSeqNum ();
-	bondsec2[nSBridges+nHBonds+nCovBonds+i]=a2->GetSeqNum ();
-	atnames1[nSBridges+nHBonds+nCovBonds+i]=a1->name;
-	atnames2[nSBridges+nHBonds+nCovBonds+i]=a2->name;
-      }
+    for (i=0;i<nDSBonds;i++)  {
+      a1 = GetAtom ( MMDB,DSBond[i].serNum1 );
+      a2 = GetAtom ( MMDB,DSBond[i].serNum2 );
+      DSsec1[i] = a1->GetSeqNum ();
+      DSsec2[i] = a2->GetSeqNum ();
+      bondsec1[nSBridges+nHBonds+nCovBonds+i] = a1->GetSeqNum ();
+      bondsec2[nSBridges+nHBonds+nCovBonds+i] = a2->GetSeqNum ();
+      strcpy ( atnames1[nSBridges+nHBonds+nCovBonds+i],a1->name );
+      strcpy ( atnames2[nSBridges+nHBonds+nCovBonds+i],a2->name );
       
+    }
       
-      //check list of h-bonds, s-bridges, cov-bonds and disulfide bonds
-      //for (i=0;i<ncont;i++)
-      //{
-      //   cout<<"all known bonds sec numbers:"<<"\t"<<bondsec1[i] <<"\t"
-      //   <<bondsec2[i]<<"\t"<<atnames1[i] <<"\t"<<atnames2[i]<<"\n";
-      //}
-
-    // nOthBonds, OthBond - no. of other contacts, list of contacts (variables exported to xml file) 
     nOthBonds = 0;
     OthBond   = new IBond[nothcont];
 
     // Seek for contacts that are not already labeled as h-bonds, s-bridges, cov-bonds or disulfide bonds, and save them in the list OthBond and counter nOthBonds
-    for (i=0;i<nothcont;i++)
-        {
-	  //isHBond=false;
-	  //isSBridge= false ;
-	  //isCovBond=false;
-	  //isDSBond= false;
-	  isBond = false;
+    for (i=0;i<nothcont;i++)  {
+
+      isBond = false;
 	  
-          if (othcont[i].dist<OthBondThresh)
-            {
-              at1  = atom1[othcont[i].id1] ;
-              at2  = atom2[othcont[i].id2] ;
-              sec1 = at1->GetSeqNum ();
-              sec2 = at2->GetSeqNum ();
-              at1name= at1->name;
-              at2name= at2->name;
+      if (othcont[i].dist<OthBondThresh)  {
+        at1     = atom1[othcont[i].id1] ;
+        at2     = atom2[othcont[i].id2] ;
+        sec1    = at1->GetSeqNum ();
+        sec2    = at2->GetSeqNum ();
+        strcpy ( at1name,at1->name );
+        strcpy ( at2name,at2->name );
 
-	      //   cout << "potcont-vdW pot"<<"\t"<< at1->GetResName() <<"\t"<<at1->GetSeqNum ()<<"\t"<<at1->name<<"\t"
-	      //<< at2->GetResName() <<"\t"<<at2->GetSeqNum()<<"\t"<<at2->name<<"\t"<<contvW[i].dist<< "\n"; 
-
-
-	      
-	      for (j=0;j<ncont;j++)
-	      	{
-		  if (sec1 == bondsec1[j] && sec2 == bondsec2[j] && at1name == atnames1[j] && at2name==atnames2[j])
-		    {
-		      isBond = true ; 
+	      for (j=0;j<ncont;j++) {
+    		  if (sec1 == bondsec1[j] && sec2 == bondsec2[j] && 
+		      (strcmp(at1name,atnames1[j])==0) && (strcmp(at2name,atnames2[j])==0))  {
+		        isBond = true ; 
+		      }
 		    }
-		}
 	      
-	      if(!isBond)
-		{
-		  //cout<<nOthBonds<<"\t"<<"other contacts:"<<"\t"<< at1->GetResName()<<"\t"<<
-		  //sec1 <<"\t"<<at1name<<"\t"<<"\t"<< at2->GetResName()<<"\t"<<sec2
-		  //<<"\t"<<at2name<<"\t"<<othcont[i].dist<<"\n";
-		  
-		  OthBond[nOthBonds].serNum1 = at1->serNum;
-                  OthBond[nOthBonds].serNum2 = at2->serNum;
-                  OthBond[nOthBonds].dist    = othcont[i].dist;
-		  nOthBonds++;
-		  
-		}
-	      
+	      if(!isBond)  {		
+		OthBond[nOthBonds].serNum1 = at1->serNum;
+		OthBond[nOthBonds].serNum2 = at2->serNum;
+		OthBond[nOthBonds].dist    = othcont[i].dist;
+		nOthBonds++;  
+    		}
 	      
 	    }
 	  
-	}
-  
+	  }
+    
+    mmdb::FreeVectorMemory ( SBsec1  ,0 );
+    mmdb::FreeVectorMemory ( SBsec2  ,0 );
+    mmdb::FreeVectorMemory ( HBsec1  ,0 );
+    mmdb::FreeVectorMemory ( HBsec2  ,0 );
+    mmdb::FreeVectorMemory ( CovBsec1,0 );
+    mmdb::FreeVectorMemory ( CovBsec2,0 );
+    mmdb::FreeVectorMemory ( DSsec1  ,0 );
+    mmdb::FreeVectorMemory ( DSsec2  ,0 );
+
+    mmdb::FreeVectorMemory ( bondsec1,0 );
+    mmdb::FreeVectorMemory ( bondsec2,0 );
+
+    delete[] atnames1;
+    delete[] atnames2;
+
   }
+
 
   void Interface::checkOverlap ( mmdb::PManager MMDB,
                                  mmdb::PPAtom atom1, int nat1,
@@ -1232,9 +1213,7 @@ namespace pisa  {
   int            type1[4],type2[4];
   int            i,j,ncont,maxncont,el1,el2,nCovAlloc;
   bool           B1,B2;
-  mmdb::PContact contvW; //GDL test
-  int            ncontvW; //GDL test
-  mmdb::PAtom    at1,at2; //GDL test
+  
     deleteCovBonds();
 
     if ((nat1<=1) && (nat2<=1))
@@ -1246,22 +1225,7 @@ namespace pisa  {
 
       MMDB->SeekContacts ( atom1,nat1,atom2,nat2,0.0,2.4,0,
                            cont,ncont,0,NULL,0,0 );
-      //Grisell test:Start
-      /*contvW = NULL;
-      ncontvW = 0 ;
-      MMDB->SeekContacts(atom1,nat1,atom2,nat2,0.0,4.0,0,contvW,ncontvW,0,NULL,0,0);
-      for (i=0;i<ncontvW;i++)
-	{
-          if (contvW[i].dist<4.0)
-	    {
-	      //cout << "hello" <<"\t"<<contvW[i].dist<<"\n" ;
-	      at1  = atom1[contvW[i].id1] ;
-	      at2  = atom2[contvW[i].id2] ;
-	      //	      cout <<"GDL:vdW pot contacts"<< at1->element <<"\t"<< at2->element<<"\n";
-	      cout << "potcont-vdW pot"<<"\t"<< at1->GetResName() <<"\t"<<at1->GetSeqNum ()<<"\t"<<at1->element<<"\t"<< at2->GetResName() <<"\t"<<at2->GetSeqNum()<<"\t"<<at2->element<<"\t"<<contvW[i].dist<< "\n";
-	    }
-	    }*/
-      //Grisell test:End
+      
       maxncont = mmdb::mround ( 1.1*mmdb::IMax(nIntAtoms1,nIntAtoms2) );
 
       overlap = (ncont>maxncont);
@@ -1662,6 +1626,7 @@ namespace pisa  {
                                          int           icell,
                                          int           jcell,
                                          int           kcell,
+					 int           asis_param,
                                          mmdb::mat44 &       t,
                                          int           nIntAtoms,
                                          int           nIntRes,
@@ -1682,6 +1647,9 @@ namespace pisa  {
   int         selHndResOC; //GDL: add Other Contacts  
   int         i,nRes;
 
+
+  
+    
     xml = new mmdb::xml::XMLObject ( xml_asmunit );
 
     if (structNo==1)  D = Domain[domain1];
@@ -1700,27 +1668,29 @@ namespace pisa  {
       case DCLASS_Ligand  :  strcpy ( S,"Ligand"  );
     }
     xml->AddObject ( new mmdb::xml::XMLObject ( xml_asmunit_class,S ) );
-
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_symop_no,symop  ) );
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_symop   ,symOpn ) );
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_cell_i  ,icell  ) );
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_cell_j  ,jcell  ) );
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_cell_k  ,kcell  ) );
-
-    //GDL: commenting out info that we don't need in xml
-    //addXML0 ( xml,xml_asmunit_rxx,t[0][0] );
-    //addXML0 ( xml,xml_asmunit_rxy,t[0][1] );
-    //addXML0 ( xml,xml_asmunit_rxz,t[0][2] );
-    //addXML0 ( xml,xml_asmunit_tx ,t[0][3] );
-    //addXML0 ( xml,xml_asmunit_ryx,t[1][0] );
-    //addXML0 ( xml,xml_asmunit_ryy,t[1][1] );
-    //addXML0 ( xml,xml_asmunit_ryz,t[1][2] );
-    //addXML0 ( xml,xml_asmunit_ty ,t[1][3] );
-    //addXML0 ( xml,xml_asmunit_rzx,t[2][0] );
-    //addXML0 ( xml,xml_asmunit_rzy,t[2][1] );
-    //addXML0 ( xml,xml_asmunit_rzz,t[2][2] );
-    //addXML0 ( xml,xml_asmunit_tz ,t[2][3] );
-
+    
+    //GDL: if as-is flag is used, don't write the following information
+    if(asis_param==0){
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_symop_no,symop  ) );
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_symop   ,symOpn ) );
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_cell_i  ,icell  ) );
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_cell_j  ,jcell  ) );
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_cell_k  ,kcell  ) );
+    
+    
+      addXML0 ( xml,xml_asmunit_rxx,t[0][0] );
+      addXML0 ( xml,xml_asmunit_rxy,t[0][1] );
+      addXML0 ( xml,xml_asmunit_rxz,t[0][2] );
+      addXML0 ( xml,xml_asmunit_tx ,t[0][3] );
+      addXML0 ( xml,xml_asmunit_ryx,t[1][0] );
+      addXML0 ( xml,xml_asmunit_ryy,t[1][1] );
+      addXML0 ( xml,xml_asmunit_ryz,t[1][2] );
+      addXML0 ( xml,xml_asmunit_ty ,t[1][3] );
+      addXML0 ( xml,xml_asmunit_rzx,t[2][0] );
+      addXML0 ( xml,xml_asmunit_rzy,t[2][1] );
+      addXML0 ( xml,xml_asmunit_rzz,t[2][2] );
+      addXML0 ( xml,xml_asmunit_tz ,t[2][3] );
+    }
     xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_natoms,nIntAtoms ) );
     xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_nres ,nIntRes    ) );
     xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_area ,intArea    ) );
@@ -1917,10 +1887,10 @@ namespace pisa  {
   }
 
   mmdb::xml::PXMLObject Interface::getXML ( mmdb::PManager MMDB,
-                                   PPDomain Domain )  {
+					    PPDomain Domain, int as_is_param )  {
   mmdb::xml::PXMLObject xml;
   mmdb::mat44       t;
-
+    
     xml = new mmdb::xml::XMLObject ( xml_interface );
 
     xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_id  ,id        ) );
@@ -1930,12 +1900,15 @@ namespace pisa  {
     xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_se  ,intDeltaG ) );
     xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_pval,PValue    ) );
     xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_sten,stabEn    ) );
-    //GDL: comment out some properties that we don't need- start
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_css ,css       ) );
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_overlap,overlap) );
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_xrel ,Xrel     ) );
-    //xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_fixed,fixedLigand) );
-    //GDL: comment out some properties that we don't need- end
+    
+    //GDL start: if status 'as-is' ommit this info in the xml file  
+    if(as_is_param==0){
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_css ,css       ) );
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_overlap,overlap) );
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_xrel ,Xrel     ) );
+      xml->AddObject ( new mmdb::xml::XMLObject ( xml_interface_fixed,fixedLigand) );
+    }
+    //GDL end: if status 'as-is' ommit this info in the xml file
     
     xml->AddObject ( makeBondTXML ( HBond,nHBonds,
                                     xml_bond_hbonds,MMDB) );
@@ -1950,12 +1923,12 @@ namespace pisa  {
 
     mmdb::Mat4Init ( t );
     xml->AddObject ( getStructXML ( MMDB,Domain,1,dclass1,1,
-                              0,0,0,t,nIntAtoms1,nIntRes1,
+			      0,0,0,as_is_param,t,nIntAtoms1,nIntRes1,
                               intArea1,intDeltaG1,PValue1,"x,y,z",
                               bsa1,solvEn1 ) );
 
     xml->AddObject ( getStructXML ( MMDB,Domain,2,dclass2,rcsb_symop,
-                              cell_i,cell_j,cell_k,TMatrix,
+			      cell_i,cell_j,cell_k,as_is_param,TMatrix,
                               nIntAtoms2,nIntRes2,
                               intArea2,intDeltaG2,PValue2,symOp,
                               bsa2,solvEn2 ) );
@@ -2849,10 +2822,10 @@ namespace pisa  {
 
 
   mmdb::xml::PXMLObject Interfaces::getXML ( mmdb::PManager MMDB,
-                                             PPDomain Domain ) {
+                                             PPDomain Domain, int as_is_param ) {
   mmdb::xml::PXMLObject xml;
   int         i;
-
+  
   //cout<<"molecular weight"<<"\t"<< weight << "\n";
     xml = new mmdb::xml::XMLObject ( xml_pdb_entry );
     xml->AddObject ( new mmdb::xml::XMLObject(xml_pdb_code,
@@ -2863,7 +2836,7 @@ namespace pisa  {
       xml->AddObject ( new mmdb::xml::XMLObject ( xml_ints_nints,
                                                   nInterfaces ) );
       for (i=0;i<nInterfaces;i++)
-        xml->AddObject ( PI[i]->getXML ( MMDB,Domain ) );
+        xml->AddObject ( PI[i]->getXML ( MMDB,Domain,as_is_param ) );
     } else
       xml->AddObject ( new mmdb::xml::XMLObject ( xml_ints_nints,0 ) );
 

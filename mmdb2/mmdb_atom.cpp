@@ -44,9 +44,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include<iostream>
-using namespace std;
-
 #include "mmdb_chain.h"
 #include "mmdb_model.h"
 #include "mmdb_root.h"
@@ -54,6 +51,8 @@ using namespace std;
 #include "mmdb_cifdefs.h"
 #include "hybrid_36.h"
 
+#include<iostream>
+using namespace std;
 
 namespace mmdb  {
 
@@ -342,15 +341,12 @@ namespace mmdb  {
       }
     }
   }
-  // GDL: function to read category _PDBX_CHAIN_REMAPPING
+
+  // GDL: function to read category _PDBX_CHAIN_REMAPPING                                                                                     
   void  Atom::MakeremapCIF ( mmcif::PData CIF )  {
     mmcif::PLoop Loop, Loop1;
     int          i,l,j,RC;
 
-     //Loop1 = CIF->GetLoop ( CIFCAT_ENTITY      );
-     // if (Loop1)  {
-     //	l = Loop1->GetLoopLength();
-     // }
       RC = CIF->AddLoop (CIFCAT_PDBX_CHAIN_REMAPPING,Loop);
       if (RC!=mmcif::CIFRC_Ok)  {
       Loop->AddLoopTag ( CIFTAG_ENTITY_ID   );
@@ -360,35 +356,33 @@ namespace mmdb  {
       Loop->AddLoopTag ( CIFTAG_ORIG_AUTH_ASYM_ID   );
       Loop->AddLoopTag ( CIFTAG_APPLIED_OPERATIONS  );
       }
-    
+
   }
+  
+  ERROR_CODE Atom::GetAtomSiteCIF (int ix, mmcif::PLoop Loop)  {
 
-   ERROR_CODE Atom::GetAtomSiteCIF (int ix, mmcif::PLoop Loop)  {
-
-     int          RC,k;
+    int          RC,k;
     pstr         F;
     char         atom_site_id[30];
-    //PAtom        atom;
+    //PAtom        atom;                                                                                                                                                                                            
     k=ix-1;
 
-    //cout << atom->name << "\n";
+    //cout << atom->name << "\n";                                                                                                                                                                                   
     F = Loop->GetString (CIFTAG_ID,k,RC );
 
     if ((!RC) && F)  {
                 strncpy ( atom_site_id,F,sizeof(atom_site_id)-1);
-                //Loop->DeleteField ( CIFTAG_ID,k );                                                     
-                //return Error_NoError;                                                                                  
+                //Loop->DeleteField ( CIFTAG_ID,k );                                                                                                                                                                
+                //return Error_NoError;                                                                                                                                                                             
 
              } else  {
                return Error_EmptyCIFLoop;
-               //cout<<"hello F or RC is empty"<<"\n";                                                                   
+               //cout<<"hello F or RC is empty"<<"\n";                                                                                                                                                              
              }
      strcpy ( residue->atom_site_id,atom_site_id );
-     //cout<<F<<"\t"<<residue->atom_site_id<<"\n";
+     //cout<<F<<"\t"<<residue->atom_site_id<<"\n";                                                                                                                                                                  
      return Error_NoError;
    }
-
-
 
   ERROR_CODE Atom::GetremapCIF (int ix, mmcif::PLoop Loop)  {
 
@@ -396,78 +390,59 @@ namespace mmdb  {
     pstr         L,A,E, F,G,H;
     ChainID      orig_label_asym_id, orig_auth_asym_id;
 
-    
+
     l = Loop->GetLoopLength();
     k=ix-1;
-    //j=ix;
-    
-    //cout<<ix<<'\t'<<residue->chain->chainID<<"\n";
-    
+    //j=ix;                                                                                                                                                                                                          
+
+    //cout<<ix<<'\t'<<residue->chain->chainID<<"\n";   
+
     for (j=0;j<l;j++)  {
-      
+
         L = Loop->GetString (CIFTAG_LABEL_ASYM_ID,j,RC );
-	m = Loop->GetInteger (remap_entity_id,CIFTAG_ENTITY_ID,j );
+        m = Loop->GetInteger (remap_entity_id,CIFTAG_ENTITY_ID,j );
         A = Loop->GetString (CIFTAG_AUTH_ASYM_ID,j,RC );
-	
-	//cout<<ix<<'\t'<<residue->chain->chainID<<'\t'<<A<<"\n";
-	
+
+        //cout<<ix<<'\t'<<residue->chain->chainID<<'\t'<<A<<"\n";                                                                                                                                                    
+
         if (strcasecmp(L,residue->label_asym_id)==0 && remap_entity_id==residue->label_entity_id)
            {
-	     
-	     
-	     F = Loop->GetString (CIFTAG_ORIG_LABEL_ASYM_ID,j,RC );
-	     
-	     if ((!RC) && F)  {
-	        strncpy ( orig_label_asym_id,F,sizeof(ChainID)-1);
-		
-		//Loop->DeleteField ( CIFTAG_ORIG_LABEL_ASYM_ID,j );
-		//return Error_NoError;
-		
-	     }else  {
-	       return Error_EmptyCIFLoop;
-	       
-	     }
-	  
-	   }
 
 
-       /*
-       if (strcasecmp(A,residue->chain->chainID)==0 && remap_entity_id==residue->label_entity_id)
-           {
-             G = Loop->GetString (CIFTAG_ORIG_AUTH_ASYM_ID,j,RC2 );
-	     if ((!RC2) && G)  {
-                strncpy ( orig_auth_asym_id,G,sizeof(ChainID)-1);
-             	//Loop->DeleteField ( CIFTAG_ORIG_LABEL_ASYM_ID,j );                                                               
-                //return Error_NoError;                                                                                           
+             F = Loop->GetString (CIFTAG_ORIG_LABEL_ASYM_ID,j,RC );
+
+             if ((!RC) && F)  {
+                strncpy ( orig_label_asym_id,F,sizeof(ChainID)-1);
+
+                //Loop->DeleteField ( CIFTAG_ORIG_LABEL_ASYM_ID,j );                                                                                                                                                 
+                //return Error_NoError;                                                                                                                                                                              
+
+             }else  {
+               return Error_EmptyCIFLoop;
+
              }
-	     //else  {
-             //  return Error_EmptyCIFLoop;
-               //cout<<"hello F or RC is empty"<<"\n";                                                                            
-             //}
-           }
-	*/
 
-	
-       }
-    
- 
+           }
+
+    }
+
+
     strcpy ( residue->orig_label_asym_id,orig_label_asym_id );
- 
-        
+
+
     return Error_NoError;
   }
+
   
   void  Atom::MakeCIF ( mmcif::PData CIF )  {
-    mmcif::PLoop Loop, Loop2;
+  mmcif::PLoop Loop;
   AtomName     AtName;
   Element      el;
   char         N[10];
-  int          i,j,RC,RC2;
+  int          i,j,RC;
   PChain       chain       = NULL;
   PModel       model       = NULL;
   //bool      singleModel = true;
-
-  //cout<< "hellow world from MakeCIF"<<"\n"; //GDL test
 
     if (residue)  chain = residue->chain;
     if (chain)    model = PModel(chain->model);
@@ -515,7 +490,6 @@ namespace mmdb  {
   */
 
     RC = CIF->AddLoop ( CIFCAT_ATOM_SITE,Loop );
-
     if (RC!=mmcif::CIFRC_Ok)  {
       // the category was (re)created, provide tags
 
@@ -552,7 +526,6 @@ namespace mmdb  {
       Loop->AddLoopTag ( CIFTAG_AUTH_ATOM_ID       ); // atom name
 
       Loop->AddLoopTag ( CIFTAG_PDBX_PDB_MODEL_NUM ); // model number
-
 
     }
 
@@ -654,7 +627,6 @@ namespace mmdb  {
                Loop->AddInteger ( residue->label_entity_id );
           else Loop->AddNoData  ( mmcif::CIF_NODATA_DOT           );
           // (8)
-	  //Loop->AddString ( residue->label_seq_id ); //GDL:change label_seq_id to char instead of int
           if (residue->label_seq_id>MinInt4)
                Loop->AddInteger ( residue->label_seq_id );
           else Loop->AddNoData  ( mmcif::CIF_NODATA_DOT        );
@@ -1023,38 +995,31 @@ namespace mmdb  {
     if (residue)  return residue->label_asym_id;
             else  return pstr("");
   }
-  
+  //GDL:added GetOrigLabelAsymID()
   pstr Atom::GetOrigLabelAsymID()  {
     if (residue)  return residue->orig_label_asym_id;
-            else  return pstr("");
+    else  return pstr("");
   }
-
+  //GDL:added GetAtomSiteID()
   pstr Atom::GetAtomSiteID()  {
     if (residue)  return residue->atom_site_id;
             else  return pstr("");
   }
-
+  //GDL:added GetUniprotName()
   pstr Atom::GetUniprotName()  {
     if (residue)  return residue->pdbx_sifts_xref_db_name;
             else  return pstr("");
   }
-
+  //GDL:added GetUniprotAcc()
   pstr Atom::GetUniprotAcc()  {
     if (residue)  return residue->pdbx_sifts_xref_db_acc;
             else  return pstr("");
   }
-
+  //GDL:added GetUniprotnum()
   pstr Atom::GetUniprotnum()  {
     if (residue)  return residue->pdbx_sifts_xref_db_num;
             else  return pstr("");
   }
-  //GDL: change label_seq_id to char instead of int
-  //pstr   Atom::GetLabelSeqID()  {
-
-  //  if (residue) return residue->label_seq_id;
-  //  else  return pstr(".");
-
-  //}
 
   pstr  Atom::GetResName()  {
     if (residue)  return residue->name;
@@ -1099,24 +1064,9 @@ namespace mmdb  {
             else  return ATOM_NoSeqNum;
   }
 
-  //int   Atom::GetAtomSiteID()  {
-  //  if (residue)  return residue->atom_site_id;
-  //          else  return ATOM_NoSeqNum;
-  //}
-
-  //int   Atom::GetUniprotnum()  {
-  //  if (residue) {
-  //    return residue->pdbx_sifts_xref_db_num;
-  //  }
-  //                else  return -1;
-  //}
-
   int   Atom::GetLabelSeqID()  {
-
-    if (residue) return residue->label_seq_id;
-
-    else  return ATOM_NoSeqNum;
-      
+    if (residue)  return residue->label_seq_id;
+            else  return ATOM_NoSeqNum;
   }
 
   int   Atom::GetLabelEntityID()  {
@@ -1689,25 +1639,22 @@ namespace mmdb  {
                             mmcif::PLoop LoopAnis )  {
   char        PDBGroup[30];
   int         k,j,l,m,R;
+  //  int         k;
   ERROR_CODE  RC;
 
-
   //GDL adding uniprot info
-  //  char        atom_site_id[30];
-  //int         atom_site_id;
+  //  char        atom_site_id[30];                                                                                           //int         atom_site_id;                                                                                                                                                                                        
   char        pdbx_sifts_xref_db_acc[30];
   char        pdbx_sifts_xref_db_num[30];
   char        pdbx_sifts_xref_db_name[30];
-  //int         pdbx_sifts_xref_db_num=-1 ;
+
 
   
-  index = ix;
+    index = ix;
 
     if (WhatIsSet & ASET_Coordinates)
       return Error_ATOM_AlreadySet;
 
-    //cout<< "hellow world from Atom:GetCIF"<<"\n"; //GDL test
-    
   /*
 
   loop_
@@ -1756,52 +1703,42 @@ namespace mmdb  {
 
     // (1)
     RC = CIFGetInteger1 ( serNum,Loop,CIFTAG_ID,k );
-
-    //CIFGetString ( atom_site_id,Loop,CIFTAG_ID,k,sizeof(atom_site_id),pstr("") );
-    //strcpy ( residue->atom_site_id,atom_site_id );
-
-    //residue->atom_site_id=serNum;
-    
-    //cout<<"GDL test:"<<"\t"<<serNum<<"\t"<<residue->atom_site_id<<"\n"; // test GDL
     if (RC)  {
       if (Ter)                    serNum = -1;
       else if (RC==Error_NoData)  serNum = index;
       else
         return RC;
-     }
+    }
 
     if (Ter)  {
       Loop->DeleteRow ( k );
       WhatIsSet |= ASET_Coordinates;
       return Error_NoError;
     }
-    //START: GDL: reading uniprot tags
-      CIFGetString ( pdbx_sifts_xref_db_name,Loop,CIFTAG_PDBX_SIFTS_XREF_DB_NAME,k,
-                          sizeof(name)  ,pstr("") );
-      CIFGetString ( pdbx_sifts_xref_db_acc,Loop,CIFTAG_PDBX_SIFTS_XREF_DB_ACC,k,
-                          sizeof(name)  ,pstr("") );
-      //cout<< "Uniprot acc label:"<<"\t"<<pdbx_sifts_xref_db_acc <<"\n";
-      CIFGetString ( pdbx_sifts_xref_db_num,Loop,CIFTAG_PDBX_SIFTS_XREF_DB_NUM,k,
-		     sizeof(name)  ,pstr("") );
-      //CIFGetInteger1 (pdbx_sifts_xref_db_num,Loop,CIFTAG_PDBX_SIFTS_XREF_DB_NUM,k );
-      //cout<< "Uniprot num label:"<<"\t"<<pdbx_sifts_xref_db_num <<"\n";
-      
-      strcpy ( residue->pdbx_sifts_xref_db_acc,pdbx_sifts_xref_db_acc );
-      strcpy ( residue->pdbx_sifts_xref_db_num,pdbx_sifts_xref_db_num );
-      strcpy ( residue->pdbx_sifts_xref_db_name,pdbx_sifts_xref_db_name );
-      //residue->pdbx_sifts_xref_db_num=pdbx_sifts_xref_db_num ;
 
-      //cout<< "Uniprot acc label:"<<"\t"<<residue->pdbx_sifts_xref_db_name <<"\n";
-      //cout<< "Uniprot num label:"<<"\t"<<residue->pdbx_sifts_xref_db_num <<"\n";
-    
-    //END: GDL- reading uniprot flags
+    //START: GDL: reading uniprot tags                                                                                                                                                                               
+    CIFGetString ( pdbx_sifts_xref_db_name,Loop,CIFTAG_PDBX_SIFTS_XREF_DB_NAME,k,
+                          sizeof(name)  ,pstr("") );
+    CIFGetString ( pdbx_sifts_xref_db_acc,Loop,CIFTAG_PDBX_SIFTS_XREF_DB_ACC,k,
+                          sizeof(name)  ,pstr("") );
+    //cout<< "Uniprot acc label:"<<"\t"<<pdbx_sifts_xref_db_acc <<"\n";
+
+    CIFGetString ( pdbx_sifts_xref_db_num,Loop,CIFTAG_PDBX_SIFTS_XREF_DB_NUM,k,
+                     sizeof(name)  ,pstr("") );
+    //CIFGetInteger1 (pdbx_sifts_xref_db_num,Loop,CIFTAG_PDBX_SIFTS_XREF_DB_NUM,k );
+    //cout<< "Uniprot num label:"<<"\t"<<pdbx_sifts_xref_db_num <<"\n";                                                        
+    strcpy ( residue->pdbx_sifts_xref_db_acc,pdbx_sifts_xref_db_acc );
+    strcpy ( residue->pdbx_sifts_xref_db_num,pdbx_sifts_xref_db_num );
+    strcpy ( residue->pdbx_sifts_xref_db_name,pdbx_sifts_xref_db_name );
+    //residue->pdbx_sifts_xref_db_num=pdbx_sifts_xref_db_num ;                                                             
+    //cout<< "Uniprot acc label:"<<"\t"<<residue->pdbx_sifts_xref_db_name <<"\n";                                              //cout<< "Uniprot num label:"<<"\t"<<residue->pdbx_sifts_xref_db_num <<"\n";                                                                                                                                   
+    //END: GDL- reading uniprot flags                                                                                                                                                                                   
     // (25)
     CIFGetString ( name,Loop,CIFTAG_AUTH_ATOM_ID,k,
                           sizeof(name)  ,pstr("") );
     // (3)
     CIFGetString ( label_atom_id,Loop,CIFTAG_LABEL_ATOM_ID,k,
                           sizeof(label_atom_id),pstr("") );
-    ///cout<<"GDL test"<<"\t"<<label_atom_id<<"\n"; // test GDL
     if (!name[0])
       strcpy ( name,label_atom_id );
     // (4)
@@ -1880,7 +1817,6 @@ namespace mmdb  {
       LoopAnis->DeleteRow ( k );
 
     }
-
 
     return Error_NoError;
 
@@ -2585,17 +2521,18 @@ namespace mmdb  {
   void  Residue::InitResidue()  {
     strcpy ( name         ,"---"  );  // residue name
     strcpy ( label_comp_id,"---"  );  // assigned residue name
-    label_asym_id[0] = char(0);       // chain ID label_asym - GDL change
+    label_asym_id[0] = char(0);       // assigned chain Id
+    
     orig_label_asym_id[0] = char(0);  // orig label_asym - GDL change
     pdbx_sifts_xref_db_acc[0] = char(0); //GDL:adding uniprot acc - intitialize
     pdbx_sifts_xref_db_num[0] = char(0); //GDL:adding uniprot acc - intitialize
-    pdbx_sifts_xref_db_name[0] = char(0); //GDL:adding uniprot acc - intitialize
-    //pdbx_sifts_xref_db_num =-1 ;      // GDL:unipront num initialize
-    atom_site_id[0]     = char(0);
-    //atom_site_id     = -MaxInt;
+    pdbx_sifts_xref_db_name[0] = char(0); //GDL:adding uniprot acc - intitialize                                                                                                                                     
+    //pdbx_sifts_xref_db_num =-1 ;      // GDL:unipront num initialize                                                                                                                                               
+    atom_site_id[0]     = char(0);      // GDL: atom site id -initialize
+
     seqNum           = -MaxInt;       // residue sequence number
-    label_seq_id     = -MaxInt;     // assigned residue sequence number
-    //label_seq_id[0] = char(0);        // GDL:change label_seq_id to character instead of int 
+    label_seq_id     = -MaxInt;       // assigned residue sequence number
+   //label_seq_id[0] = char(0);        // GDL:change label_seq_id to character instead of int 
     label_entity_id  = 1;             // assigned entity id
     strcpy ( insCode,"" );            // residue insertion code
     chain   = NULL;                   // reference to chain
@@ -2972,7 +2909,6 @@ namespace mmdb  {
     for (i=0;i<nAtoms;i++)
       if (atom[i])
         atom[i]->MakeCIF ( CIF );
-        atom[i]->MakeremapCIF ( CIF ); //GDL test
   }
 
 
@@ -2996,19 +2932,15 @@ namespace mmdb  {
     index           = res->index;
     AtmLen          = res->nAtoms;
     SSE             = res->SSE;
-    //atom_site_id    = res->atom_site_id;
-    //pdbx_sifts_xref_db_num=res->pdbx_sifts_xref_db_num; //GDL:added uniprot flag
-    //strcpy ( label_seq_id,res->label_seq_id ); //GDL:change label_seq_id to char
     strcpy ( name         ,res->name          );
     strcpy ( label_comp_id,res->label_comp_id );
     strcpy ( label_asym_id,res->label_asym_id );
     strcpy ( atom_site_id,res->atom_site_id ); //GDL:added atom_site_id
-    strcpy ( orig_label_asym_id,res->orig_label_asym_id ); //GDL:added uniprot flag 
+    strcpy ( orig_label_asym_id,res->orig_label_asym_id ); //GDL:added uniprot flag
     strcpy ( pdbx_sifts_xref_db_acc,res->pdbx_sifts_xref_db_acc ); //GDL:added uniprot flag
     strcpy ( pdbx_sifts_xref_db_num,res->pdbx_sifts_xref_db_num ); //GDL:added uniprot flag
-    strcpy ( pdbx_sifts_xref_db_name,res->pdbx_sifts_xref_db_name ); //GDL:added uniprot flag
+    strcpy ( pdbx_sifts_xref_db_name,res->pdbx_sifts_xref_db_name ); //GDL:added uniprot flag   
     strcpy ( insCode      ,res->insCode       );
-
 
     if (AtmLen>0)  {
       atom   = new PAtom[AtmLen];
@@ -3050,16 +2982,15 @@ namespace mmdb  {
     nAtoms          = res->nAtoms;
     SSE             = res->SSE;
     //atom_site_id    = res->atom_site_id;
-    //pdbx_sifts_xref_db_num=res->pdbx_sifts_xref_db_num;//GDL: added uniprot flag
-    //strcpy ( label_seq_id,res->label_seq_id ); //GDL: change to char instead of int 
+    //pdbx_sifts_xref_db_num=res->pdbx_sifts_xref_db_num;//GDL: added uniprot flag                                            //strcpy ( label_seq_id,res->label_seq_id ); //GDL: change to char instead of int  
     strcpy ( name         ,res->name          );
     strcpy ( label_comp_id,res->label_comp_id );
     strcpy ( label_asym_id,res->label_asym_id );
-    strcpy ( atom_site_id,res->atom_site_id );
+    strcpy ( atom_site_id,res->atom_site_id ); //GDL: added atom_site_id
     strcpy ( orig_label_asym_id,res->orig_label_asym_id ); //GDL:add orig_label_asym
-    strcpy ( pdbx_sifts_xref_db_acc,res->pdbx_sifts_xref_db_acc );//GDL: add uniprot flag 
+    strcpy ( pdbx_sifts_xref_db_acc,res->pdbx_sifts_xref_db_acc );//GDL: add uniprot flag
     strcpy ( pdbx_sifts_xref_db_num,res->pdbx_sifts_xref_db_num ); //GDL:added uniprot flag
-    strcpy ( pdbx_sifts_xref_db_name,res->pdbx_sifts_xref_db_name ); //GDL:added uniprot flag 
+    strcpy ( pdbx_sifts_xref_db_name,res->pdbx_sifts_xref_db_name ); //GDL:added uniprot flag   
     strcpy ( insCode      ,res->insCode       );
 
     AtmLen = nAtoms;
@@ -3102,15 +3033,15 @@ namespace mmdb  {
     SSE             = res->SSE;
     //atom_site_id    = res->atom_site_id;
     //pdbx_sifts_xref_db_num=res->pdbx_sifts_xref_db_num;
-    //strcpy ( label_seq_id,res->label_seq_id ); //GDL: change to char instead of int
+    //strcpy ( label_seq_id,res->label_seq_id ); //GDL: change to char instead of int  
     strcpy ( name         ,res->name          );
     strcpy ( label_comp_id,res->label_comp_id );
     strcpy ( label_asym_id,res->label_asym_id );
-    //strcpy ( atom_site_id,res->atom_site_id );
+    strcpy ( atom_site_id,res->atom_site_id ); //GDL:added atom_site_id
     strcpy ( orig_label_asym_id,res->orig_label_asym_id ); //GDL:add orig_label_asym
     strcpy ( pdbx_sifts_xref_db_acc,res->pdbx_sifts_xref_db_acc );//GDL:addded uniprot flag
     strcpy ( pdbx_sifts_xref_db_num,res->pdbx_sifts_xref_db_num );//GDL:added uniprot flag
-    strcpy ( pdbx_sifts_xref_db_name,res->pdbx_sifts_xref_db_name ); //GDL:added uniprot flag 
+    strcpy ( pdbx_sifts_xref_db_name,res->pdbx_sifts_xref_db_name ); //GDL:added uniprot flag
     strcpy ( insCode      ,res->insCode       );
 
     AtmLen = nAtoms;
@@ -3176,11 +3107,8 @@ namespace mmdb  {
 
   //pstr   Residue::GetLabelSeqID()  {
   //  return label_seq_id;
-  //}
-
-  //pstr Residue::GetOrigLabelAsymID()  {
-  //  return orig_label_asym_id;
-  //}
+  //}                                                                                                                       
+  //pstr Residue::GetOrigLabelAsymID()  {                                                                                   //  return orig_label_asym_id;                                                                                            //}  
 
   pstr  Residue::GetResName()  {
     return name;
@@ -3211,7 +3139,7 @@ namespace mmdb  {
   }
 
   int   Residue::GetLabelSeqID()  {
-     return label_seq_id;
+    return label_seq_id;
   }
 
   int   Residue::GetLabelEntityID()  {
@@ -3766,16 +3694,14 @@ namespace mmdb  {
       UDData::write ( f );
       f.WriteInt     ( &label_seq_id       );
       f.WriteInt     ( &label_entity_id    );
-      //f.WriteInt     ( &atom_site_id    );
-      //f.WriteInt     ( &pdbx_sifts_xref_db_num  ); //GDL:added uniprot flag
-      //f.WriteTerLine ( label_seq_id,false ); //GDL:change label_seq_id to char instead of int
+      //f.WriteInt     ( &atom_site_id    );                                                                                    //f.WriteInt     ( &pdbx_sifts_xref_db_num  ); //GDL:added uniprot flag                                                   //f.WriteTerLine ( label_seq_id,false ); //GDL:change label_seq_id to char instead of int 
       f.WriteTerLine ( label_comp_id,false );
       f.WriteTerLine ( label_asym_id,false );
-      f.WriteTerLine ( atom_site_id,false );
-      f.WriteTerLine ( orig_label_asym_id,false ); //GDL:add orig_label_asym_id
-      f.WriteTerLine ( pdbx_sifts_xref_db_acc,false ); //GDL:added uniprot flag 
+      f.WriteTerLine ( atom_site_id,false ); //GDL: added atom_site_id
+      f.WriteTerLine ( orig_label_asym_id,false ); //GDL:added orig_label_asym_id
+      f.WriteTerLine ( pdbx_sifts_xref_db_acc,false ); //GDL:added uniprot flag
       f.WriteTerLine ( pdbx_sifts_xref_db_num,false ); //GDL:added uniprot flag
-      f.WriteTerLine ( pdbx_sifts_xref_db_name,false ); //GDL:added uniprot flag
+      f.WriteTerLine ( pdbx_sifts_xref_db_name,false ); //GDL:added uniprot flag  
     }
 
     f.WriteInt     ( &seqNum );
@@ -3806,16 +3732,14 @@ namespace mmdb  {
       UDData::read ( f );
       f.ReadInt     ( &label_seq_id       );
       f.ReadInt     ( &label_entity_id    );
-      //f.ReadInt     ( &atom_site_id    );
-      //f.ReadInt     ( &pdbx_sifts_xref_db_num  );//GDL:added uniprot flag
-      //f.ReadTerLine ( label_seq_id,false ); // GDL:change label_seq_id to char instead of int
+      //f.ReadInt     ( &atom_site_id    );                                                                                     //f.ReadInt     ( &pdbx_sifts_xref_db_num  );//GDL:added uniprot flag                                                     //f.ReadTerLine ( label_seq_id,false ); // GDL:change label_seq_id to char instead of int  
       f.ReadTerLine ( label_comp_id,false );
       f.ReadTerLine ( label_asym_id,false );
-      f.ReadTerLine ( atom_site_id,false );
+      f.ReadTerLine ( atom_site_id,false ); //GDL:added atom_site_id
       f.ReadTerLine ( orig_label_asym_id,false );//GDL: added orig_label_asym
       f.ReadTerLine ( pdbx_sifts_xref_db_acc,false );//GDL: added uniprot flag
       f.ReadTerLine ( pdbx_sifts_xref_db_num,false );//GDL: added uniprot flag
-      f.ReadTerLine ( pdbx_sifts_xref_db_name,false );//GDL: added uniprot flag
+      f.ReadTerLine ( pdbx_sifts_xref_db_name,false );//GDL: added uniprot flag 
     }
 
     f.ReadInt     ( &seqNum );

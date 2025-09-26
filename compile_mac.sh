@@ -1,11 +1,6 @@
 #!/bin/bash
 
-# Modify srcdir below to point to complete path of the PISA-LITE directory
-# For example: srcdir=/Users/foo/bar/pisa-lite
-
-srcdir=$SRCDIR
-
-mkdir build
+srcdir=/Users/gdiazleines/programs/pisa-lite
 
 builddir=$srcdir/build
 ssmdir=$srcdir/ssm
@@ -14,10 +9,26 @@ mmdbdir=$srcdir/mmdb2
 srsdir=$srcdir/ccp4srs
 pisadir=$srcdir/pisa
 
+mkdir $builddir
+
 cd $builddir
 
+rm -rf $builddir/*
+
 g++ -c -I$srcdir $mmdbdir/*.cpp
+ar rvs mmdb2.a *.o
+rm *.o
+
 g++ -c -I$srcdir $ssmdir/*.cpp
+ar rvs ssm.a *.o
+rm *.o
+
 g++ -c -I$srcdir $srsdir/*.cpp
+ar rvs srs.a *.o
+rm *.o
+
 g++ -c -I$srcdir $pisalibdir/*.cpp
-g++ -I$srcdir $pisadir/*.cpp *.o -lz -o pisa
+ar rvs pisalib.a *.o
+rm *.o
+
+g++ -I$srcdir $pisadir/*.cpp mmdb2.a ssm.a srs.a pisalib.a -lz -o pisa

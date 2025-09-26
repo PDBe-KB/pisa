@@ -69,16 +69,16 @@ namespace mmdb  {
 
   const int ATOM_NoSeqNum = MinInt4;
 
-  extern bool  ignoreSegID;
-  extern bool  ignoreElement;
-  extern bool  ignoreCharge;
-  extern bool  ignoreNonCoorPDBErrors;
-  extern bool  ignoreUnmatch;
+  extern MMDB_DL_IMPORT(bool)  ignoreSegID;
+  extern MMDB_DL_IMPORT(bool)  ignoreElement;
+  extern MMDB_DL_IMPORT(bool)  ignoreCharge;
+  extern MMDB_DL_IMPORT(bool)  ignoreNonCoorPDBErrors;
+  extern MMDB_DL_IMPORT(bool)  ignoreUnmatch;
 
 
   DefineStructure(AtomStat);
 
-  struct AtomStat  {
+  struct MMDB_DL_EXPORT AtomStat  {
 
     public :
       int       nAtoms;          // number of atoms in statistics
@@ -123,7 +123,7 @@ namespace mmdb  {
 
   DefineStructure(AtomBondI);
 
-  struct AtomBondI  {
+  struct MMDB_DL_EXPORT AtomBondI  {
     int  index;  //!< bonded atom index
     byte order;  //!< bond order
   };
@@ -131,7 +131,7 @@ namespace mmdb  {
 
   DefineStructure(AtomBond);
 
-  struct AtomBond  {
+  struct MMDB_DL_EXPORT AtomBond  {
     PAtom atom;  //!< bonded atom pointer
     byte  order;  //!< bond order
   };
@@ -139,7 +139,7 @@ namespace mmdb  {
 
   DefineFactoryFunctions(Atom);
 
-  class Atom : public UDData  {
+  class MMDB_DL_EXPORT Atom : public UDData  {
 
     friend class Residue;
     friend class Model;
@@ -238,11 +238,11 @@ namespace mmdb  {
       ERROR_CODE ConvertPDBHETATM ( int ix, cpstr S );
 
       ERROR_CODE GetCIF           ( int ix, mmcif::PLoop Loop,
-				    mmcif::PLoop LoopAnis );
+                                     mmcif::PLoop LoopAnis );
 
-    ERROR_CODE GetremapCIF (int ix, mmcif::PLoop Loop);
-    //ERROR_CODE GetremapCIF (int ix, mmcif::PLoop Loop);
-    ERROR_CODE GetAtomSiteCIF (int ix, mmcif::PLoop Loop);
+      ERROR_CODE GetremapCIF (int ix, mmcif::PLoop Loop); //GDL:ERROR_CODE GetremapCIF
+      ERROR_CODE GetAtomSiteCIF (int ix, mmcif::PLoop Loop); //GDL:ERROR CODE GetAtomSiteCIF
+      
       bool RestoreElementName();
       bool MakePDBAtomName();
 
@@ -269,21 +269,19 @@ namespace mmdb  {
       int   GetModelNum       ();
       pstr  GetChainID        ();
       pstr  GetLabelAsymID    ();
-      pstr  GetOrigLabelAsymID();
-      pstr  GetUniprotName    ();
-      pstr  GetUniprotAcc     ();
+      pstr  GetOrigLabelAsymID(); //GDL: adding OrigLabelAsymID
+      pstr  GetUniprotnum     (); //GDL: adding GetUniprotnum 
+      pstr  GetUniprotName    (); //GDL: adding GetUniprotName
+      pstr  GetUniprotAcc     (); //GDL: adding GetUniprotAcc
       pstr  GetResName        ();
       pstr  GetLabelCompID    ();
-      pstr  GetUniprotnum     ();
-      //pstr  GetLabelSeqID     (); //GDL: change label_seq_id to char instead of int
-      //int   GetUniprotnum     ();
       int   GetAASimilarity   ( const ResName resName );
       int   GetAASimilarity   ( PAtom  A );
       realtype GetAAHydropathy();
       realtype GetOccupancy   ();
-      pstr   GetAtomSiteID     ();
+      pstr   GetAtomSiteID    (); //GDL: added GetAtomSiteID
       int   GetSeqNum         ();
-      int   GetLabelSeqID     (); //GDL:comment out if change label_seq_id to char instead of int
+      int   GetLabelSeqID     (); //GDL:comment out if change label_seq_id to char instead of int 
       int   GetLabelEntityID  ();
       pstr  GetInsCode        ();
       int   GetSSEType        ();  // works only after SSE calculations
@@ -478,7 +476,7 @@ namespace mmdb  {
 
   DefineFactoryFunctions(Residue);
 
-  class Residue : public UDData  {
+  class MMDB_DL_EXPORT Residue : public UDData  {
 
     friend class Atom;
     friend class Chain;
@@ -487,27 +485,22 @@ namespace mmdb  {
     public :
 
       ResName  name;            //!< residue name - all spaces cut
-      ResName    label_comp_id;   //!< assigned residue name
+      ResName  label_comp_id;   //!< assigned residue name
       ChainID  label_asym_id;   //!< assigned chain Id
-      ChainID  orig_label_asym_id; //GDL: adding variable
-      char     pdbx_sifts_xref_db_name[30]; //GDL: uniprot tag
-      char     pdbx_sifts_xref_db_acc[30]; //GDL: uniprot tag
+      ChainID  orig_label_asym_id; //GDL: adding variable                                                                        
+      char     pdbx_sifts_xref_db_name[30]; //GDL: uniprot tag                                                                   
+      char     pdbx_sifts_xref_db_acc[30]; //GDL: uniprot tag                                                                    
       char     pdbx_sifts_xref_db_num[30] ; // GDL: uniprot tag
-      char     atom_site_id[30];
-      //int      atom_site_id;
-      //int        pdbx_sifts_xref_db_num ; // GDL: uniprot tag
+      char     atom_site_id[30]; //GDL: atom site id
       InsCode  insCode;         //!< residue insertion code
       PChain   chain;           //!< reference to chain
       PPAtom   atom;            //!< array of atoms
-    //int      atom_site_id;    //!< GDL: atom site id 
       int      seqNum;          //!< residue sequence number
-    //char     label_seq_id[30];    //!< assigned residue sequence number //GDL:change to char instead of int
-      int      label_seq_id;    //!< assigned residue sequence number  //GDL: comment out if change to char instead of int
+      int      label_seq_id;    //!< assigned residue sequence number // 
       int      label_entity_id; //!< assigned entity id
       int      index;           //!< index in the chain
       int      nAtoms;          //!< number of atoms in the residue
       byte     SSE;             //!< SSE type
-      
 
       Residue ();
       Residue ( PChain Chain_Owner );
@@ -538,7 +531,7 @@ namespace mmdb  {
       realtype GetAAHydropathy();
       void  SetResName      ( const ResName resName );
       int   GetSeqNum       ();
-      int   GetLabelSeqID   (); // GDL: comment out if change label_seq_id to char instead of int
+      int   GetLabelSeqID   ();
       int   GetLabelEntityID();
       pstr  GetInsCode      ();
       int   GetResidueNo    ();
@@ -753,7 +746,7 @@ namespace mmdb  {
   };
 
 
-  extern realtype  BondAngle ( PAtom A, PAtom B, PAtom C );
+  extern MMDB_DL_EXPORT realtype  BondAngle ( PAtom A, PAtom B, PAtom C );
 
 }  // namespace mmdb
 

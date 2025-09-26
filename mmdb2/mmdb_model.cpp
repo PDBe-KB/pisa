@@ -1029,26 +1029,6 @@ namespace mmdb  {
   }
 
 
-  //GDL:start adding remapping tags
-  /*void  Strand::MakeCIF ( mmcif::PData CIF )  {
-  mmcif::PLoop Loop;
-  int         RC;
-
-    RC = CIF->AddLoop ( CIFCAT_PDBX_CHAIN_REMAPPING,Loop );
-    if (RC!=mmcif::CIFRC_Ok)  {
-      // the category was (re)created, provide tags                                                                                                                                                                         
-      Loop->AddLoopTag ( CIFTAG_ENTITY_ID                  );
-      Loop->AddLoopTag ( CIFTAG_LABEL_ASYM_ID              );
-      Loop->AddLoopTag ( CIFTAG_AUTH_ASYM_ID               );
-      Loop->AddLoopTag ( CIFTAG_ORIG_LABEL_ASYM_ID         );
-      Loop->AddLoopTag ( CIFTAG_ORIG_AUTH_ASYM_ID          );
-      Loop->AddLoopTag ( CIFTAG_APPLIED_OPERATIONS         );
-    }
-    }*/
-
-  //GDL:end adding remapping tags
-
-
   void  Strand::MakeCIF ( mmcif::PData CIF )  {
   mmcif::PLoop Loop;
   int         RC;

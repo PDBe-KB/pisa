@@ -24,6 +24,10 @@
 #include "pisa_types.h"
 #include "pisa_defs.h"
 
+
+#include<iostream>
+using namespace std;
+
 namespace pisa  {
 
   // =======================  Detail  ==========================
@@ -36,6 +40,10 @@ namespace pisa  {
   }
 
   void Detail::InitDetail()  {
+  }
+
+  void Detail::set_As_Is_Key_xml ( AS_IS_KEY as_is_Proc )  {
+    asisKey = as_is_Proc;
   }
 
   void Detail::printInterfaceSummary ( mmdb::io::RFile f,
@@ -1344,9 +1352,10 @@ namespace pisa  {
                                           mmdb::cpstr fileName )  {
   mmdb::xml::PXMLObject xml;
   RESULT_CODE           rc;
+  PInterface Interface;
 
     if (sessionName)  {
-
+      
       //   1. Check configuration
 
       if (ConfStatus()!=CFG_Configured)
@@ -1372,8 +1381,8 @@ namespace pisa  {
       if (rc!=RESULT_Ok)  return rc;
 
     }
-
-    xml = query->getInterfacesXML();
+    
+    xml = query->getInterfacesXML(asisKey);
     if (!xml)  {
       makeNoInterfacesXML ( sessionName,fileName );
       return RESULT_Ok;
@@ -1395,6 +1404,7 @@ namespace pisa  {
 
     if (sessionName)  {
 
+      
       //   1. Check configuration
 
       if (ConfStatus()!=CFG_Configured)
@@ -1421,6 +1431,7 @@ namespace pisa  {
 
     }
 
+
     if ((!query->A) || (query->asmStatus!=ASSMB_Ok))
           xml = makeNoAssembliesXML ( sessionName );
     else  xml = query->A->getAssembliesXML ( sessionName,
@@ -1428,11 +1439,21 @@ namespace pisa  {
                                              query->PI,
                                              nCellOut );
 
+
     if (query->Complex)  {
+
       complex_xml = new mmdb::xml::XMLObject ( xml_asu_complex );
+      
+      if(asisKey==AS_IS_off){
       complex_xml->AddObject (
-        query->Complex->getAssemblyXML ( query->domains,query->PI,
-                                         nCellOut,-1 ) );
+      query->Complex->getAssemblyXML ( query->domains,query->PI,
+				       nCellOut,-1) );
+      }
+      if (asisKey==AS_IS_on){
+	complex_xml->AddObject (
+	     query->Complex->getasisAssemblyXML ( query->domains,query->PI,
+		      nCellOut) );	
+		      }
       xml->AddObject ( complex_xml );
     }
 

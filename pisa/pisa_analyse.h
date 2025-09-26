@@ -39,7 +39,7 @@ namespace pisa  {
 
       void setLigExclude ( mmdb::pstr ligList );
       void setLigKey     ( LIGAND_KEY ligProc );
-
+      void setAsIsKey    ( AS_IS_KEY asisProc );
       RESULT_CODE analyse ( mmdb::pstr sessionName, mmdb::pstr coorFile );
 
   #ifdef  _dimer_special
@@ -51,6 +51,7 @@ namespace pisa  {
     protected :
       mmdb::pstr ligExcl;
       LIGAND_KEY ligKey;
+      AS_IS_KEY  asisKey;
 
       void InitAnalyse();
 
