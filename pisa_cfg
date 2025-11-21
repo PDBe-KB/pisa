@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------- #
 #                                                                     #
-#          This is configuratrion file for PISA-lite software.        #
+#          This is configuratrion file for PISA software.        #
 #                                                                     #
 #   When used in command-prompt mode, this file must be specified     #
 #       as last argument in thecommand line, or pointed out by        #
@@ -11,19 +11,19 @@
 
 #  DATA_ROOT must point on the directory to contain session
 #  directories.
-# For example: .../pisa-lite
+# For example: .../pisa
 DATA_ROOT
 /data/sessions
 
 
 #  SRS_DIR must point on the directory containing SRS files.
-# For example: .../pisa-lite/setup/srs
+# For example: .../pisa/setup/srs
 SRS_DIR
 /data/setup/srs
 
 
 #  MOLREF_DIR must point on the directory containing MolRef files.
-# For example: .../pisa-lite/setup/molref
+# For example: .../pisa/setup/molref
 MOLREF_DIR
 /data/setup/molref
 
@@ -34,12 +34,12 @@ MOLREF_DIR
 #          intfstats.dat
 #          syminfo_pisa.lib and
 #          rcsb_symops.dat
-# For example: .../pisa-lite/setup/pisastore
+# For example: .../pisa/setup/pisastore
 PISTORE_DIR
 /data/setup/pisastore
 
 
-# The following lines are required for running PISA-lite
+# The following lines are required for running PISA
 RASMOL_COM
 JMOL_COM
 CCP4MG_COM
