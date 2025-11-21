@@ -28,3 +28,18 @@ jobs:
                 tags: |
                     ${{ secrets.DOCKER_USERNAME }}/pisa-lite:${{ github.ref_name }}
                     ${{ secrets.DOCKER_USERNAME }}/pisa-lite:latest
+
+    docker_build_and_push_to_gitlab:
+        runs-on: ubuntu-latest
+        steps:
+        -   name: Checkout
+            uses: actions/checkout@v4
+
+        -   name: Login to GitLab Container Registry
+            run: echo ${{ secrets.REGISTRY_PASSWORD }} | docker login -u ${{ secrets.REGISTRY_USERNAME }} --password-stdin ${{ vars.REGISTRY_URL }}
+
+        -   name: Build and tag Docker image
+            run: docker build -t ${{ vars.REGISTRY_URL }}/${{ secrets.REGISTRY_USERNAME }}/packages/pisa:latest .
+
+        -   name: Push Docker image to GitLab Container Registry
+            run: docker push ${{ vars.REGISTRY_URL }}/${{ secrets.REGISTRY_USERNAME }}/packages/pisa:latest
