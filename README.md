@@ -77,7 +77,7 @@ If the flag --as-is is used, PISA will analyse the interfaces in the given input
 
 ## XML file
 
-PISA-lite generates the results in binary format. The data has to be converted into a human-readable XML format using the following command:
+PISA generates the results in binary format. The data has to be converted into a human-readable XML format using the following command:
 
 ```
 pisa name -xml {interfaces|assemblies} [cfg] > outputfile.xml
