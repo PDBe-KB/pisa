@@ -189,10 +189,10 @@ A Docker image is available for PISA. To run PISA in Docker, use the following c
 ``` bash
 
 # Run the analysis
-docker run -v $PWD:/data pdbegroup/pisa pisa test-session -analyse /data/example_data/6gve.cif /data/pisa_cfg
+docker run -v $PWD:/data pdbegroup/pisa pisa test-session -analyse /data/example_data/6gve.cif /usr/share/pisa/setup/pisa_cfg_tmp
 
 # Get the interfaces
-docker run -v $PWD:/data pdbegroup/pisa pisa test-session -xml interface /data/pisa_cfg
+docker run -v $PWD:/data pdbegroup/pisa pisa test-session -xml interface /usr/share/pisa/setup/pisa_cfg_tmp
 
 ```
 

@@ -3,6 +3,5 @@ example_data/*
 mmdb2.a
 srs.a
 ssm.a
-setup/*
 compile_mac.sh
 README.md

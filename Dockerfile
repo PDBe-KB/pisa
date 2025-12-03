@@ -20,6 +20,21 @@ RUN /usr/src/pisa/compile.sh
 
 FROM ubuntu:20.04
 
-COPY --from=build /usr/src/pisa/build /usr/share/pisa
+# Copy binary from build
+COPY --from=build /usr/src/pisa/build /usr/bin/pisa
 
-ENV PATH=$PATH:/usr/share/pisa
+# Copy config files
+COPY setup /usr/share/pisa/setup
+ENV PISA_CONFIG_DIR=/usr/share/pisa/setup
+
+# Update constants in main config file
+ENV DATA_DIR=/data
+RUN mkdir -p ${DATA_DIR}
+
+RUN sed -i "s|path_dataroot|${DATA_DIR}|g" ${PISA_CONFIG_DIR}/pisa_cfg_tmp && \
+    sed -i "s|path_to_setup/srs|${PISA_CONFIG_DIR}/srs|g" ${PISA_CONFIG_DIR}/pisa_cfg_tmp && \
+    sed -i "s|path_to_setup/molref|${PISA_CONFIG_DIR}/molref|g" ${PISA_CONFIG_DIR}/pisa_cfg_tmp && \
+    sed -i "s|path_to_setup/pisastore|${PISA_CONFIG_DIR}/pisastore|g" ${PISA_CONFIG_DIR}/pisa_cfg_tmp && \
+    sed -i "/pisa_/d" ${PISA_CONFIG_DIR}/pisa_cfg_tmp
+
+ENV PATH=$PATH:/usr/bin/pisa
