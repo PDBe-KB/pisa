@@ -2040,7 +2040,10 @@ namespace mmdb  {
         Mdl[i] = model[i];
       for (i=nModels;i<nM;i++)
         Mdl[i] = NULL;
-      if (model) delete[] model;
+      if (model)  {
+        delete[] model;
+        model = NULL;
+      }
       model   = Mdl;
       nModels = nM;
       if (Transfer)  {
@@ -2049,6 +2052,8 @@ namespace mmdb  {
       }
     }
 
+    if (!model)
+      return Error_GeneralError1;
     if (!model[nM-1])
       model[nM-1] = newModel();
     model[nM-1]->SetMMDBManager ( PManager(this),nM );
