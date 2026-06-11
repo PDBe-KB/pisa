@@ -598,8 +598,6 @@ namespace mmdb  {
         if (edge)  delete[] edge;
         edge = G1;
       }
-      if (edge[nAllEdges])
-        delete edge[nAllEdges];
       edge[nAllEdges] = G;
       nAllEdges++;
       nEdges = nAllEdges;
