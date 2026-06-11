@@ -117,6 +117,7 @@ namespace pisa  {
       mmdb::FreeVectorMemory ( count,0 );
       count = c1;
       nAssemblies = n1;
+      nAsmAlloc   = n1;
     }
 
     if (!A[t])  {
