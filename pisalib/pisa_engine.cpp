@@ -1869,7 +1869,7 @@ namespace pisa  {
 
 
   int Assembler::NoteMultimer ( int r )  {
-  PPMultimerSet US;
+  PPMultimerSet US, oldMultSet;
   int            i,k;
 
     //  1. Check that obtained set of multimers is a new one
@@ -1884,13 +1884,14 @@ namespace pisa  {
 
       if (nMultSets>=nMultSetAlloc)  {
         nMultSetAlloc += 100;
+        oldMultSet = multSet;
         US = new PMultimerSet[nMultSetAlloc];
         for (i=0;i<nMultSets;i++)
-          US[i] = multSet[i];
+          US[i] = oldMultSet[i];
         for (i=nMultSets;i<nMultSetAlloc;i++)
           US[i] = NULL;
-        delete[] multSet;
         multSet = US;
+        delete[] oldMultSet;
       }
 
       if (!multSet[nMultSets])  multSet[nMultSets] = new MultimerSet();
