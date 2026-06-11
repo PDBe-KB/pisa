@@ -100,7 +100,7 @@ namespace pisa  {
     if (t<0)
       return UnknownType;
 
-    if (t>nAssemblies)  {
+    if (t>=nAssemblies)  {
       n1 = t + 10;
       A1 = new PAssembly[n1];
       mmdb::GetVectorMemory ( c1,n1,0 );
