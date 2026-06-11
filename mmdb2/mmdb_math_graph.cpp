@@ -2216,7 +2216,10 @@ namespace mmdb  {
             M1[i] = Match[i];
           for (i=nMatches;i<nMAlloc;i++)
             M1[i] = NULL;
-          if (Match)  delete[] Match;
+          if (Match)  {
+            delete[] Match;
+            Match = NULL;
+          }
           Match = M1;
         } else
           nMatches--;
