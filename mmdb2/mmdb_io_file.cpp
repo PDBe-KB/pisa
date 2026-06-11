@@ -1090,17 +1090,27 @@ namespace mmdb  {
 
         Cnt = BufCnt + Count;
         if (Cnt>BufLen)  {
-          Cnt += BufInc;
-          IOB = new char[Cnt];
-          if (IOBuf)  {
-            memcpy ( IOB,IOBuf,BufCnt );
-            delete[] IOBuf;
+          long newLen = (long)Cnt + (long)BufInc;
+          pstr oldBuf = IOBuf;
+          IOB = new char[newLen];
+          if ((IOB==NULL) && (newLen>0))  {
+            IOSuccess = false;
+            return false;
           }
+          if ((oldBuf) && (BufCnt>0))
+            memcpy ( IOB,oldBuf,BufCnt );
           IOBuf  = IOB;
-          BufLen = Cnt;
+          BufLen = (word)newLen;
           ownBuf = true;
+          if (oldBuf)
+            delete[] oldBuf;
         }
-        memcpy ( &(IOBuf[BufCnt]),Buffer,Count );
+        if ((Count>0) && (IOBuf==NULL))  {
+          IOSuccess = false;
+          return false;
+        }
+        if (Count>0)
+          memcpy ( &(IOBuf[BufCnt]),Buffer,Count );
         BufCnt += Count;
         FLength = BufCnt;
         IOSuccess = true;
