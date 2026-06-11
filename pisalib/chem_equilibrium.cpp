@@ -224,7 +224,7 @@ long double mass1,M,dmass1,dmass2;
 double      lnC1,lnC2;
 int         n;
 
-  M = totalMass*species[speciesNo]->alpha;
+  M = static_cast<long double>(totalMass) * species[speciesNo]->alpha;
 
   lnC1  = species[speciesNo]->lnC;
   lnC2  = lnC1;
