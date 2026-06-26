@@ -40,11 +40,11 @@ jobs:
         -   name: Login to GitLab Container Registry
             run: echo ${{ secrets.REGISTRY_PASSWORD }} | docker login -u ${{ secrets.REGISTRY_USERNAME }} --password-stdin ${{ vars.REGISTRY_URL }}
 
-        -   name: Build and tag Docker image
-            run: docker build -t ${{ vars.REGISTRY_URL }}/${{ secrets.REGISTRY_USERNAME }}/packages/pisa:latest .
-
         -   name: Extract Docker tag from GitHub ref
             run: echo "DOCKER_TAG=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
+
+        -   name: Build and tag Docker image
+            run: docker build -t ${{ vars.REGISTRY_URL }}/${{ secrets.REGISTRY_USERNAME }}/packages/pisa:latest -t ${{ vars.REGISTRY_URL }}/${{ secrets.REGISTRY_USERNAME }}/packages/pisa:${{ env.DOCKER_TAG }} .
 
         -   name: Push Docker image to GitLab Container Registry
             run: |
