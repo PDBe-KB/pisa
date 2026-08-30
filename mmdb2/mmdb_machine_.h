@@ -293,7 +293,7 @@ namespace mmdb  {
 
     typedef pstr fpstr;
 #if __GNUC__ > 7 || __clang_major__ > 10
-    typedef size_t fpstr_size_t;
+    typedef std::size_t fpstr_size_t;
 #else
     typedef int fpstr_size_t;
 #endif
