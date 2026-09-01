@@ -1883,14 +1883,16 @@ namespace pisa  {
     if (k<0)  {
 
       if (nMultSets>=nMultSetAlloc)  {
+        PMultimerSet *oldMultSet;
         nMultSetAlloc += 100;
         US = new PMultimerSet[nMultSetAlloc];
         for (i=0;i<nMultSets;i++)
           US[i] = multSet[i];
         for (i=nMultSets;i<nMultSetAlloc;i++)
           US[i] = NULL;
-        delete[] multSet;
-        multSet = US;
+        oldMultSet = multSet;
+        multSet    = US;
+        delete[] oldMultSet;
       }
 
       if (!multSet[nMultSets])  multSet[nMultSets] = new MultimerSet();

@@ -314,11 +314,14 @@ PPVertex V1;
   if (nVertices>=nVAlloc)  {
     nV1 = nVertices + 20;
     V1  = new PVertex[nV1];
-    for (i=0;i<nVAlloc;i++)
+    for (i=0;i<nVertices;i++)
       V1[i] = V[i];
-    for (i=nVAlloc;i<nV1;i++)
+    for (i=nVertices;i<nV1;i++)
       V1[i] = NULL;
-    if (V)  delete[] V;
+    if (V)  {
+      delete[] V;
+      V = NULL;
+    }
     V       = V1;
     nVAlloc = nV1;
   }

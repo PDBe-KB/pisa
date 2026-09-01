@@ -490,16 +490,18 @@ namespace mmdb  {
     void  Graph::AddVertex ( PVertex V )  {
     int        i;
     PVertex * V1;
+    PVertex * oldVertex;
 
       if (nAllVertices>=nVAlloc)  {
-        nVAlloc += AllocPortion;
-        V1       = new PVertex[nVAlloc];
+        oldVertex = vertex;
+        nVAlloc  += AllocPortion;
+        V1        = new PVertex[nVAlloc];
         for (i=0;i<nAllVertices;i++)
-          V1[i] = vertex[i];
+          V1[i] = oldVertex[i];
         for (i=nAllVertices;i<nVAlloc;i++)
           V1[i] = NULL;
-        if (vertex)  delete[] vertex;
         vertex = V1;
+        if (oldVertex)  delete[] oldVertex;
       }
       if (vertex[nAllVertices])
         delete vertex[nAllVertices];
@@ -596,8 +598,6 @@ namespace mmdb  {
         if (edge)  delete[] edge;
         edge = G1;
       }
-      if (edge[nAllEdges])
-        delete edge[nAllEdges];
       edge[nAllEdges] = G;
       nAllEdges++;
       nEdges = nAllEdges;
@@ -2216,7 +2216,10 @@ namespace mmdb  {
             M1[i] = Match[i];
           for (i=nMatches;i<nMAlloc;i++)
             M1[i] = NULL;
-          if (Match)  delete[] Match;
+          if (Match)  {
+            delete[] Match;
+            Match = NULL;
+          }
           Match = M1;
         } else
           nMatches--;

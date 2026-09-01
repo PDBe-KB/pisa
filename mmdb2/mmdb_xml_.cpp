@@ -540,23 +540,24 @@ namespace mmdb  {
     }
 
     void  XMLObject::AddObject ( PXMLObject XMLObject, int lenInc )  {
-    PPXMLObject obj1;
+    PPXMLObject obj1, oldObject;
     int         i;
 
       if (!XMLObject)  return;
 
       if (nObjects>=nAlloc)  {
+        if (lenInc<=0)  lenInc = 1;
         nAlloc += lenInc;
         obj1 = new PXMLObject[nAlloc];
         for (i=0;i<nObjects;i++)
           obj1[i] = object[i];
         for (i=nObjects;i<nAlloc;i++)
           obj1[i] = NULL;
-        if (object)  delete[] object;
-        object = obj1;
+        oldObject = object;
+        object    = obj1;
+        if (oldObject)  delete[] oldObject;
       }
 
-      if (object[nObjects])  delete object[nObjects];
       object[nObjects] = XMLObject;
       XMLObject->SetParent ( this );
       nObjects++;

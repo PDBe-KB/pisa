@@ -62,6 +62,9 @@ namespace ccp4srs  {
         n_alloc   = 0;
       }
 
+      Container ( const Container & ) = delete;
+      Container & operator = ( const Container & ) = delete;
+
       virtual ~Container()  {
         empty();
       }
